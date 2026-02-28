@@ -1,101 +1,203 @@
 ---
-description: Identify knowledge gaps in CLAUDE.md that require human input
+description: Identify knowledge gaps in CLAUDE.md and collect human context
 argument-hint: "[path-to-claude-md]"
 allowed-tools: Bash, Read, Task, AskUserQuestion, Write, Edit
 ---
 
-Invoke the ce:context-auditor agent to identify knowledge gaps in project documentation and guide the user through filling them.
+Analyze the codebase to identify documentation gaps, collect human knowledge interactively, and enhance CLAUDE.md with context that can't be inferred from code.
 
 ## Workflow
 
-### 1. Locate CLAUDE.md
+### Step 1: Locate CLAUDE.md
 
 **If `$ARGUMENTS` is provided:**
-- Use the provided path to CLAUDE.md
+- Use the provided path
 
 **If `$ARGUMENTS` is empty:**
-- Check for `CLAUDE.md` in current directory
-- Check for `CLAUDE.md` in project root (if in subdirectory)
-- If not found, inform user and ask if they want to create one from scratch
+- Check `./CLAUDE.md`
+- Check `../ CLAUDE.md` (if in subdirectory)
+- Check `.claude/CLAUDE.md`
 
-### 2. Invoke Context Auditor
+**If not found:**
+- Ask user if they want to create one from scratch or specify path
 
-Launch the ce:context-auditor agent with this task:
+### Step 2: Invoke Gap Analysis Agent
+
+Launch the `ce:context-auditor` agent to analyze the codebase and existing documentation:
 
 ```
-Analyze the codebase and [existing CLAUDE.md if present] to identify knowledge gaps that require human input.
+Analyze the codebase at ${PROJECT_ROOT} and identify knowledge gaps in documentation.
+
+Read existing CLAUDE.md (if present) at: ${CLAUDE_MD_PATH}
 
 Your task:
-1. Read CLAUDE.md if it exists - identify what's already well documented
-2. Explore the codebase to understand: project structure, dependencies, frameworks, configuration, tests
-3. Identify high-impact knowledge gaps across these categories:
-   - Business context (why this exists, who uses it, what problem it solves)
-   - Architectural rationale (why tech choices were made)
-   - External integrations (API behaviors, auth flows, quirks)
-   - Domain logic (business rules not obvious from code)
-   - Known issues & technical debt
-   - Team conventions (PR process, branching, testing philosophy)
-   - Development environment (setup gotchas, debugging tips)
+1. Explore codebase structure, dependencies, patterns, and configurations
+2. Read existing CLAUDE.md to see what's already documented
+3. Identify high-impact knowledge gaps across 7 categories:
+   - Business Context (problem, users, workflows)
+   - Architectural Rationale (tech choices, why)
+   - External Integrations (APIs, auth, quirks)
+   - Domain Logic (business rules, state machines)
+   - Known Issues & Debt (limitations, gotchas)
+   - Team Conventions (PR process, testing philosophy)
+   - Development Environment (setup, debugging)
 
-4. Present 5-7 targeted questions about the most critical gaps
-5. After receiving answers, ask 2-3 follow-up questions if needed (max 2 rounds of questions)
-6. Generate enhanced CLAUDE.md sections with the provided context
-7. If CLAUDE.md exists, merge new sections with existing content (preserve what's there)
-8. Mark human-provided context with `<!-- Added via context-auditor -->` comments
+4. Output structured analysis with:
+   - Summary of gaps by priority (critical/important/nice-to-have)
+   - 5-7 specific recommended questions with code context
+   - Suggested CLAUDE.md section structure
 
-Focus on knowledge that:
-- Can't be deduced from reading the code
-- Would cause real friction if missing
-- Is specific and actionable (not theoretical)
+Focus on gaps that:
+- Can't be deduced from reading code
+- Would cause real onboarding friction
+- Are specific and actionable
 
-Skip anything that's:
-- Already well documented
-- Obvious from code structure
-- Standard framework knowledge
+Your output will be parsed to extract questions for the user.
 ```
 
-### 3. After Agent Completes
+### Step 3: Parse Agent Output
 
-The agent will have:
-- Asked the user questions and collected answers
-- Generated new CLAUDE.md sections based on those answers
-- Either created a new CLAUDE.md or prepared an enhanced version
+Extract from the agent's structured output:
+- The **Recommended Questions** section (numbered list 1-7)
+- The **Suggested CLAUDE.md Structure** (section outline)
+- The **Summary** (gap counts and priorities)
 
-**If CLAUDE.md already existed:**
-- The agent will present the updated sections
-- Review the changes and merge them into CLAUDE.md using the Edit tool
+### Step 4: Present Gap Analysis to User
+
+Show the user what the agent found:
+
+```markdown
+## Knowledge Gap Analysis
+
+The agent identified ${COUNT} documentation gaps:
+- ${CRITICAL_COUNT} critical (would block developers)
+- ${IMPORTANT_COUNT} important (would cause confusion)
+
+### Critical Gaps
+${LIST_CRITICAL_GAPS}
+
+### Important Gaps
+${LIST_IMPORTANT_GAPS}
+
+I'll now ask ${QUESTION_COUNT} questions to fill these gaps.
+```
+
+### Step 5: Collect Answers
+
+Use `AskUserQuestion` to present each question from the agent's "Recommended Questions" list.
+
+**For each question:**
+- Show the category and full question with code context
+- Allow user to provide detailed answers
+- Allow user to skip questions ("Not applicable" or "I don't know")
+- Track which questions were answered vs skipped
+
+**Example AskUserQuestion usage:**
+```json
+{
+  "questions": [{
+    "question": "${QUESTION_TEXT}",
+    "header": "${CATEGORY}",
+    "options": [
+      { "label": "Provide answer", "description": "I'll type the context" },
+      { "label": "Skip", "description": "Not applicable or unknown" }
+    ],
+    "multiSelect": false
+  }]
+}
+```
+
+If user chooses "Provide answer", prompt for free-text response.
+
+### Step 6: Generate Enhanced Sections
+
+For each answered question, generate a CLAUDE.md section:
+
+**Section format:**
+```markdown
+## ${SECTION_TITLE}
+<!-- Added by context-auditor on ${DATE} -->
+
+${CONTENT_FROM_USER_ANSWER}
+
+**Related code:** ${FILE_PATHS_FROM_AGENT_CONTEXT}
+```
+
+**Section mapping** (use agent's suggested structure):
+- Business Context questions → "## Business Domain" or "## Problem & Users"
+- Architectural questions → "## Architecture & Key Decisions"
+- Integration questions → "## External Integrations"
+- Domain Logic questions → "## Domain Model" or "## Core Workflows"
+- Known Issues questions → "## Known Limitations" or "## Technical Debt"
+- Conventions questions → "## Development Workflow" or "## Team Practices"
+- Environment questions → "## Setup & Troubleshooting"
+
+### Step 7: Merge into CLAUDE.md
+
+**If CLAUDE.md exists:**
+- Use Edit tool to insert new sections at appropriate locations
+- Follow the agent's suggested structure for placement
 - Preserve all existing content
-- Confirm the update with the user
+- Add sections after existing similar sections or at end
 
 **If creating new CLAUDE.md:**
-- The agent will generate initial documentation from code analysis
-- Combined with human-provided context from the Q&A
-- Write the complete CLAUDE.md file
-- Confirm the creation with the user
+- Use Write tool to create complete file with:
+  - Project header (name from package.json/pyproject.toml)
+  - Overview section (generated from answered questions)
+  - New sections from user answers
+  - Quick commands section (if manifest has scripts)
 
-### 4. Final Output
+### Step 8: Confirm with User
 
-Present a summary:
+Present summary of changes:
+
 ```markdown
-## Context Audit Complete
+## Context Audit Complete ✓
 
-**Gaps identified:** [count] critical areas
-**Questions asked:** [count] questions across [count] rounds
-**Documentation added:** [list of new sections]
+**Updated:** ${CLAUDE_MD_PATH}
 
-**Updated file:** `[path]/CLAUDE.md`
+**Sections added/enhanced:**
+- ${SECTION_1} (from question ${Q_NUM})
+- ${SECTION_2} (from question ${Q_NUM})
+- ${SECTION_3} (from question ${Q_NUM})
 
-The following areas now have human-provided context:
-- [Category 1]: [brief description]
-- [Category 2]: [brief description]
+**Questions answered:** ${ANSWERED_COUNT} of ${TOTAL_COUNT}
+**Questions skipped:** ${SKIPPED_COUNT}
 
-Run `/ce:audit-context` again anytime to identify new knowledge gaps.
+The enhanced CLAUDE.md now includes human context on:
+- ${CATEGORY_1}
+- ${CATEGORY_2}
+- ${CATEGORY_3}
+
+Run `/ce:audit-context` again anytime to identify new gaps.
 ```
+
+## Error Handling
+
+**If CLAUDE.md path is invalid:**
+- Show error: "CLAUDE.md not found at ${PATH}"
+- Ask user to provide correct path or create new file
+
+**If agent analysis fails:**
+- Show error: "Failed to analyze codebase"
+- Check if project root is correct
+- Verify codebase has analyzable files
+
+**If user skips all questions:**
+- Ask: "All questions were skipped. Would you like to see the agent's full gap analysis instead?"
+- If yes, display the complete agent output
+- If no, exit without changes
+
+**If Edit/Write fails:**
+- Show error with file path and permission issue
+- Ask user to check file permissions
+- Offer to output generated sections to stdout instead
 
 ## Notes
 
-- This command is interactive - it will ask the user questions
-- The agent respects user time: maximum 5-7 questions per round, 2 rounds maximum
-- Users can skip questions or answer "I don't know" - partial information is valuable
-- The agent won't ask about things that are obvious from code or already documented
-- Generated content is marked with comments so it's clear what came from human input vs code analysis
+- Agent executes once and returns structured analysis
+- Command handles all user interaction (agent cannot ask questions)
+- Questions are limited to 5-7 to respect user time
+- Users can skip any question - partial information is valuable
+- Generated content is marked with HTML comments for tracking
+- Agent adapts question relevance to project type (CLI vs web app vs library)

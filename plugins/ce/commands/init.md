@@ -1,7 +1,7 @@
 ---
 description: Initialize or audit Claude Code configuration for a repository
-argument-hint: "[--audit | --force | --interactive]"
-allowed-tools: Bash, Read, Write, Glob, Grep, AskUserQuestion, Skill, Task
+argument-hint: "[--audit | --force]"
+allowed-tools: Bash, Read, Write, Glob, Grep, AskUserQuestion, Skill
 ---
 
 Initialize or audit `.claude/` configuration for this repository based on detected stack.
@@ -13,7 +13,6 @@ Arguments:
 - `$ARGUMENTS`: Optional flags
   - `--audit`: Only analyze existing config, report improvements
   - `--force`: Overwrite existing files without confirmation
-  - `--interactive`: After generating files, invoke context-auditor to fill knowledge gaps
 
 ## Mode Detection
 
@@ -137,47 +136,6 @@ Use `AskUserQuestion` to confirm before writing files.
 ### Step 5: Generate Files
 
 Write all files using the templates below.
-
-### Step 6: Interactive Knowledge Gap Filling (if --interactive flag)
-
-If `$ARGUMENTS` contains `--interactive`, after generating the initial configuration:
-
-1. Invoke the ce:context-auditor agent with this task:
-
-```
-Analyze the codebase and the newly generated CLAUDE.md to identify knowledge gaps that require human input.
-
-Your task:
-1. Read the generated CLAUDE.md - it contains basic project info from code analysis
-2. Explore the codebase to understand: project structure, dependencies, frameworks, configuration, tests
-3. Identify high-impact knowledge gaps that can't be deduced from code:
-   - Business context (why this exists, who uses it, what problem it solves)
-   - Architectural rationale (why tech choices were made)
-   - External integrations (API behaviors, auth flows, quirks)
-   - Domain logic (business rules not obvious from code)
-   - Known issues & technical debt
-   - Team conventions (PR process, branching, testing philosophy)
-   - Development environment (setup gotchas, debugging tips)
-
-4. Present 5-7 targeted questions about the most critical gaps
-5. After receiving answers, ask 2-3 follow-up questions if needed (max 2 rounds)
-6. Generate enhanced CLAUDE.md sections with the provided context
-7. Merge new sections with the existing generated CLAUDE.md
-8. Mark human-provided context with `<!-- Added via context-auditor -->` comments
-
-Focus on knowledge that:
-- Can't be deduced from reading the code
-- Would cause real friction if missing
-- Is specific and actionable (not theoretical)
-
-Skip anything that's:
-- Already in the generated CLAUDE.md
-- Obvious from code structure
-- Standard framework knowledge
-```
-
-2. After the agent completes, it will have collected human knowledge and enhanced CLAUDE.md
-3. Confirm the updates with the user and show what sections were added
 
 ---
 
@@ -621,7 +579,21 @@ For specific patterns, read the relevant reference file:
 | Command | Result |
 |---------|--------|
 | `/ce:init` on new Python project | Creates .claude/ with Python rules |
-| `/ce:init --interactive` | Creates config, then asks questions to fill knowledge gaps |
 | `/ce:init` on existing config | Runs audit, suggests improvements |
 | `/ce:init --force` on existing config | Overwrites with fresh config |
 | `/ce:init --audit` | Only reports issues, no changes |
+
+---
+
+## Adding Human Context
+
+After running `/ce:init`, the generated CLAUDE.md contains information derived from code analysis (tech stack, project structure, commands). To add context that only humans know, run:
+
+```bash
+/ce:audit-context
+```
+
+This will:
+1. Analyze gaps in documentation (architectural decisions, business context, integration details)
+2. Ask targeted questions about what code can't reveal
+3. Enhance CLAUDE.md with your answers
