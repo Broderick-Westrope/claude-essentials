@@ -62,7 +62,7 @@ Extract from the agent's structured output:
 - The **Suggested CLAUDE.md Structure** (section outline)
 - The **Summary** (gap counts and priorities)
 
-### Step 4: Present Gap Analysis to User
+### Step 4: Present Gap Analysis and Choose Collection Mode
 
 Show the user what the agent found:
 
@@ -78,11 +78,22 @@ ${LIST_CRITICAL_GAPS}
 
 ### Important Gaps
 ${LIST_IMPORTANT_GAPS}
-
-I'll now ask ${QUESTION_COUNT} questions to fill these gaps.
 ```
 
-### Step 5: Collect Answers
+**Then ask user for their preferred answer collection method:**
+
+"I have ${QUESTION_COUNT} questions to fill these gaps. How would you like to answer them?
+
+1. **Interactive prompts** - I'll ask one question at a time with a UI
+2. **Show all questions** - I'll list them all and you can answer in chat
+
+Which do you prefer?"
+
+**Based on user choice:**
+- If "Interactive prompts": Proceed to Step 5a (AskUserQuestion mode)
+- If "Show all questions": Proceed to Step 5b (Manual mode)
+
+### Step 5a: Collect Answers (Interactive Mode)
 
 Use `AskUserQuestion` to present each question from the agent's "Recommended Questions" list.
 
@@ -107,7 +118,44 @@ Use `AskUserQuestion` to present each question from the agent's "Recommended Que
 }
 ```
 
+**CRITICAL: Validate response after each AskUserQuestion call**
+
+After receiving function results, check if response contains actual answer data:
+
+```
+If response is empty ("User has answered your questions: ."):
+  - Tool failed silently
+  - Switch to Step 5b (Manual fallback) immediately
+  - Tell user: "The interactive question tool isn't working. Let me show all questions instead."
+
+If response contains answer data:
+  - Parse and record the answer
+  - Continue with next question
+```
+
 If user chooses "Provide answer", prompt for free-text response.
+
+### Step 5b: Collect Answers (Manual Mode)
+
+**Present all questions as formatted markdown:**
+
+"Here are the questions identified by the gap analysis. Please provide answers for any you'd like to document (you can skip any that aren't applicable):
+
+**1. [Category]** - [Question with code context]
+
+**2. [Category]** - [Question with code context]
+
+...
+
+**7. [Category]** - [Question with code context]
+
+Please answer with: `1: [your answer]` or `Q1: [your answer]` format, or just provide free-form text with question numbers."
+
+**Parse user's free-form response:**
+- Look for numbered patterns: "1:", "Q1:", "Question 1:", "1."
+- Allow multi-line answers
+- Track which questions got answers vs were skipped
+- Be flexible with formatting (users may answer in various styles)
 
 ### Step 6: Generate Enhanced Sections
 
@@ -182,6 +230,12 @@ Run `/ce:audit-context` again anytime to identify new gaps.
 - Show error: "Failed to analyze codebase"
 - Check if project root is correct
 - Verify codebase has analyzable files
+
+**If AskUserQuestion tool fails (Step 5a):**
+- Tool may return success with empty responses ("User has answered your questions: .")
+- Detect this by checking if response contains actual answer data
+- Immediately switch to Step 5b (Manual mode) as fallback
+- Tell user: "The interactive question tool isn't working. Let me show all questions instead."
 
 **If user skips all questions:**
 - Ask: "All questions were skipped. Would you like to see the agent's full gap analysis instead?"
