@@ -578,7 +578,22 @@ For specific patterns, read the relevant reference file:
 
 | Command | Result |
 |---------|--------|
-| `/init` on new Python project | Creates .claude/ with Python rules |
-| `/init` on existing config | Runs audit, suggests improvements |
-| `/init --force` on existing config | Overwrites with fresh config |
-| `/init --audit` | Only reports issues, no changes |
+| `/ce:init` on new Python project | Creates .claude/ with Python rules |
+| `/ce:init` on existing config | Runs audit, suggests improvements |
+| `/ce:init --force` on existing config | Overwrites with fresh config |
+| `/ce:init --audit` | Only reports issues, no changes |
+
+---
+
+## Adding Human Context
+
+After running `/ce:init`, the generated CLAUDE.md contains information derived from code analysis (tech stack, project structure, commands). To add context that only humans know, run:
+
+```bash
+/ce:audit-context
+```
+
+This will:
+1. Analyze gaps in documentation (architectural decisions, business context, integration details)
+2. Ask targeted questions about what code can't reveal
+3. Enhance CLAUDE.md with your answers

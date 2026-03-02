@@ -29,6 +29,7 @@ Quick workflows for everyday development tasks, accessed with `/ce:` prefix:
 | [/ce:plan](plugins/ce/commands/plan.md)           | Create a detailed implementation plan                              |
 | [/ce:execute](plugins/ce/commands/execute.md)     | Execute an implementation plan from the plans folder               |
 | [/ce:init](plugins/ce/commands/init.md)           | Bootstrap repo with .claude/ config (rules, permissions, settings) |
+| [/ce:audit-context](plugins/ce/commands/audit-context.md) | Identify knowledge gaps in CLAUDE.md and collect human context |
 | [/ce:post-mortem](plugins/ce/commands/post-mortem.md) | Review a session to assess execution and extract improvements  |
 
 ### Skills
@@ -105,6 +106,7 @@ Expert AI personas for complex work, accessed with `@ce:` prefix:
 | [@ce:haiku](plugins/ce/agents/haiku.md)                     | Lightweight Haiku agent for simple delegated tasks   |
 | [@ce:log-reader](plugins/ce/agents/log-reader.md)           | Efficient log file analysis using targeted search    |
 | [@ce:devils-advocate](plugins/ce/agents/devils-advocate.md) | Rigorous critique to find flaws in plans and designs |
+| [@ce:context-auditor](plugins/ce/agents/context-auditor.md) | Analyzes codebases to identify documentation gaps requiring human knowledge |
 
 ### Hooks
 
@@ -359,7 +361,7 @@ This will be accessible as `@ce:my-agent`.
         │   └── plugin.json       # Plugin metadata
         ├── commands/             # 15 commands (/ce:test, /ce:plan, /ce:post-mortem, etc.)
         ├── skills/               # 23 skills (ce:writing-tests, ce:preflight-checks, etc.)
-        ├── agents/               # 4 agents (@ce:code-reviewer, @ce:haiku, etc.)
+        ├── agents/               # 5 agents (@ce:code-reviewer, @ce:context-auditor, etc.)
         └── hooks/                # Session automation
 ```
 
