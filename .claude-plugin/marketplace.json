@@ -12,7 +12,7 @@
     {
       "name": "ce",
       "source": "./plugins/ce/",
-      "description": "Claude Essentials - Complete development toolkit with 16 commands, 23 skills, and 5 agents unified under ce namespace",
+      "description": "Claude Essentials - Complete development toolkit with 17 commands, 23 skills, and 5 agents unified under ce namespace",
       "version": "2.7.0",
       "author": {
         "name": "Riley Hilliard",
@@ -50,7 +50,8 @@
         "./commands/execute.md",
         "./commands/init.md",
         "./commands/draft-tsd.md",
-        "./commands/audit-context.md"
+        "./commands/audit-context.md",
+        "./commands/review-with-me.md"
       ],
       "skills": [
         "./skills/writing-tests",

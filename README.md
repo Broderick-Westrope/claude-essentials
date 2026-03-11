@@ -30,6 +30,7 @@ Quick workflows for everyday development tasks, accessed with `/ce:` prefix:
 | [/ce:execute](plugins/ce/commands/execute.md)     | Execute an implementation plan from the plans folder               |
 | [/ce:init](plugins/ce/commands/init.md)           | Bootstrap repo with .claude/ config (rules, permissions, settings) |
 | [/ce:audit-context](plugins/ce/commands/audit-context.md) | Identify knowledge gaps in CLAUDE.md and collect human context |
+| [/ce:review-with-me](plugins/ce/commands/review-with-me.md) | Interactive AI-assisted review where the human drives and AI provides context |
 | [/ce:post-mortem](plugins/ce/commands/post-mortem.md) | Review a session to assess execution and extract improvements  |
 
 ### Skills
@@ -359,7 +360,7 @@ This will be accessible as `@ce:my-agent`.
     └── ce/
         ├── .claude-plugin/
         │   └── plugin.json       # Plugin metadata
-        ├── commands/             # 15 commands (/ce:test, /ce:plan, /ce:post-mortem, etc.)
+        ├── commands/             # 17 commands (/ce:test, /ce:plan, /ce:post-mortem, etc.)
         ├── skills/               # 23 skills (ce:writing-tests, ce:preflight-checks, etc.)
         ├── agents/               # 5 agents (@ce:code-reviewer, @ce:context-auditor, etc.)
         └── hooks/                # Session automation
