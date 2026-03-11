@@ -1,6 +1,6 @@
 ---
 description: Execute an implementation plan from the plans folder
-argument-hint: "[plan-path]"
+argument-hint: "[plan-path] [--merge]"
 allowed-tools: Read, Glob, Bash, Task, Skill, AskUserQuestion, TodoWrite
 ---
 
@@ -110,20 +110,25 @@ Load the skill first: `Skill(ce:executing-plans)`
    - Archiving completed plan to `done/` folder
    - Completion summary
 
-### Post-Execution (worktree only):
+### Post-Execution:
 
 If a worktree was created:
 
-1. **Merge back to main:**
+1. **Clean up worktree:**
    ```bash
    cd <original-repo>
-   git merge feature/<plan-name> --no-ff -m "Merge feature/<plan-name>: <plan-summary>"
-   ```
-
-2. **Clean up worktree:**
-   ```bash
    git worktree remove ../worktree-<plan-name>
-   git branch -d feature/<plan-name>
    ```
 
-3. **Notify user:** "Plan complete. Changes merged to main and worktree cleaned up."
+2. **Check if `$ARGUMENTS` contains `--merge`:**
+
+   - **Without `--merge` (default):**
+     - **Notify user:** "Plan complete. Changes are on branch `feature/<plan-name>`. You can merge locally, create a PR, or review the changes first."
+
+   - **With `--merge`:**
+     - **Merge branch:**
+       ```bash
+       git merge feature/<plan-name> --no-ff -m "Merge feature/<plan-name>: <plan-summary>"
+       git branch -d feature/<plan-name>
+       ```
+     - **Notify user:** "Plan complete. Changes merged to main."
