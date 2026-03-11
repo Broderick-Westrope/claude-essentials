@@ -91,7 +91,7 @@ Load the skill first: `Skill(ce:executing-plans)`
 
 4. **Confirm execution:**
    - For small tasks: "Ready to execute this plan? This will run tasks autonomously and commit changes as each task completes."
-   - For large tasks: "This is a larger task. I'll create a git worktree on a feature branch, execute there, then merge back to main when complete. Ready to proceed?"
+   - For large tasks: "This is a larger task. I'll create a git worktree on a feature branch and execute there. Ready to proceed?"
 
 5. **Set up worktree (if needed):**
    ```bash
