@@ -13,3 +13,4 @@
 !README.md
 !.gitignore
 .DS_Store
+!/reload.sh
