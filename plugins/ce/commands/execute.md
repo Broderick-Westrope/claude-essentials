@@ -68,7 +68,15 @@ Load the skill first: `Skill(ce:executing-plans)`
    - Show the high-level task/phase breakdown
    - For multi-file plans, show the phase table with current progress
 
-2. **Assess plan size and decide on worktree:**
+2. **Detect scaffolded tests (TDD mode):**
+   - Check if the plan contains a `## Test Contract` section
+   - If present, this plan has pre-scaffolded tests from `/ce:scaffold-tests`
+   - Note the test files and their locations — these become the **primary verification mechanism** for each task group
+   - Tell the user: "This plan has scaffolded tests. I'll use them to verify each task group as I go."
+   - During execution, after completing each task group, run its scaffolded tests. If tests fail, the task group is not done — fix until green.
+   - The `## 4. Verify` step in the executing-plans skill still applies (automated tests, manual verification, DX quality, code review), but scaffolded tests are the first gate.
+
+3. **Assess plan size and decide on worktree:**
 
    **Large tasks (use worktree):**
    - Multiple phases or task groups
@@ -84,23 +92,23 @@ Load the skill first: `Skill(ce:executing-plans)`
 
    If unsure, default to using a worktree for safety.
 
-3. **Ask clarifying questions if needed:**
+4. **Ask clarifying questions if needed:**
    - Ambiguous requirements
    - Missing context that can't be inferred
    - Unclear dependencies or ordering
 
-4. **Confirm execution:**
+5. **Confirm execution:**
    - For small tasks: "Ready to execute this plan? This will run tasks autonomously and commit changes as each task completes."
    - For large tasks: "This is a larger task. I'll create a git worktree on a feature branch and execute there. Ready to proceed?"
 
-5. **Set up worktree (if needed):**
+6. **Set up worktree (if needed):**
    ```bash
    # Derive branch name from plan name (kebab-case)
    git worktree add ../worktree-<plan-name> -b feature/<plan-name>
    cd ../worktree-<plan-name>
    ```
 
-6. **Execute:**
+7. **Execute:**
    Follow the `Skill(ce:executing-plans)` workflow - it handles:
    - Dependency analysis and wave computation
    - Parallel task execution
