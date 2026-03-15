@@ -1,6 +1,6 @@
 ---
 name: scaffolding-plan-tests
-description: Translates implementation plan tasks into failing test files before coding begins. Use when generating TDD test scaffolds from plans, deriving test cases from success criteria, or creating test contracts for plan execution.
+description: Translates implementation plan tasks into failing test files before coding begins. Use when generating TDD test scaffolds from plans, deriving test cases from success criteria, creating test contracts for plan execution, or whenever the user wants to write tests before implementation. Also use when the user has a plan and asks about testing strategy, test-first workflows, or what tests to write for planned features.
 ---
 
 # Scaffolding Plan Tests
@@ -16,6 +16,14 @@ Read a plan's tasks and success criteria, then produce **real test files** that:
 - Assert on **behavior and outcomes**, not implementation details
 
 Tests become the verification mechanism during `/ce:execute`. When all scaffolded tests pass, the task is complete.
+
+## Existing Test Coverage
+
+Before scaffolding, check for existing tests that already cover planned behavior:
+
+- If a test file exists for the same module, add new cases to it rather than creating a duplicate
+- If existing tests partially cover a success criterion, scaffold only the missing cases
+- Never overwrite or modify existing passing tests
 
 ## Deriving Test Cases
 
@@ -36,7 +44,7 @@ When [action described in task step]
 Then [outcome from success criteria or verify command]
 ```
 
-**Aim for 3-7 test cases per task group.** Fewer means you're missing edge cases. More means you're testing implementation details.
+**Typical range: 3-7 test cases per task group.** Simpler tasks (pure utilities, config) may need fewer. Complex tasks (auth flows, multi-step workflows) may need more. If you're consistently above 7, check whether you're testing implementation details or whether the task group should be split.
 
 ## Test Type Selection
 
@@ -64,10 +72,17 @@ project/
 **Stub rules:**
 
 - Export the function/class/type signature only
-- Function bodies: `throw new Error("not implemented")` or language equivalent
+- Function bodies: throw "not implemented" or language equivalent (see below)
 - Types/interfaces: define the shape based on what tests need
 - Import paths must match where the plan says code will live
 - Mark stubs clearly: `// STUB: scaffold-tests — replace during implementation`
+
+**Language equivalents for "not implemented" stubs:**
+
+- TypeScript/JavaScript: `throw new Error("not implemented")`
+- Python: `raise NotImplementedError`
+- Go: `panic("not implemented")` or return zero values with `// STUB` comment
+- Rust: `todo!()`
 
 **Do not stub:**
 
@@ -88,63 +103,6 @@ Place test files where the project's existing tests live. Detect the convention:
 
 If no convention is detectable, ask the user.
 
-## Plan File Updates
-
-After scaffolding, update each task in the plan with a `**Tests:**` line:
-
-```markdown
-### Task 1: Add login endpoint
-
-**Context:** `src/auth/`, `tests/auth/`
-**Tests:** `tests/auth/login.test.ts`
-
-**Steps:**
-1. [ ] Create `src/auth/login.ts` with authentication logic
-2. [ ] Wire up route in `src/routes.ts`
-
-**Verify:** `npm test -- tests/auth/`
-```
-
-Also add a section at the top of the plan:
-
-```markdown
-## Test Contract
-
-> Tests scaffolded on YYYY-MM-DD. All tests must pass for plan completion.
-
-| Task Group | Test File | Cases |
-|-----------|-----------|-------|
-| Auth tasks | `tests/auth/login.test.ts` | 5 |
-| Billing tasks | `tests/billing/charges.test.ts` | 4 |
-```
-
-## Interactive Refinement
-
-After generating tests for a task group, present them to the user for review. The goal is to catch misunderstandings **before** implementation, not after.
-
-**Present each group as:**
-
-```
-## Auth Tasks — 5 test cases
-
-1. "should authenticate with valid credentials" — POST /login with valid email/password returns 200 + token
-2. "should reject invalid password" — POST /login with wrong password returns 401
-3. "should reject non-existent user" — POST /login with unknown email returns 401 (same error, no user enumeration)
-4. "should rate-limit after 5 failures" — 6th attempt within window returns 429
-5. "should require email format" — POST /login with malformed email returns 400
-
-Want to add, remove, or change any test cases?
-```
-
-**Refinement triggers:**
-
-- User says a case is wrong: fix it
-- User adds a case: add it
-- User says "that's not how it works": dig deeper, ask clarifying questions
-- User approves: write the test file and move to next group
-
-**Key:** This is where the value lives. The conversation about test cases surfaces misaligned assumptions that would otherwise only appear during code review.
-
 ## Quality Checklist
 
 Before finalizing scaffolded tests:
@@ -154,21 +112,23 @@ Before finalizing scaffolded tests:
 - [ ] Tests assert on observable behavior (responses, return values, side effects), not internals
 - [ ] Test names describe the behavior being verified in plain language
 - [ ] Stubs exist for all imports so tests compile
-- [ ] Tests actually fail when run (confirmed, not assumed)
-- [ ] Plan file updated with test references and test contract table
+- [ ] No existing passing tests were overwritten or modified
 
 ## Anti-Patterns
 
 | Pattern | Problem | Fix |
 |---------|---------|-----|
 | Testing implementation before it's designed | Tests couple to code that doesn't exist | Test behavior and outcomes only |
-| Too many test cases per group | Overwhelming for user review, likely testing internals | Cap at 3-7 per group, merge related assertions |
+| Too many test cases per group | Overwhelming for user review, likely testing internals | Check if testing internals or if task group should be split |
 | Stubs that partially implement logic | Tests might pass without real implementation | Stubs must throw/panic/raise, never return real values |
 | Skipping user review | Defeats the purpose, tests may not match intent | Always present and get explicit approval |
 | Writing tests for infrastructure/config tasks | Not all plan tasks need tests | Skip tasks that are pure config, setup, or wiring |
+| Duplicating existing test files | Wasted effort and conflicting coverage | Check for existing tests before scaffolding |
 
-## Cross-References
+## Related Skills
 
-- **Test patterns and anti-patterns:** `Skill(ce:writing-tests)`
-- **Plan structure and task sizing:** `Skill(ce:writing-plans)`
-- **Executing with scaffolded tests:** `Skill(ce:executing-plans)`
+- **Test patterns and anti-patterns:** `ce:writing-tests`
+- **Plan structure and task sizing:** `ce:writing-plans`
+- **Executing with scaffolded tests:** `ce:executing-plans`
+
+When used via `/ce:scaffold-tests`, the command handles user review, plan file updates, and workflow orchestration.
