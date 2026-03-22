@@ -1,5 +1,6 @@
 ---
 description: Execute an implementation plan from the plans folder
+agent: build
 ---
 
 Execute an implementation plan using the executing-plans skill.
