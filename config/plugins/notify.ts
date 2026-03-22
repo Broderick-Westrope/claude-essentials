@@ -6,6 +6,17 @@
 import type { Plugin } from "@opencode-ai/plugin";
 
 export const NotifyPlugin: Plugin = async ({ $ }) => {
+  // Check for terminal-notifier once at plugin init, not on every event
+  let hasTerminalNotifier = false;
+  if (process.platform === "darwin") {
+    try {
+      await $`which terminal-notifier`.quiet();
+      hasTerminalNotifier = true;
+    } catch {
+      // not installed
+    }
+  }
+
   return {
     event: async ({ event }) => {
       if (event.type !== "session.idle") return;
@@ -15,8 +26,7 @@ export const NotifyPlugin: Plugin = async ({ $ }) => {
       const title = "OpenCode";
 
       if (process.platform === "darwin") {
-        // Try terminal-notifier first (supports click-to-focus)
-        try {
+        if (hasTerminalNotifier) {
           // Detect terminal app for click-to-activate
           const termProgram = process.env.TERM_PROGRAM || "";
           const appIdMap: Record<string, string> = {
@@ -39,18 +49,20 @@ export const NotifyPlugin: Plugin = async ({ $ }) => {
             // Not in a git repo, use default subtitle
           }
 
-          await $`terminal-notifier -title ${title} -subtitle ${subtitle} -message ${message} -sound Glass -group opencode-${project} -activate ${appId} -ignoreDnD`;
-        } catch {
+          const group = `opencode-${project}`;
+          await $`terminal-notifier -title ${title} -subtitle ${subtitle} -message ${message} -sound Glass -group ${group} -activate ${appId} -ignoreDnD`
+            .quiet()
+            .catch(() => {});
+        } else {
           // Fall back to osascript
-          await $`osascript -e ${'display notification "' + message + '" with title "' + title + '" sound name "Glass"'}`.catch(
-            () => {},
-          );
+          const script = `display notification "${message}" with title "${title}" sound name "Glass"`;
+          await $`osascript -e ${script}`.quiet().catch(() => {});
         }
       } else {
         // Linux
-        await $`notify-send -u normal -a ${title} ${title} ${message}`.catch(
-          () => {},
-        );
+        await $`notify-send -u normal -a ${title} ${title} ${message}`
+          .quiet()
+          .catch(() => {});
       }
     },
   };
