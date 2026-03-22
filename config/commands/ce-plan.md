@@ -1,5 +1,6 @@
 ---
 description: Create a detailed implementation plan for a feature or task
+agent: plan
 ---
 
 Create an implementation plan for: `$ARGUMENTS`
