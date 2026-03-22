@@ -32,10 +32,7 @@ claude-essentials/
 │   ├── agents/*.md               # 5 agents (ce-haiku.md, ce-code-reviewer.md, etc.)
 │   ├── skills/*/SKILL.md         # 25 skills (unchanged format)
 │   └── plugins/notify.ts         # Notification plugin
-├── legacy/                       # Old Claude Code files (reference only)
-│   ├── .claude-plugin/
-│   ├── hooks/
-│   └── CLAUDE.md
+├── plugins/                      # Original Claude Code plugin (reference only)
 ├── README.md
 ├── LICENSE.md
 └── MIGRATION.md                  # Migration plan from Claude Code plugin

@@ -274,7 +274,7 @@ claude-essentials/
 │   ├── agents/               # 5 agents (@ce-code-reviewer, etc.)
 │   ├── skills/               # 25 skills (writing-tests, etc.)
 │   └── plugins/              # TypeScript plugins
-├── legacy/                   # Old Claude Code files (reference only)
+├── plugins/                  # Original Claude Code plugin (reference only)
 ├── README.md
 ├── LICENSE.md
 └── MIGRATION.md              # Migration plan from Claude Code plugin
