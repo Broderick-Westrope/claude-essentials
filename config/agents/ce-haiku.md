@@ -2,7 +2,7 @@
 description: Lightweight agent for delegated tasks. Receives detailed instructions from commands like /ce-commit, /ce-test, and /ce-pr. Not typically invoked directly by users.
 mode: subagent
 model: anthropic/claude-haiku-4-5
-color: gray
+color: secondary
 ---
 
 Before completing any task, load the verification skill: `Skill(verification-before-completion)`

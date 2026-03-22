@@ -1,7 +1,7 @@
 ---
 description: Expert at comprehensive code review for merge requests and pull requests from technical, product, and DX perspectives. Use this agent when the user has completed work on a feature branch and needs review before merging. Analyzes all changes between branches, evaluates user impact, assesses developer experience, enforces project standards, and provides structured feedback organized by severity.
 mode: subagent
-color: red
+color: error
 permission:
   edit: deny
   bash:

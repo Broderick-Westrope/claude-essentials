@@ -1,7 +1,7 @@
 ---
 description: Analyzes codebases and CLAUDE.md files to identify documentation gaps requiring human knowledge. Use when improving project documentation to capture architectural decisions, business context, integration details, and team conventions that can't be inferred from code.
 mode: subagent
-color: blue
+color: info
 permission:
   edit: deny
   bash:

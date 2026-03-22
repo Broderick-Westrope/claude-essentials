@@ -29,7 +29,7 @@ description: |
   </commentary>
   </example>
 mode: subagent
-color: red
+color: error
 permission:
   edit: deny
   bash: deny
