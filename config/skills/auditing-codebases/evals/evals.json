@@ -1,0 +1,53 @@
+{
+  "skill_name": "auditing-codebases",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Audit this codebase. Identify bugs, code quality issues, error handling gaps, security concerns, testing gaps, and any other concrete problems. Report only issues that can be fixed via pull request.",
+      "expected_output": "A structured audit report with prioritized findings, each including file paths, specific issue descriptions, and concrete fixes. No feature suggestions or user questions.",
+      "files": [],
+      "expectations": [
+        "Every finding includes a specific file path (not just a module or area name)",
+        "Every finding includes a concrete fix description (not vague advice like 'improve error handling')",
+        "Findings are organized by severity levels (critical/high/medium/low or equivalent)",
+        "The report does not suggest adding new features",
+        "The report does not ask the user any questions or request clarification",
+        "The report includes a summary or overview section",
+        "Repeated instances of the same pattern are consolidated rather than listed individually",
+        "The known bug at subcommands.go where ModeMarathon is hardcoded is identified"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Scan this codebase for bugs, error handling issues, and security concerns. Report findings with file paths and specific fixes. Do not suggest new features.",
+      "expected_output": "A focused report on bugs, error handling, and security only. Each finding has a file path, concrete description, and specific fix. No feature suggestions, no architecture advice.",
+      "files": [],
+      "expectations": [
+        "Every finding includes a specific file path (not just a module or area name)",
+        "Every finding includes a concrete fix description (not vague advice like 'improve error handling')",
+        "Findings are organized by severity levels (critical/high/medium/low or equivalent)",
+        "The report does not suggest adding new features",
+        "The report does not ask the user any questions or request clarification",
+        "The report stays focused on bugs, error handling, and security (does not expand scope to code style, documentation, etc.)",
+        "The known bug at subcommands.go where ModeMarathon is hardcoded is identified",
+        "The nil error wrapping bug at subcommands.go is identified"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Run a code health check on this project. Identify anything that's broken, dangerous, or degrading code quality. Every finding should be specific enough to generate a pull request from.",
+      "expected_output": "A health check report with PR-actionable findings. Each finding is specific enough that an automated system could write a PR from it. No vague advice or feature requests.",
+      "files": [],
+      "expectations": [
+        "Every finding includes a specific file path (not just a module or area name)",
+        "Every finding includes a concrete fix description (not vague advice like 'improve error handling')",
+        "Findings are organized by severity levels (critical/high/medium/low or equivalent)",
+        "The report does not suggest adding new features",
+        "The report does not ask the user any questions or request clarification",
+        "Each finding is specific enough that a PR could be written from it without further clarification",
+        "The known bug at subcommands.go where ModeMarathon is hardcoded is identified",
+        "The database connection leak (no db.Close) is identified"
+      ]
+    }
+  ]
+}

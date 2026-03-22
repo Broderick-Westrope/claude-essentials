@@ -1,0 +1,5 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // Load ce instructions alongside (not replacing) the user's AGENTS.md
+  "instructions": ["ce-instructions.md"]
+}
