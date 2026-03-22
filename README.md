@@ -1,6 +1,6 @@
 # Claude Essentials
 
-A unified development plugin for Claude Code with essential commands, skills, and specialized agents, all accessible under the `ce` namespace.
+Essential commands, skills, and specialized agents for [OpenCode](https://opencode.ai), distributed as a native config directory.
 
 NOTE: This is a fork, to customise my workflow. All credit for the original files goes to https://github.com/rileyhilliard
 
@@ -8,111 +8,110 @@ NOTE: This is a fork, to customise my workflow. All credit for the original file
 
 ## What's Included
 
-### Commands
+### Commands (18)
 
-Quick workflows for everyday development tasks, accessed with `/ce:` prefix:
+Quick workflows for everyday development tasks, accessed with `/ce-` prefix:
 
-| Command                                           | Description                                                        |
-| ------------------------------------------------- | ------------------------------------------------------------------ |
-| [/ce:test](plugins/ce/commands/test.md)           | Run tests and analyze failures                                     |
-| [/ce:explain](plugins/ce/commands/explain.md)     | Break down code or concepts                                        |
-| [/ce:debug](plugins/ce/commands/debug.md)         | Launch systematic debugging                                        |
-| [/ce:optimize](plugins/ce/commands/optimize.md)   | Find performance bottlenecks                                       |
-| [/ce:refactor](plugins/ce/commands/refactor.md)   | Improve code quality                                               |
-| [/ce:review](plugins/ce/commands/review.md)       | Code review with tracked findings and fix workflow                  |
-| [/ce:commit](plugins/ce/commands/commit.md)       | Preflight checks, semantic commit, auto-fix on hook failure        |
-| [/ce:deps](plugins/ce/commands/deps.md)           | Audit and upgrade dependencies                                     |
-| [/ce:fix-issue](plugins/ce/commands/fix-issue.md) | Fix a GitHub issue by number                                       |
-| [/ce:pr](plugins/ce/commands/pr.md)               | Create a pull request with auto-generated description              |
-| [/ce:document](plugins/ce/commands/document.md)   | Create or improve documentation                                    |
-| [/ce:draft-tsd](plugins/ce/commands/draft-tsd.md) | Draft technical specification documents from rough ideas or topics |
-| [/ce:plan](plugins/ce/commands/plan.md)           | Create a detailed implementation plan                              |
-| [/ce:execute](plugins/ce/commands/execute.md)     | Execute an implementation plan from the plans folder               |
-| [/ce:init](plugins/ce/commands/init.md)           | Bootstrap repo with .claude/ config (rules, permissions, settings) |
-| [/ce:audit-context](plugins/ce/commands/audit-context.md) | Identify knowledge gaps in CLAUDE.md and collect human context |
-| [/ce:review-with-me](plugins/ce/commands/review-with-me.md) | Interactive AI-assisted review where the human drives and AI provides context |
-| [/ce:post-mortem](plugins/ce/commands/post-mortem.md) | Review a session to assess execution and extract improvements  |
+| Command | Description |
+| --- | --- |
+| `/ce-test` | Run tests and analyze failures |
+| `/ce-explain` | Break down code or concepts |
+| `/ce-debug` | Launch systematic debugging |
+| `/ce-optimize` | Find performance bottlenecks |
+| `/ce-refactor` | Improve code quality |
+| `/ce-review` | Code review with tracked findings and fix workflow |
+| `/ce-commit` | Preflight checks, semantic commit, auto-fix on hook failure |
+| `/ce-deps` | Audit and upgrade dependencies |
+| `/ce-fix-issue` | Fix a GitHub issue by number |
+| `/ce-pr` | Create a pull request with auto-generated description |
+| `/ce-document` | Create or improve documentation |
+| `/ce-draft-tsd` | Draft technical specification documents from rough ideas or topics |
+| `/ce-plan` | Create a detailed implementation plan |
+| `/ce-execute` | Execute an implementation plan from the plans folder |
+| `/ce-init` | Bootstrap repo with configuration (rules, permissions, settings) |
+| `/ce-audit-context` | Identify knowledge gaps in CLAUDE.md and collect human context |
+| `/ce-review-with-me` | Interactive AI-assisted review where the human drives and AI provides context |
+| `/ce-post-mortem` | Review a session to assess execution and extract improvements |
 
-### Skills
+### Skills (25)
 
-Reusable development patterns, accessed with `ce:` prefix:
+Reusable development patterns loaded on demand:
 
 **Testing & Quality:**
 
-| Skill                                                                                          | Description                                        |
-| ---------------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| [ce:writing-tests](plugins/ce/skills/writing-tests/SKILL.md)                                   | Testing Trophy methodology, behavior-focused tests      |
-| [ce:verification-before-completion](plugins/ce/skills/verification-before-completion/SKILL.md) | Verify before claiming success                          |
-| [ce:preflight-checks](plugins/ce/skills/preflight-checks/SKILL.md)                             | Auto-detect and run project linters/formatters/checkers |
+| Skill | Description |
+| --- | --- |
+| `writing-tests` | Testing Trophy methodology, behavior-focused tests |
+| `verification-before-completion` | Verify before claiming success |
+| `preflight-checks` | Auto-detect and run project linters/formatters/checkers |
 
 **Debugging & Problem Solving:**
 
-| Skill                                                                            | Description                                   |
-| -------------------------------------------------------------------------------- | --------------------------------------------- |
-| [ce:systematic-debugging](plugins/ce/skills/systematic-debugging/SKILL.md)       | Four-phase debugging framework                |
-| [ce:fixing-flaky-tests](plugins/ce/skills/fixing-flaky-tests/SKILL.md)           | Diagnose and fix tests that fail concurrently |
-| [ce:condition-based-waiting](plugins/ce/skills/condition-based-waiting/SKILL.md) | Replace race conditions with polling          |
-| [ce:reading-logs](plugins/ce/skills/reading-logs/SKILL.md)                       | Efficient log analysis using targeted search  |
+| Skill | Description |
+| --- | --- |
+| `systematic-debugging` | Four-phase debugging framework |
+| `fixing-flaky-tests` | Diagnose and fix tests that fail concurrently |
+| `condition-based-waiting` | Replace race conditions with polling |
+| `reading-logs` | Efficient log analysis using targeted search |
 
 **Code Quality:**
 
-| Skill                                                                          | Description                                                 |
-| ------------------------------------------------------------------------------ | ----------------------------------------------------------- |
-| [ce:refactoring-code](plugins/ce/skills/refactoring-code/SKILL.md)             | Behavior-preserving code improvements                       |
-| [ce:optimizing-performance](plugins/ce/skills/optimizing-performance/SKILL.md) | Measurement-driven optimization                             |
-| [ce:handling-errors](plugins/ce/skills/handling-errors/SKILL.md)               | Error handling best practices                               |
-| [ce:migrating-code](plugins/ce/skills/migrating-code/SKILL.md)                 | Safe migration patterns for databases, APIs, and frameworks |
+| Skill | Description |
+| --- | --- |
+| `refactoring-code` | Behavior-preserving code improvements |
+| `optimizing-performance` | Measurement-driven optimization |
+| `handling-errors` | Error handling best practices |
+| `migrating-code` | Safe migration patterns for databases, APIs, and frameworks |
 
 **Planning & Execution:**
 
-| Skill                                                                      | Description                                               |
-| -------------------------------------------------------------------------- | --------------------------------------------------------- |
-| [ce:writing-plans](plugins/ce/skills/writing-plans/SKILL.md)               | Create implementation plans with devils-advocate review   |
-| [ce:executing-plans](plugins/ce/skills/executing-plans/SKILL.md)           | Execute plans with mandatory code review                  |
-| [ce:architecting-systems](plugins/ce/skills/architecting-systems/SKILL.md) | Clean, scalable system architecture for the build phase |
-| [ce:design](plugins/ce/skills/design/SKILL.md)                             | Frontend design skill                                     |
+| Skill | Description |
+| --- | --- |
+| `writing-plans` | Create implementation plans with devils-advocate review |
+| `executing-plans` | Execute plans with mandatory code review |
+| `architecting-systems` | Clean, scalable system architecture for the build phase |
+| `design` | Frontend design skill |
 
 **Documentation & Writing:**
 
-| Skill                                                                                | Description                                                                                               |
-| ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
-| [ce:writer](plugins/ce/skills/writer/SKILL.md)                                       | Writing style guide with 7 personas (Architect, Engineer, PM, Marketer, Educator, Contributor, UX Writer) |
-| [ce:strategy-writer](plugins/ce/skills/strategy-writer/SKILL.md)                     | Executive-quality strategic documents in Economist/HBR style                                              |
-| [ce:documenting-systems](plugins/ce/skills/documenting-systems/SKILL.md)             | Best practices for writing markdown documentation                                                         |
-| [ce:documenting-code-comments](plugins/ce/skills/documenting-code-comments/SKILL.md) | Standards for self-documenting code and inline comments                                                   |
-| [ce:drafting-tsds](plugins/ce/skills/drafting-tsds/SKILL.md)                         | Create draft technical specification documents exploring solution spaces before implementation            |
+| Skill | Description |
+| --- | --- |
+| `writer` | Writing style guide with 7 personas (Architect, Engineer, PM, Marketer, Educator, Contributor, UX Writer) |
+| `strategy-writer` | Executive-quality strategic documents in Economist/HBR style |
+| `documenting-systems` | Best practices for writing markdown documentation |
+| `documenting-code-comments` | Standards for self-documenting code and inline comments |
+| `drafting-tsds` | Create draft technical specification documents exploring solution spaces before implementation |
 
 **Data & Infrastructure:**
 
-| Skill                                                                      | Description                                                         |
-| -------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| [ce:managing-databases](plugins/ce/skills/managing-databases/SKILL.md)     | PostgreSQL, DuckDB, Parquet, and PGVector architecture              |
-| [ce:managing-pipelines](plugins/ce/skills/managing-pipelines/SKILL.md)     | GitHub Actions CI/CD security, performance, and deployment patterns |
+| Skill | Description |
+| --- | --- |
+| `managing-databases` | PostgreSQL, DuckDB, Parquet, and PGVector architecture |
+| `managing-pipelines` | GitHub Actions CI/CD security, performance, and deployment patterns |
 
 **Meta Skills:**
 
-| Skill                                                                              | Description                                      |
-| ---------------------------------------------------------------------------------- | ------------------------------------------------ |
-| [ce:visualizing-with-mermaid](plugins/ce/skills/visualizing-with-mermaid/SKILL.md) | Create professional technical diagrams              |
-| [ce:post-mortem](plugins/ce/skills/post-mortem/SKILL.md)                           | Review sessions to extract actionable improvements  |
-| [ce:configuring-claude](plugins/ce/skills/configuring-claude/SKILL.md)             | Best practices for writing skills, rules, CLAUDE.md |
+| Skill | Description |
+| --- | --- |
+| `visualizing-with-mermaid` | Create professional technical diagrams |
+| `post-mortem` | Review sessions to extract actionable improvements |
+| `configuring-claude` | Best practices for writing skills, rules, CLAUDE.md |
 
-### Agents
+### Agents (5)
 
-Expert AI personas for complex work, accessed with `@ce:` prefix:
+Expert AI personas for complex work, accessed with `@ce-` prefix:
 
-| Agent                                                       | Description                                          |
-| ----------------------------------------------------------- | ---------------------------------------------------- |
-| [@ce:code-reviewer](plugins/ce/agents/code-reviewer.md)     | Comprehensive PR/MR reviews enforcing standards      |
-| [@ce:haiku](plugins/ce/agents/haiku.md)                     | Lightweight Haiku agent for simple delegated tasks   |
-| [@ce:log-reader](plugins/ce/agents/log-reader.md)           | Efficient log file analysis using targeted search    |
-| [@ce:devils-advocate](plugins/ce/agents/devils-advocate.md) | Rigorous critique to find flaws in plans and designs |
-| [@ce:context-auditor](plugins/ce/agents/context-auditor.md) | Analyzes codebases to identify documentation gaps requiring human knowledge |
+| Agent | Description |
+| --- | --- |
+| `@ce-code-reviewer` | Comprehensive PR/MR reviews enforcing standards |
+| `@ce-haiku` | Lightweight agent for simple delegated tasks |
+| `@ce-log-reader` | Efficient log file analysis using targeted search |
+| `@ce-devils-advocate` | Rigorous critique to find flaws in plans and designs |
+| `@ce-context-auditor` | Analyzes codebases to identify documentation gaps requiring human knowledge |
 
-### Hooks
+### Plugin
 
-- **Session start** - Auto-detects project tooling (linters, formatters, type checkers) and injects available skills
-- **Notifications** - Cross-platform alerts when Claude needs input, with git branch info (macOS + Linux)
+- **Notifications** - Cross-platform alerts when OpenCode needs input (macOS + Linux)
 
 ---
 
@@ -120,112 +119,46 @@ Expert AI personas for complex work, accessed with `@ce:` prefix:
 
 ### Prerequisites
 
-You need Claude Code installed. If you don't have it yet, head to [claude.com/product/claude-code](https://www.claude.com/product/claude-code).
+You need [OpenCode](https://opencode.ai) installed.
 
 ### Setup
 
-1. Add this marketplace to Claude Code:
-
 ```bash
-/plugin marketplace add https://github.com/Broderick-Westrope/claude-essentials
+git clone https://github.com/Broderick-Westrope/claude-essentials.git
+cd claude-essentials
+./install.sh
+source ~/.zshrc  # or restart terminal
 ```
 
-2. Install the ce plugin:
+That's it. The installer adds a single `OPENCODE_CONFIG_DIR` export to your shell profile pointing at the repo's `config/` directory.
+
+### How It Works
+
+- No symlinks or file copying -- the repo **is** the config
+- `git pull` updates everything instantly
+- Personal config in `~/.config/opencode/` coexists without conflict
+- One env var in your shell profile is the entire "install"
+
+### Uninstall
 
 ```bash
-/plugin install ce
+./uninstall.sh
 ```
-
-That's it! You now have access to all commands, skills, and agents under the `ce` namespace.
 
 ### Verify Installation
 
-Start Claude Code and try these:
+Start OpenCode and try:
 
 ```bash
-# Start Claude Code
-claude
-
 # Try a quick command
-/ce:explain README.md
+/ce-test
 
 # Use a skill
-ce:writing-tests
+Skill(writing-tests)
 
-# Use a skill
-ce:architecting-systems
+# Use an agent
+@ce-code-reviewer
 ```
-
----
-
-## Bootstrapping Your Repository
-
-The `/ce:init` command sets up your repository with Claude Code configuration that follows best practices. This is the recommended first step when starting work on any project.
-
-### What It Does
-
-**Fresh repositories** (no `.claude/` directory):
-
-1. Detects your project stack (Python, TypeScript, Rust, Go, etc.)
-2. Generates a complete `.claude/` configuration:
-
-```
-.claude/
-├── CLAUDE.md           # Project overview, architecture, quick commands
-├── settings.json       # Permissions tailored to your stack
-└── rules/
-    ├── testing.md          # References ce:writing-tests
-    ├── error-handling.md   # References ce:handling-errors
-    ├── debugging.md        # References ce:systematic-debugging
-    ├── verification.md     # References ce:verification-before-completion
-    └── {stack}/            # Stack-specific rules (python/, frontend/, etc.)
-```
-
-**Existing configurations** (`.claude/` already exists):
-
-1. Audits your current setup against best practices
-2. Identifies missing skill references in rules
-3. Suggests permission and rule improvements
-4. Offers to apply fixes with your confirmation
-
-### Quick Start
-
-```bash
-# Initialize a new project
-/ce:init
-
-# Audit an existing configuration
-/ce:init --audit
-
-# Force regenerate (overwrites existing)
-/ce:init --force
-```
-
-### Why This Matters
-
-The generated configuration:
-
-- **Progressive disclosure** - Rules stay concise (<100 lines), reference ce:\* skills for depth, use `references/` subdirectories for domain-specific details
-- **Rules reference ce:\* skills** - Don't duplicate content, point to proven patterns
-- **Permissions are stack-aware** - Python projects get `uv`, `pytest`; Node gets `npm`, `bun`, etc.
-- **Safety defaults included** - Blocks `rm -rf`, force pushes, hard resets
-- **Path-scoped rules** - Activate only when working in relevant files
-
-**Progressive disclosure structure:**
-
-```
-rules/
-├── testing.md              # ~50 lines, points to ce:writing-tests
-└── api/
-    ├── conventions.md      # ~100 lines, overview
-    └── references/         # Loaded on-demand
-        ├── errors.md       # Detailed error patterns
-        └── pagination.md   # Pagination strategies
-```
-
-This keeps context small while maintaining depth. Claude loads reference files only when needed.
-
-Based on [Claude platform best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices).
 
 ---
 
@@ -233,93 +166,69 @@ Based on [Claude platform best practices](https://platform.claude.com/docs/en/ag
 
 ### Typical Workflows
 
-**Bootstrap a new project:**
-
-```bash
-cd my-project
-/ce:init
-# Review the generated config, confirm, done
-```
-
 **Fix failing tests:**
 
 ```bash
-/ce:test
+/ce-test
 # If complex, escalate:
-ce:systematic-debugging
+Skill(systematic-debugging)
 ```
 
 **Review before merge:**
 
 ```bash
-/ce:review
+/ce-review
 # Review findings are tracked as a checklist, fix issues, then:
-/ce:commit
+/ce-commit
 ```
 
 **Optimize performance:**
 
 ```bash
-/ce:optimize src/components/DataTable.tsx
-# For deep analysis:
-ce:optimizing-performance
+/ce-optimize src/components/DataTable.tsx
 ```
 
 **Plan a feature:**
 
 ```bash
-ce:architecting-systems I need to add real-time notifications. We have 10k concurrent users.
-# Then create a plan:
-ce:writing-plans
-```
-
-**Clean up legacy code:**
-
-```bash
-/ce:explain src/legacy/payment-processor.js
-ce:refactoring-code
+/ce-plan Add real-time notifications for 10k concurrent users
 ```
 
 **Review a session for improvements:**
 
 ```bash
-/ce:post-mortem
-# Analyzes what happened, identifies friction, proposes concrete actions
+/ce-post-mortem
 ```
 
 ### Understanding the System
 
-**Commands vs Skills vs Agents:**
-
-- **Commands** (`/ce:test`, `/ce:review`) are quick keyboard shortcuts for routine tasks
-- **Skills** (`ce:writing-tests`) are reusable workflows that guide specific development patterns
-- **Agents** (`@ce:code-reviewer`) are expert personas for complex, multi-step work
+- **Commands** (`/ce-test`, `/ce-review`) are quick keyboard shortcuts for routine tasks
+- **Skills** (`writing-tests`) are reusable workflows that guide specific development patterns
+- **Agents** (`@ce-code-reviewer`) are expert personas for complex, multi-step work
 
 Use commands for quick actions, skills for following proven patterns, and agents when you need specialized expertise.
 
+---
+
 ## Customization
 
-All components are just markdown files organized in directories. Want to customize? Edit them directly in `~/.claude/plugins/ce/`.
+All components are markdown files in the `config/` directory. Edit them directly.
 
 ### Creating Your Own Command
 
-Add a markdown file to `~/.claude/plugins/ce/commands/`:
+Add a markdown file to `config/commands/`:
 
 ```markdown
 ---
 description: Your command description
-argument-hint: "[optional-arg]"
-allowed-tools: Bash, Read
 ---
 
 Your command instructions here.
 ```
 
-This will be accessible as `/ce:your-command`.
-
 ### Creating Your Own Skill
 
-Add a directory with SKILL.md to `~/.claude/plugins/ce/skills/`:
+Add a directory with SKILL.md to `config/skills/`:
 
 ```markdown
 ---
@@ -332,68 +241,44 @@ description: What this skill does and when to use it
 Your skill workflow here.
 ```
 
-This will be accessible as `ce:my-skill`.
-
 ### Creating Your Own Agent
 
-Add a markdown file to `~/.claude/plugins/ce/agents/`:
+Add a markdown file to `config/agents/`:
 
 ```markdown
 ---
-name: my-agent
 description: Expert at specific domain
-tools: Read, Grep, Glob, Bash
+mode: subagent
 color: blue
+permission:
+  edit: deny
+  bash:
+    "*": allow
 ---
 
 Your agent personality and workflow here.
 ```
 
-This will be accessible as `@ce:my-agent`.
+---
 
 ## Project Structure
 
 ```
-~/.claude/
-├── CLAUDE.md              # Communication guidelines (copy here manually)
-└── plugins/
-    └── ce/
-        ├── .claude-plugin/
-        │   └── plugin.json       # Plugin metadata
-        ├── commands/             # 17 commands (/ce:test, /ce:plan, /ce:post-mortem, etc.)
-        ├── skills/               # 23 skills (ce:writing-tests, ce:preflight-checks, etc.)
-        ├── agents/               # 5 agents (@ce:code-reviewer, @ce:context-auditor, etc.)
-        └── hooks/                # Session automation
+claude-essentials/
+├── install.sh                # Sets OPENCODE_CONFIG_DIR env var
+├── uninstall.sh              # Removes it
+├── config/                   # OPENCODE_CONFIG_DIR points here
+│   ├── opencode.jsonc        # Config fragment
+│   ├── ce-instructions.md    # Skill activation sequence
+│   ├── commands/             # 18 commands (/ce-test, /ce-plan, etc.)
+│   ├── agents/               # 5 agents (@ce-code-reviewer, etc.)
+│   ├── skills/               # 25 skills (writing-tests, etc.)
+│   └── plugins/              # TypeScript plugins
+├── legacy/                   # Old Claude Code files (reference only)
+├── README.md
+├── LICENSE.md
+└── MIGRATION.md              # Migration plan from Claude Code plugin
 ```
-
-## Tips
-
-**Commands accept arguments:** Most commands work with optional parameters.
-
-```bash
-/ce:test pytest tests/unit
-/ce:explain AuthController
-/ce:optimize src/components/
-```
-
-**Skills are for learning:** Invoke a skill to understand a pattern, then apply it.
-
-```bash
-ce:writing-tests
-# Follow the guidance to write tests
-```
-
-**Agents need context:** Give agents rich context for better results.
-
-```bash
-# Vague
-ce:architecting-systems help with authentication
-
-# Better
-ce:architecting-systems We need OAuth2 + JWT authentication for a React SPA with Node backend. 50k users.
-```
-
-**Run tests first:** Use `/ce:test` before committing to catch issues early.
 
 ## Documentation
 
@@ -408,18 +293,10 @@ Found a bug? Have an idea? Contributions welcome.
 3. Test your changes locally
 4. Submit a PR with details
 
-Ideas for contributions:
-
-- New commands for common workflows
-- Additional skills for specific patterns
-- Specialized agents for other domains
-- Documentation improvements
-
 ## Resources
 
-- [Claude Code](https://www.claude.com/product/claude-code)
-- [Claude API Docs](https://docs.anthropic.com/)
-- [Model Context Protocol](https://modelcontextprotocol.io/)
+- [OpenCode](https://opencode.ai)
+- [OpenCode Docs](https://opencode.ai/docs)
 
 ## License
 

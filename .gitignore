@@ -1,16 +1,5 @@
-# Ignore everything at the root
 /*
-
-# Except these directories
-!/assets/
-!/docs/
-!/plugins/
-!/.claude-plugin/
-!/CLAUDE.md
-
-# And these files
-!LICENSE.md
-!README.md
-!.gitignore
-.DS_Store
-!/reload.sh
+!legacy/
+!config/
+!install.sh
+!uninstall.sh
