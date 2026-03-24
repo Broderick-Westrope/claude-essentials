@@ -8,8 +8,8 @@ This is a set of OpenCode configuration files (commands, agents, skills, plugins
 
 **Contents:**
 
-- **18 Commands** - Development workflows (`/ce-test`, `/ce-commit`, `/ce-review`, `/ce-plan`, etc.)
-- **25 Skills** - Reusable patterns for testing, debugging, refactoring, architecture, and planning
+- **19 Commands** - Development workflows (`/ce-test`, `/ce-commit`, `/ce-review`, `/ce-plan`, `/ce-scaffold-tests`, etc.)
+- **29 Skills** - Reusable patterns for testing, debugging, refactoring, architecture, and planning
 - **5 Agents** - Expert AI personas (`@ce-code-reviewer`, `@ce-haiku`, `@ce-log-reader`, `@ce-devils-advocate`, `@ce-context-auditor`)
 - **1 Plugin** - Notification plugin (`notify.ts`)
 
@@ -28,9 +28,9 @@ claude-essentials/
 ├── config/                       # OPENCODE_CONFIG_DIR points here
 │   ├── opencode.jsonc            # Config fragment (loads ce-instructions.md)
 │   ├── ce-instructions.md        # Skill activation sequence + guidelines
-│   ├── commands/*.md             # 18 commands (ce-test.md, ce-commit.md, etc.)
+│   ├── commands/*.md             # 19 commands (ce-test.md, ce-commit.md, etc.)
 │   ├── agents/*.md               # 5 agents (ce-haiku.md, ce-code-reviewer.md, etc.)
-│   ├── skills/*/SKILL.md         # 25 skills (unchanged format)
+│   ├── skills/*/SKILL.md         # 29 skills (unchanged format)
 │   └── plugins/notify.ts         # Notification plugin
 ├── plugins/                      # Original Claude Code plugin (reference only)
 ├── README.md
