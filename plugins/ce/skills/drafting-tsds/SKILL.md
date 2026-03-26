@@ -187,7 +187,7 @@ Use Mermaid diagrams to show:
 - Integration points
 - Before/after architecture
 
-For diagram guidance, use `Skill(ce:visualizing-with-mermaid)`.
+For diagram guidance, use the **visualizing-with-mermaid** skill.
 
 ---
 
@@ -253,7 +253,7 @@ For more anti-patterns and fixes, load `references/best-practices.md`.
 
 ## Tone and Style
 
-Use `Skill(ce:writer)` with **The Architect** persona for:
+Use the **writer** skill with **The Architect** persona for:
 - Decision-oriented structure
 - Explicit tradeoffs
 - Diagram-supported explanations
@@ -307,12 +307,12 @@ Any one of these might not justify the move. Together, they make a strong case.
 
 ## Related Skills
 
-- `Skill(ce:architecting-systems)` - Architecture principles for informed option generation
-- `Skill(ce:writer)` with **The Architect** persona - Tone and structure for technical docs
-- `Skill(ce:documenting-systems)` - General documentation best practices
-- `Skill(ce:visualizing-with-mermaid)` - Creating architecture and flow diagrams
-- `Skill(ce:systematic-debugging)` - Root cause analysis when designing fixes
-- `Skill(ce:strategy-writer)` - For strategic business documents (not technical specs)
+- **architecting-systems** - Architecture principles for informed option generation
+- **writer** with **The Architect** persona - Tone and structure for technical docs
+- **documenting-systems** - General documentation best practices
+- **visualizing-with-mermaid** - Creating architecture and flow diagrams
+- **systematic-debugging** - Root cause analysis when designing fixes
+- **strategy-writer** - For strategic business documents (not technical specs)
 
 ---
 

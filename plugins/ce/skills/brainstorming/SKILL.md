@@ -26,7 +26,7 @@ Complete these steps in order:
 3. **Propose 2-3 approaches** — with trade-offs and a recommendation
 4. **Present design** — in sections scaled to complexity, get user approval after each section
 5. **Write design doc** — save to `docs/specs/YYYY-MM-DD-<topic>-design.md` and commit
-6. **Design review** — dispatch `ce:devils-advocate` agent to review the design doc; fix issues and re-dispatch until approved (max 3 iterations, then surface to the user)
+6. **Design review** — dispatch the **devils-advocate** agent to review the design doc; fix issues and re-dispatch until approved (max 3 iterations, then surface to the user)
 7. **User reviews written spec** — ask the user to review the spec file before proceeding
 8. **Transition to implementation** — invoke `ce:writing-plans` skill to create implementation plan
 
@@ -101,7 +101,7 @@ flowchart TD
 
 After writing the spec document:
 
-1. Dispatch `ce:devils-advocate` agent to review the design doc
+1. Dispatch the **devils-advocate** agent to review the design doc
 2. If issues found: fix, re-dispatch, repeat until approved
 3. If the loop exceeds 3 iterations, surface to the user for guidance
 

@@ -7,8 +7,8 @@ allowed-tools: Read, Glob, Grep, Bash, Write, Edit, Skill, AskUserQuestion
 Generate test scaffolds from an implementation plan using the TDD test-first approach.
 
 Load skills first:
-- `Skill(ce:scaffolding-plan-tests)`
-- `Skill(ce:writing-tests)`
+- the **scaffolding-plan-tests** skill
+- the **writing-tests** skill
 
 ## Workflow
 
@@ -38,7 +38,7 @@ Load skills first:
    - Skip plans marked `COMPLETED`
 
 3. **Present options:**
-   Use `AskUserQuestion` to let the user select:
+   Ask the user to select:
    ```
    Which plan would you like to scaffold tests for?
    - [plan-1-name] (APPROVED) - Brief description

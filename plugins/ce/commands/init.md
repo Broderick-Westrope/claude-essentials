@@ -6,7 +6,7 @@ allowed-tools: Bash, Read, Write, Glob, Grep, AskUserQuestion, Skill
 
 Initialize or audit `.claude/` configuration for this repository based on detected stack.
 
-**Before generating or auditing any files**, load `Skill(ce:configuring-claude)` for best practices on writing rules, CLAUDE.md, and skills. Load its `references/rules-and-memory.md` reference for rules and CLAUDE.md specifics, and `references/skills.md` if generating project-specific skills.
+**Before generating or auditing any files**, load the **configuring-claude** skill for best practices on writing rules, CLAUDE.md, and skills. Load its `references/rules-and-memory.md` reference for rules and CLAUDE.md specifics, and `references/skills.md` if generating project-specific skills.
 
 Arguments:
 
@@ -131,7 +131,7 @@ Will create:
               └── endpoints.md  # Endpoint patterns
 ```
 
-Use `AskUserQuestion` to confirm before writing files.
+Confirm with the user before writing files.
 
 ### Step 5: Generate Files
 

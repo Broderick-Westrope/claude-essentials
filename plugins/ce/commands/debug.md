@@ -4,7 +4,7 @@ argument-hint: "<bug-description>"
 allowed-tools: Task, Skill
 ---
 
-Use the `Skill(ce:systematic-debugging)` skill to debug and fix a bug. When investigation involves log files, also use the `Skill(ce:reading-logs)` skill for efficient log analysis.
+Use the **systematic-debugging** skill to debug and fix a bug. When investigation involves log files, also use the **reading-logs** skill for efficient log analysis.
 
 Arguments:
 

@@ -41,19 +41,15 @@ Topic is **well-formed** if it contains ALL of the following:
 
 ### STEP 1: Load Context Skills
 
-Load the drafting skill:
-
-```
-Skill(ce:drafting-tsds)
-```
+Load the **drafting-tsds** skill.
 
 Auto-detect and load domain skills (see Domain Skill Auto-Detection section below).
 
 Auto-detect and load architecture topics (see Architecture Topic Auto-Detection section below).
 
-### STEP 2: Gather Context with AskUserQuestion
+### STEP 2: Gather Context
 
-Ask via `AskUserQuestion` (allow "I don't know" responses):
+Ask the user the following questions (allow "I don't know" responses):
 
 **Required questions** (cannot proceed without):
 
@@ -93,12 +89,10 @@ Use loaded skills (domain skills, architecture skills) to generate **2-4 distinc
 
 ### STEP 4: Run Devils-Advocate Critique
 
-For each solution option, spawn the devils-advocate agent:
+For each solution option, dispatch the **devils-advocate** agent as a subagent with structured context:
 
 ```
-Task(ce:devils-advocate) with structured context:
-
-"Review this solution option for a technical specification.
+Review this solution option for a technical specification.
 
 OPTION: {
   "number": 1,
@@ -117,7 +111,7 @@ Look for:
 - Missing edge cases
 - Hidden complexity
 - Failure modes
-- Second-order effects"
+- Second-order effects
 ```
 
 **Parse agent output** and incorporate into option analysis:
@@ -134,7 +128,7 @@ Look for:
 
 ### STEP 5: Synthesize Findings
 
-Use `Skill(ce:writer)` with The Architect persona to:
+Use the **writer** skill with The Architect persona to:
 
 1. Present option summary to user
 2. Highlight key tradeoffs and risks from devils-advocate
@@ -184,7 +178,7 @@ payments skill:
 
 ## Architecture Topic Auto-Detection
 
-Detect architecture topics from keywords and load relevant sections from `Skill(ce:architecting-systems)`:
+Detect architecture topics from keywords and load relevant sections from the **architecting-systems** skill:
 
 **Keyword mapping:**
 
@@ -231,8 +225,8 @@ Load the architecture skill with appropriate reference if keywords match.
 
 Once exploration is complete (or skipped for well-formed topics), write the draft TSD using:
 
-- `Skill(ce:drafting-tsds)` for structure and template
-- `Skill(ce:writer)` with The Architect persona for tone and style
+- The **drafting-tsds** skill for structure and template
+- The **writer** skill with The Architect persona for tone and style
 - Loaded domain skills for technical accuracy
 - Devils-advocate feedback incorporated into tradeoffs and open questions
 

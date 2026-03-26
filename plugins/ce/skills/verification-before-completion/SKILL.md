@@ -40,7 +40,7 @@ ALWAYS before:
 - Expressing satisfaction ("Great!", "Done!", "Perfect!")
 - Using qualifiers ("should work", "probably fixed", "seems to")
 - Committing, creating PRs, marking tasks complete
-- Marking a multi-file implementation as complete (dispatch `ce:code-reviewer` agent)
+- Marking a multi-file implementation as complete (dispatch the **code-reviewer** agent)
 - Moving to next task or delegating work
 - ANY statement implying success or completion
 
@@ -54,7 +54,7 @@ ALWAYS before:
 | Linter clean          | Linter output: 0 errors          | Partial check, spot test      |
 | Regression test works | Red→Green cycle verified         | Test passes once              |
 | Agent task complete   | VCS diff shows expected changes  | Agent reports "success"       |
-| Work is complete      | Code review via `ce:code-reviewer` with no unresolved Critical issues | Self-review, "looks good to me" |
+| Work is complete      | Code review via the **code-reviewer** agent with no unresolved Critical issues | Self-review, "looks good to me" |
 
 ## Red Flags
 

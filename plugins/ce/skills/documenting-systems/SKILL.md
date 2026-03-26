@@ -5,7 +5,7 @@ description: Creates task-oriented technical documentation with progressive disc
 
 # Technical Documentation
 
-For writing style, tone, and voice guidance, use `Skill(ce:writer)` with **The Engineer** persona.
+For writing style, tone, and voice guidance, use the **writer** skill with **The Engineer** persona.
 
 ## Core Principles
 
@@ -68,5 +68,5 @@ For README, API endpoint, and file organization templates, see [references/templ
 
 ## Related Skills
 
-- `Skill(ce:writer)` - Writing style, tone, and voice (load The Engineer persona)
-- `Skill(ce:visualizing-with-mermaid)` - Architecture and flow diagrams
+- **writer** - Writing style, tone, and voice (load The Engineer persona)
+- **visualizing-with-mermaid** - Architecture and flow diagrams

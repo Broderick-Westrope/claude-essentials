@@ -6,7 +6,7 @@ allowed-tools: Read, Grep, Glob, Skill, AskUserQuestion
 
 Review the current session (or the specified task/context) and identify what we can learn from it.
 
-Load the post-mortem skill for guidance: `Skill(ce:post-mortem)`
+Load the **post-mortem** skill for guidance.
 
 **If `$ARGUMENTS` is provided:**
 - Use the specified context to focus the review.

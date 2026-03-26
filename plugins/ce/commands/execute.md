@@ -6,7 +6,7 @@ allowed-tools: Read, Glob, Bash, Task, Skill, AskUserQuestion, TodoWrite
 
 Execute an implementation plan using the executing-plans skill.
 
-Load the skill first: `Skill(ce:executing-plans)`
+Load the **executing-plans** skill first.
 
 ## Workflow
 
@@ -42,7 +42,7 @@ Load the skill first: `Skill(ce:executing-plans)`
 3. **Present options:**
    List incomplete plans with their status and a brief description (from the User Story or first line of spec).
 
-   Use `AskUserQuestion` to let the user select which plan to execute:
+   Ask the user to select which plan to execute:
    ```
    Which plan would you like to execute?
    - [plan-1-name] (APPROVED) - Brief description
@@ -109,7 +109,7 @@ Load the skill first: `Skill(ce:executing-plans)`
    ```
 
 7. **Execute:**
-   Follow the `Skill(ce:executing-plans)` workflow - it handles:
+   Follow the **executing-plans** skill workflow - it handles:
    - Dependency analysis and wave computation
    - Parallel task execution
    - Auto-recovery from errors

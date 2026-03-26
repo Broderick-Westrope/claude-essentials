@@ -28,7 +28,7 @@ logger.error("Failed to save user: Connection timeout after 30s", {
 
 **For users:**
 
-For user-facing error copy, use `Skill(ce:writer)` with **The UX Writer** persona. Key principles:
+For user-facing error copy, use the **writer** skill with **The UX Writer** persona. Key principles:
 
 - Brief and specific (not "Something went wrong")
 - Actionable (tell them what to do next)

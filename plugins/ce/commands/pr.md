@@ -4,9 +4,9 @@ argument-hint: "[base-branch]"
 allowed-tools: Task
 ---
 
-**DELEGATION ONLY**: Do NOT run any commands or investigate the codebase yourself. Your only job is to immediately invoke the `ce:haiku` agent via Task tool, passing the prompt template below with `$ARGUMENTS` substituted.
+**DELEGATION ONLY**: Do NOT run any commands or investigate the codebase yourself. Your only job is to immediately delegate to the **haiku** agent as a subagent, passing the prompt template below with `$ARGUMENTS` substituted.
 
-## Task Prompt for Haiku Agent
+## Subagent Prompt for Haiku
 
 ````
 Create a pull request for the current branch.
@@ -34,7 +34,7 @@ User arguments: $ARGUMENTS
 
 **Step 4: Analyze & Generate PR Content**
 
-Follow **The Contributor** persona from `Skill(ce:writer)` for PR conventions.
+Follow **The Contributor** persona from the **writer** skill for PR conventions.
 
 Analyze the commits and diff to determine:
 - The type of change (feat, fix, refactor, docs, etc.)

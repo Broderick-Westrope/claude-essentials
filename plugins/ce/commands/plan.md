@@ -6,4 +6,4 @@ allowed-tools: Read, Grep, Glob, Write, Task, Skill
 
 Create an implementation plan for: `$ARGUMENTS`
 
-Load the writing-plans skill for guidance: `Skill(ce:writing-plans)`
+Load the **writing-plans** skill for guidance.

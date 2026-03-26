@@ -14,7 +14,7 @@ Arguments:
 
 Analyze the arguments and context to determine which instructions to pass:
 
-**Use CODE COMMENT instructions (delegate to `@ce:haiku`):**
+**Use CODE COMMENT instructions (delegate to the **haiku** agent):**
 
 - Single source code file path provided (`.ts`, `.js`, `.py`, `.go`, `.rs`, etc.)
 - Request mentions "comments", "inline docs", or "code comments"
@@ -35,18 +35,18 @@ Analyze the arguments and context to determine which instructions to pass:
    - If file path provided, check extension and file type
    - If no path, analyze the request description
 3. **Route appropriately**:
-   - Delegate to `@ce:haiku` with code comment instructions for single-file work
+   - Delegate to the **haiku** agent with code comment instructions for single-file work
    - Spawn a general subagent with documentation instructions for complex work
 4. **If ambiguous**: Ask user to clarify scope before proceeding
 
 ## Code Comment Instructions
 
-Pass these instructions to `@ce:haiku` for single-file code comment work:
+Pass these instructions to the **haiku** agent for single-file code comment work:
 
 <prompt_instructions>
 You are auditing and improving inline documentation within source code files.
 
-FIRST: Load the code comment skill: Skill(ce:documenting-code-comments)
+FIRST: Load the **documenting-code-comments** skill.
 
 WORKFLOW:
 
@@ -62,12 +62,12 @@ OUTPUT: Be direct and concise. Prioritize actionable changes over explanations. 
 
 ## Documentation Instructions
 
-Spawn a general subagent (using Task tool) with these instructions for markdown/multi-file documentation:
+Spawn a general-purpose subagent with these instructions for markdown/multi-file documentation:
 
 <prompt_instructions>
 You are creating technical documentation that requires understanding of system context.
 
-FIRST: Load the documentation skill: Skill(ce:documenting-systems)
+FIRST: Load the **documenting-systems** skill.
 
 TASK-SPECIFIC WORKFLOWS:
 
@@ -88,7 +88,7 @@ Architecture Documentation:
 
 1. Read core modules, trace dependencies, identify design decisions
 2. Document decisions focusing on WHY, not just WHAT
-3. Add diagrams using Skill(ce:visualizing-with-mermaid) for flows
+3. Add diagrams using the **visualizing-with-mermaid** skill for flows
 4. Write docs in /docs/architecture/
 
 LOCATION STANDARDS:
@@ -104,9 +104,9 @@ LOCATION STANDARDS:
 
 | Input                                                  | Routes To     |
 | ------------------------------------------------------ | ------------- |
-| `/document src/utils/auth.ts`                          | @ce:haiku     |
-| `/document clean up code comments in unstaged changes` | @ce:haiku     |
+| `/document src/utils/auth.ts`                          | **haiku** agent     |
+| `/document clean up code comments in unstaged changes` | **haiku** agent     |
 | `/document README`                                     | general agent |
 | `/document API docs for /users endpoint`               | general agent |
-| `/document clean up comments in parser.py`             | @ce:haiku     |
+| `/document clean up comments in parser.py`             | **haiku** agent     |
 | `/document architecture overview`                      | general agent |

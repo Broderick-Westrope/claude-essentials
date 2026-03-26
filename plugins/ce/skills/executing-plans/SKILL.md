@@ -11,9 +11,9 @@ description: Executes implementation plans with smart task grouping. Groups rela
 
 **Create a branch** for the work unless trivial. Consider git worktrees for isolated environments. For worktree setup, see `ce:using-git-worktrees`.
 
-**Clarify ambiguity upfront:** If the plan has unclear requirements or meaningful tradeoffs, use `AskUserQuestion` before starting. Present options with descriptions explaining the tradeoffs. Use `multiSelect: true` for independent features that can be combined; use single-select for mutually exclusive choices. Don't guess when the user can clarify in 10 seconds.
+**Clarify ambiguity upfront:** If the plan has unclear requirements or meaningful tradeoffs, ask the user before starting. Present options with descriptions explaining the tradeoffs. Use `multiSelect: true` for independent features that can be combined; use single-select for mutually exclusive choices. Don't guess when the user can clarify in 10 seconds.
 
-**Track progress with tasks:** Use `TaskCreate` to create tasks for each major work item from the plan. Update status with `TaskUpdate` as work progresses (`in_progress` when starting, `completed` when done). This makes execution visible to the user and persists across context compactions.
+**Track progress with tasks:** Create tasks for each major work item from the plan. Update task status as work progresses (`in_progress` when starting, `completed` when done). This makes execution visible to the user and persists across context compactions.
 
 ## 2. Group Tasks by Subsystem
 
@@ -51,7 +51,7 @@ Group A: Create shared types → Group B: Use those types
 Dispatch sub-agents to complete task groups. Monitor progress and handle issues.
 
 ```
-Task tool (general-purpose):
+Subagent (general-purpose):
   description: "Auth tasks: login, logout"
   prompt: |
     Execute these tasks from [plan-file] IN ORDER:
@@ -103,16 +103,16 @@ All five checks must pass before marking complete:
 
    Fix DX issues inline or document for follow-up. Don't ship friction.
 
-5. **Code review (mandatory):** After tests pass and manual verification is done, dispatch the `ce:code-reviewer` agent via Task tool to review the full diff against the base branch. This step is not optional.
+5. **Code review (mandatory):** After tests pass and manual verification is done, dispatch the **code-reviewer** agent as a subagent to review the full diff against the base branch. This step is not optional.
 
    Load relevant domain skills into the agent based on what was implemented. Evaluate which apply and include them in the agent prompt:
-   - `Skill(ce:architecting-systems)` - system design, module boundaries
-   - `Skill(ce:managing-databases)` - database work
-   - `Skill(ce:handling-errors)` - error handling
-   - `Skill(ce:writing-tests)` - test quality
-   - `Skill(ce:migrating-code)` - migrations
-   - `Skill(ce:optimizing-performance)` - performance work
-   - `Skill(ce:refactoring-code)` - refactoring
+   - **architecting-systems** - system design, module boundaries
+   - **managing-databases** - database work
+   - **handling-errors** - error handling
+   - **writing-tests** - test quality
+   - **migrating-code** - migrations
+   - **optimizing-performance** - performance work
+   - **refactoring-code** - refactoring
 
    Handle the review verdict:
    - **Must fix:** Fix all Critical and Important issues before marking complete

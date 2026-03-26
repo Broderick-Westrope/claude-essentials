@@ -21,7 +21,7 @@ First, determine what code to refactor:
 - If there are unstaged changes, use those as the refactoring target
 - If no unstaged changes, use the following command to detect the set of changed files: `git diff --name-only $([ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] && echo "HEAD^" || echo "main...HEAD")`
 
-Once you have the target, invoke the ce:refactoring-code skill using the Skills tool with:
+Once you have the target, load the **refactoring-code** skill with:
 
 - A detailed prompt that includes:
   - What code to refactor (file paths, function names, or the diff of unstaged changes)

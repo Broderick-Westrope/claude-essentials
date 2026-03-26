@@ -30,7 +30,7 @@ Debugging Progress:
 
 **For multi-component systems:** Add diagnostic logging at each component boundary before proposing fixes. See [references/debugging-techniques.md](references/debugging-techniques.md) for instrumentation patterns.
 
-**For log-heavy investigations:** Use `Skill(ce:reading-logs)` for efficient analysis.
+**For log-heavy investigations:** Use the **reading-logs** skill for efficient analysis.
 
 ### Phase 2: Pattern Analysis
 

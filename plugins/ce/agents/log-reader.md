@@ -24,13 +24,7 @@ Before diving in, understand what you're looking for:
 
 ### 2. Load the Log Reading Methodology
 
-Invoke the reading-logs skill for detailed techniques and patterns:
-
-```
-Skill(ce:reading-logs)
-```
-
-This provides:
+Invoke the **reading-logs** skill for detailed techniques and patterns. This provides:
 
 - Core principles (filter first, iterative narrowing)
 - Tool strategies (Grep, Bash, Read patterns)

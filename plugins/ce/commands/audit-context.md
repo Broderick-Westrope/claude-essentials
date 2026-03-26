@@ -23,7 +23,7 @@ Analyze the codebase to identify documentation gaps, collect human knowledge int
 
 ### Step 2: Invoke Gap Analysis Agent
 
-Launch the `ce:context-auditor` agent to analyze the codebase and existing documentation:
+Launch the **context-auditor** agent to analyze the codebase and existing documentation:
 
 ```
 Analyze the codebase at ${PROJECT_ROOT} and identify knowledge gaps in documentation.
@@ -90,12 +90,12 @@ ${LIST_IMPORTANT_GAPS}
 Which do you prefer?"
 
 **Based on user choice:**
-- If "Interactive prompts": Proceed to Step 5a (AskUserQuestion mode)
+- If "Interactive prompts": Proceed to Step 5a (interactive question mode)
 - If "Show all questions": Proceed to Step 5b (Manual mode)
 
 ### Step 5a: Collect Answers (Interactive Mode)
 
-Use `AskUserQuestion` to present each question from the agent's "Recommended Questions" list.
+Present each question from the agent's "Recommended Questions" list interactively.
 
 **For each question:**
 - Show the category and full question with code context
@@ -103,30 +103,20 @@ Use `AskUserQuestion` to present each question from the agent's "Recommended Que
 - Allow user to skip questions ("Not applicable" or "I don't know")
 - Track which questions were answered vs skipped
 
-**Example AskUserQuestion usage:**
-```json
-{
-  "questions": [{
-    "question": "${QUESTION_TEXT}",
-    "header": "${CATEGORY}",
-    "options": [
-      { "label": "Provide answer", "description": "I'll type the context" },
-      { "label": "Skip", "description": "Not applicable or unknown" }
-    ],
-    "multiSelect": false
-  }]
-}
-```
+**Example interactive question format:**
 
-**CRITICAL: Validate response after each AskUserQuestion call**
+For each question, present the category and question text, then offer options:
+- "Provide answer" - the user will type the context
+- "Skip" - not applicable or unknown
 
-After receiving function results, check if response contains actual answer data:
+**CRITICAL: Validate response after each question**
+
+After receiving the user's response, check if it contains actual answer data:
 
 ```
-If response is empty ("User has answered your questions: ."):
-  - Tool failed silently
+If response is empty or unclear:
   - Switch to Step 5b (Manual fallback) immediately
-  - Tell user: "The interactive question tool isn't working. Let me show all questions instead."
+  - Tell user: "Let me show all questions instead so you can answer them in chat."
 
 If response contains answer data:
   - Parse and record the answer
@@ -231,11 +221,11 @@ Run `/ce:audit-context` again anytime to identify new gaps.
 - Check if project root is correct
 - Verify codebase has analyzable files
 
-**If AskUserQuestion tool fails (Step 5a):**
-- Tool may return success with empty responses ("User has answered your questions: .")
-- Detect this by checking if response contains actual answer data
+**If interactive questions fail (Step 5a):**
+- The user may not respond or the interaction may not work as expected
+- Detect this by checking if the response contains actual answer data
 - Immediately switch to Step 5b (Manual mode) as fallback
-- Tell user: "The interactive question tool isn't working. Let me show all questions instead."
+- Tell user: "Let me show all questions instead so you can answer them in chat."
 
 **If user skips all questions:**
 - Ask: "All questions were skipped. Would you like to see the agent's full gap analysis instead?"

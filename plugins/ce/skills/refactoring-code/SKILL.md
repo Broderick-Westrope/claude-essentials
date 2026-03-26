@@ -43,7 +43,7 @@ test('sets error state', () => {
 });
 ```
 
-**If tests are missing:** Add behavior-driven tests first using `Skill(ce:writing-tests)`.
+**If tests are missing:** Add behavior-driven tests first using the **writing-tests** skill.
 
 ### Phase 3: Identify Issues
 
@@ -67,7 +67,7 @@ test('sets error state', () => {
 3. Check TypeScript compilation
 4. Verify behavior unchanged
 
-**If something breaks:** STOP. Use `Skill(ce:systematic-debugging)`. Don't proceed until understood.
+**If something breaks:** STOP. Use the **systematic-debugging** skill. Don't proceed until understood.
 
 ## Red Flags - STOP and Reassess
 

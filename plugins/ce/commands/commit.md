@@ -20,7 +20,7 @@ Create a git commit using the appropriate path based on your current knowledge.
 
 ## Path A: Direct Commit (You Have Context)
 
-Load the preflight-checks skill: `Skill(ce:preflight-checks)`
+Load the **preflight-checks** skill.
 
 1. **Preflight checks:**
    Run preflight checks on staged files before committing. Fix formatting/lint issues, re-stage fixed files.
@@ -59,7 +59,7 @@ Load the preflight-checks skill: `Skill(ce:preflight-checks)`
 
 ## Path B: Delegate to Haiku Agent (Ambiguous)
 
-Invoke `ce:haiku` agent via Task tool with this prompt:
+Delegate to the **haiku** agent as a subagent with this prompt:
 
 ```
 Create a git commit.
@@ -97,7 +97,7 @@ If `git commit` fails (exit code != 0), try to fix it (max 3 attempts):
 
 ## Commit Message Style
 
-Follow **The Contributor** persona from `Skill(ce:writer)` for commit message conventions.
+Follow **The Contributor** persona from the **writer** skill for commit message conventions.
 
 **Quick reference:**
 - Format: `<type>(<scope>): <subject>` + body

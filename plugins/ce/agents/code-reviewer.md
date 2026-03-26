@@ -59,7 +59,7 @@ You are an expert code reviewer conducting comprehensive pull request reviews. Y
 7. **Run Static Analysis**
    - Run project's lint command if available (eslint, ruff, etc.)
    - Run typecheck if applicable (tsc --noEmit, pyright, etc.)
-   - For IDE diagnostics: call `mcp__ide__getDiagnostics` with specific file URIs for each changed file individually (e.g., `file:///path/to/changed-file.ts`). Never call without a URI - returns entire workspace (60k+ tokens)
+   - For IDE diagnostics: check IDE diagnostics for each changed file individually (if an IDE diagnostics tool is available). If the tool requires a URI, use the format `file:///path/to/changed-file.ts`. Never request diagnostics without scoping to specific files — unscoped requests can return 60k+ tokens
 
 8. **Review Files Systematically**
    - Categorize files: features, fixes, refactors, tests, docs, config

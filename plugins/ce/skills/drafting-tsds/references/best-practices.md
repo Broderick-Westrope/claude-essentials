@@ -52,7 +52,7 @@ Draft TSDs are overkill when:
 | Documenting a decision already made | Architecture Decision Record (ADR) | Draft TSD (decision is final) |
 | Explaining how to build something | Implementation Plan / Developer Guide | Draft TSD (design is settled) |
 | Tracking open questions and options | Draft TSD | Ticket comments (lacks structure) |
-| Proposing a strategic direction | Strategy Memo (use `Skill(ce:strategy-writer)`) | Draft TSD (not technical spec) |
+| Proposing a strategic direction | Strategy Memo (use the **strategy-writer** skill) | Draft TSD (not technical spec) |
 | Explaining architecture to new team members | Architecture Docs / System Overview | Draft TSD (proposal format wrong) |
 
 **Rule of thumb:** If you're still asking "Should we?" use a Draft TSD. If you're asking "How do we?" use an implementation plan or developer guide.
@@ -343,7 +343,7 @@ When the decision is final:
 
 ## Related Skills
 
-- `Skill(ce:architecting-systems)` - Architecture principles for informed option generation
-- `Skill(ce:writer)` with **The Architect** persona - Tone and structure for technical docs
-- `Skill(ce:documenting-systems)` - General documentation best practices
-- `Skill(ce:visualizing-with-mermaid)` - Creating architecture and flow diagrams
+- **architecting-systems** - Architecture principles for informed option generation
+- **writer** with **The Architect** persona - Tone and structure for technical docs
+- **documenting-systems** - General documentation best practices
+- **visualizing-with-mermaid** - Creating architecture and flow diagrams

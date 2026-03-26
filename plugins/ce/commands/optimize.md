@@ -4,7 +4,7 @@ argument-hint: "[file-path-or-area]"
 allowed-tools: Skill, Bash
 ---
 
-Use the Skill tool to invoke the optimizing-performance skill to analyze code for performance issues and suggest optimizations.
+Use the **optimizing-performance** skill to analyze code for performance issues and suggest optimizations.
 
 Arguments:
 

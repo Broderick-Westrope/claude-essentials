@@ -7,7 +7,7 @@ description: Create implementation plans with tasks grouped by subsystem. Relate
 
 Write step-by-step implementation plans for agentic execution. Each task should be a **complete unit of work** that one agent handles entirely.
 
-**Clarify ambiguity upfront:** If the plan has unclear requirements or meaningful tradeoffs, use `AskUserQuestion` before writing the plan. Present options with descriptions explaining the tradeoffs. Use `multiSelect: true` for independent features that can be combined; use single-select for mutually exclusive choices. Don't guess when the user can clarify in 10 seconds.
+**Clarify ambiguity upfront:** If the plan has unclear requirements or meaningful tradeoffs, ask the user before writing the plan. Present options with descriptions explaining the tradeoffs. Use `multiSelect: true` for independent features that can be combined; use single-select for mutually exclusive choices. Don't guess when the user can clarify in 10 seconds.
 
 **Save to:** `**/plans/YYYY-MM-DD-<feature-name>.md`
 
@@ -121,17 +121,17 @@ Tasks in the **same subsystem** should be sequential or combined into one task.
 
 ## Before Presenting
 
-Before presenting the plan to the user, dispatch the `ce:devils-advocate` agent via Task tool to review it:
+Before presenting the plan to the user, dispatch the **devils-advocate** agent as a subagent to review it:
 
 - Pass the full drafted plan text to the agent
 - Load relevant domain skills based on what the plan involves. Evaluate which of these apply and include them in the agent prompt:
-  - `Skill(ce:architecting-systems)` - system design, module boundaries, dependencies
-  - `Skill(ce:managing-databases)` - database schemas, queries, migrations
-  - `Skill(ce:handling-errors)` - error handling patterns
-  - `Skill(ce:writing-tests)` - test strategy and quality
-  - `Skill(ce:migrating-code)` - code migrations, API versioning
-  - `Skill(ce:optimizing-performance)` - performance-sensitive work
-  - `Skill(ce:refactoring-code)` - structural refactoring
+  - **architecting-systems** - system design, module boundaries, dependencies
+  - **managing-databases** - database schemas, queries, migrations
+  - **handling-errors** - error handling patterns
+  - **writing-tests** - test strategy and quality
+  - **migrating-code** - code migrations, API versioning
+  - **optimizing-performance** - performance-sensitive work
+  - **refactoring-code** - structural refactoring
 - The agent will look for: unstated assumptions, missing edge cases, tasks that are too vague, missing dependencies between tasks, verification gaps
 - Incorporate valid feedback into the plan
 - Note what the review caught in a brief "Review notes" comment at the bottom of the plan
