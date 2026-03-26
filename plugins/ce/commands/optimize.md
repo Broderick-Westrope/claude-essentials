@@ -19,7 +19,7 @@ If `$ARGUMENTS` is provided:
 
 - Use it as the focus area for optimization
 
-When invoking the ce:optimizing-performance skill:
+When invoking the **optimizing-performance** skill:
 
 "Analyze code for performance issues and suggest optimizations.
 

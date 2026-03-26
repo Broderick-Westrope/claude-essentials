@@ -28,7 +28,7 @@ Complete these steps in order:
 5. **Write design doc** — save to `docs/specs/YYYY-MM-DD-<topic>-design.md` and commit
 6. **Design review** — dispatch the **devils-advocate** agent to review the design doc; fix issues and re-dispatch until approved (max 3 iterations, then surface to the user)
 7. **User reviews written spec** — ask the user to review the spec file before proceeding
-8. **Transition to implementation** — invoke `ce:writing-plans` skill to create implementation plan
+8. **Transition to implementation** — invoke the **writing-plans** skill to create implementation plan
 
 ## Process Flow
 
@@ -48,7 +48,7 @@ flowchart TD
     I -->|approved| J([Invoke ce:writing-plans])
 ```
 
-**The terminal state is invoking `ce:writing-plans`.** Do NOT invoke any other implementation skill. The ONLY skill invoked after brainstorming is `ce:writing-plans`.
+The terminal state is invoking **writing-plans**. Do NOT invoke any other implementation skill. The ONLY skill invoked after brainstorming is **writing-plans**.
 
 ## The Process
 
@@ -115,8 +115,8 @@ Wait for the user's response. If they request changes, make them and re-run the 
 
 **Implementation:**
 
-- Invoke `ce:writing-plans` to create a detailed implementation plan
-- Do NOT invoke any other skill. `ce:writing-plans` is the next step.
+- Invoke **writing-plans** to create a detailed implementation plan
+- Do NOT invoke any other skill. **writing-plans** is the next step.
 
 ## Key Principles
 

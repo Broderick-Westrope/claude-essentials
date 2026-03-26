@@ -61,7 +61,7 @@ For each piece of code produced during the session:
 ## Root Cause Questions
 
 For each anti-pattern found:
-1. Was there a skill that should have guided this correctly? (e.g., `ce:handling-errors`, `ce:writing-tests`)
+1. Was there a skill that should have guided this correctly? (e.g., **handling-errors**, **writing-tests**)
 2. Is the anti-pattern isolated or is it a pattern across the codebase?
 3. If it's codebase-wide, is it worth a refactoring task or just documenting the preferred pattern?
 4. Could a linter rule or type constraint prevent this class of issue?

@@ -209,9 +209,9 @@ Ready to implement auth feature
 ## Integration
 
 **Called by:**
-- **ce:brainstorming** - when design is approved and implementation follows
-- **ce:executing-plans** - before executing any tasks
+- **brainstorming** - when design is approved and implementation follows
+- **executing-plans** - before executing any tasks
 - Any skill needing isolated workspace
 
 **Pairs with:**
-- **ce:finishing-a-development-branch** - for cleanup after work complete
+- **finishing-a-development-branch** - for cleanup after work complete

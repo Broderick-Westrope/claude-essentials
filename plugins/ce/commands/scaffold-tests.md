@@ -67,7 +67,7 @@ Load skills first:
 
 3. **For each task group, in order:**
 
-   a. **Derive test cases** following the `ce:scaffolding-plan-tests` skill:
+   a. **Derive test cases** following the **scaffolding-plan-tests** skill:
       - Extract testable behavior from success criteria, task steps, and verify commands
       - Identify happy path, error paths, and edge cases
       - Select test type (unit/integration/e2e) based on task type

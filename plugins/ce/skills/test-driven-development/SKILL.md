@@ -11,7 +11,7 @@ Write the test first. Watch it fail. Write minimal code to pass.
 
 **Violating the letter of the rules is violating the spirit of the rules.**
 
-> For test quality patterns (what to assert, how to mock, which test type), see `ce:writing-tests`. This skill covers the discipline of *when* to write tests: always first.
+> For test quality patterns (what to assert, how to mock, which test type), see **writing-tests**. This skill covers the discipline of *when* to write tests: always first.
 
 ## When to Use
 
@@ -199,7 +199,7 @@ Next failing test for next feature.
 | **Clear** | Name describes behavior | `test('test1')` |
 | **Shows intent** | Demonstrates desired API | Obscures what code should do |
 
-For comprehensive test quality guidance (assertion strategy, mocking guidelines, Testing Trophy model), see `ce:writing-tests`.
+For comprehensive test quality guidance (assertion strategy, mocking guidelines, Testing Trophy model), see **writing-tests**.
 
 ## Why Order Matters
 
@@ -331,11 +331,11 @@ Following strict TDD prevents most testing anti-patterns. Key pitfalls to avoid:
 - **Mocking without understanding dependencies** - Before mocking, understand what side effects the real method has and whether your test depends on them. Mock at the lowest level needed, not "just to be safe."
 - **Incomplete mocks** - Mock the COMPLETE data structure as it exists in reality, not just fields your immediate test uses. Partial mocks hide structural assumptions and cause silent failures.
 
-For comprehensive anti-pattern guidance (assertion strategy, mocking guidelines, when to use integration vs unit tests), see `ce:writing-tests`.
+For comprehensive anti-pattern guidance (assertion strategy, mocking guidelines, when to use integration vs unit tests), see **writing-tests**.
 
 ## Verification Checklist
 
-Before marking work complete (see also `ce:verification-before-completion`):
+Before marking work complete (see also **verification-before-completion**):
 
 - [ ] Every new function/method has a test
 - [ ] Watched each test fail before implementing

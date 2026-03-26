@@ -9,7 +9,7 @@ description: Executes implementation plans with smart task grouping. Groups rela
 
 ## 1. Setup
 
-**Create a branch** for the work unless trivial. Consider git worktrees for isolated environments. For worktree setup, see `ce:using-git-worktrees`.
+**Create a branch** for the work unless trivial. Consider git worktrees for isolated environments. For worktree setup, see **using-git-worktrees**.
 
 **Clarify ambiguity upfront:** If the plan has unclear requirements or meaningful tradeoffs, ask the user before starting. Present options with descriptions explaining the tradeoffs. Use `multiSelect: true` for independent features that can be combined; use single-select for mutually exclusive choices. Don't guess when the user can clarify in 10 seconds.
 
@@ -137,4 +137,4 @@ After committing:
 - Mark plan file as COMPLETED
 - Move to `./plans/done/` if applicable
 
-For structured branch completion with merge/PR/cleanup options, see `ce:finishing-a-development-branch`.
+For structured branch completion with merge/PR/cleanup options, see **finishing-a-development-branch**.

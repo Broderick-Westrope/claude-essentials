@@ -193,7 +193,7 @@ git worktree remove <worktree-path>
 ## Integration
 
 **Called by:**
-- **ce:executing-plans** (Step 5) - After all batches complete
+- **executing-plans** (Step 5) - After all batches complete
 
 **Pairs with:**
-- **ce:using-git-worktrees** - Cleans up worktree created by that skill
+- **using-git-worktrees** - Cleans up worktree created by that skill

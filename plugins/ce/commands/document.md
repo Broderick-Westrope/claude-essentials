@@ -14,7 +14,7 @@ Arguments:
 
 Analyze the arguments and context to determine which instructions to pass:
 
-**Use CODE COMMENT instructions (delegate to the **haiku** agent):**
+**Use CODE COMMENT instructions** (delegate to the **haiku** agent):
 
 - Single source code file path provided (`.ts`, `.js`, `.py`, `.go`, `.rs`, etc.)
 - Request mentions "comments", "inline docs", or "code comments"

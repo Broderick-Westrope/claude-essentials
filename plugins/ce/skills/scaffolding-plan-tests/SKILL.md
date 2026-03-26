@@ -48,7 +48,7 @@ Then [outcome from success criteria or verify command]
 
 ## Test Type Selection
 
-Use the Testing Trophy model from `ce:writing-tests`:
+Use the Testing Trophy model from **writing-tests**:
 
 | Plan task type | Default test type | Rationale |
 |---------------|-------------------|-----------|
@@ -86,7 +86,7 @@ project/
 
 **Do not stub:**
 
-- External dependencies (use real packages or mocks per `ce:writing-tests`)
+- External dependencies (use real packages or mocks per **writing-tests**)
 - Test utilities or frameworks
 - Existing code that the plan builds on
 
@@ -127,8 +127,8 @@ Before finalizing scaffolded tests:
 
 ## Related Skills
 
-- **Test patterns and anti-patterns:** `ce:writing-tests`
-- **Plan structure and task sizing:** `ce:writing-plans`
-- **Executing with scaffolded tests:** `ce:executing-plans`
+- **Test patterns and anti-patterns:** **writing-tests**
+- **Plan structure and task sizing:** **writing-plans**
+- **Executing with scaffolded tests:** **executing-plans**
 
 When used via `/ce:scaffold-tests`, the command handles user review, plan file updates, and workflow orchestration.
