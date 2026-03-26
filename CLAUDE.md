@@ -8,9 +8,9 @@ This is a unified Claude Code plugin (`ce`) that provides development workflows,
 
 **The ce plugin provides:**
 
-- **14 Commands** - Development workflows (test, explain, debug, optimize, refactor, review, commit, deps, fix-issue, pr, document, plan, execute, init)
-- **18 Skills** - Reusable patterns for testing, debugging, refactoring, architecture, and planning
-- **3 Agents** - Expert AI personas (code-reviewer, haiku, log-reader)
+- **19 Commands** - Development workflows (test, explain, debug, optimize, refactor, review, commit, deps, fix-issue, pr, document, draft-tsd, plan, execute, init, audit-context, review-with-me, post-mortem, scaffold-tests)
+- **32 Skills** - Reusable patterns for testing, debugging, refactoring, architecture, planning, TDD, brainstorming, git worktrees, code review, and more
+- **5 Agents** - Expert AI personas (code-reviewer, haiku, log-reader, devils-advocate, context-auditor)
 - **Session Hooks** - Automatic project configuration on startup
 - **Reference Templates** - ADR, PRD, and technical design templates
 
@@ -32,7 +32,7 @@ The ce plugin lives in `plugins/ce/` with this structure:
 plugins/ce/
 ├── .claude-plugin/
 │   └── plugin.json          # Plugin metadata (name: "ce", description, version, author, license)
-├── commands/                 # 14 slash commands
+├── commands/                 # 19 slash commands
 │   ├── test.md              # Accessed as /ce:test
 │   ├── explain.md           # Accessed as /ce:explain
 │   ├── debug.md             # Accessed as /ce:debug
@@ -47,14 +47,16 @@ plugins/ce/
 │   ├── plan.md              # Accessed as /ce:plan
 │   ├── execute.md           # Accessed as /ce:execute
 │   └── init.md              # Accessed as /ce:init
-├── skills/                   # 18 skills
+├── skills/                   # 32 skills
 │   ├── writing-tests/       # Accessed as @skills/ce:writing-tests
 │   │   └── SKILL.md         # name: writing-tests (no ce: prefix in file)
 │   ├── architecting-systems/    # Accessed as @skills/ce:architecting-systems
 │   │   └── SKILL.md             # System architecture and technical docs
 │   └── ...                  # Other skills follow same pattern
-├── agents/                   # 3 agents
+├── agents/                   # 5 agents
 │   ├── code-reviewer.md     # Accessed as @ce:code-reviewer
+│   ├── context-auditor.md   # Accessed as @ce:context-auditor
+│   ├── devils-advocate.md   # Accessed as @ce:devils-advocate
 │   ├── haiku.md             # Accessed as @ce:haiku
 │   └── log-reader.md        # Accessed as @ce:log-reader
 └── hooks/                    # Session hooks

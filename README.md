@@ -42,6 +42,7 @@ Reusable development patterns, accessed with `ce:` prefix:
 | Skill                                                                                          | Description                                        |
 | ---------------------------------------------------------------------------------------------- | -------------------------------------------------- |
 | [ce:writing-tests](plugins/ce/skills/writing-tests/SKILL.md)                                   | Testing Trophy methodology, behavior-focused tests      |
+| [ce:test-driven-development](plugins/ce/skills/test-driven-development/SKILL.md)               | RED-GREEN-REFACTOR workflow discipline                   |
 | [ce:verification-before-completion](plugins/ce/skills/verification-before-completion/SKILL.md) | Verify before claiming success                          |
 | [ce:preflight-checks](plugins/ce/skills/preflight-checks/SKILL.md)                             | Auto-detect and run project linters/formatters/checkers |
 
@@ -67,10 +68,11 @@ Reusable development patterns, accessed with `ce:` prefix:
 
 | Skill                                                                      | Description                                               |
 | -------------------------------------------------------------------------- | --------------------------------------------------------- |
-| [ce:writing-plans](plugins/ce/skills/writing-plans/SKILL.md)               | Create implementation plans with devils-advocate review   |
-| [ce:executing-plans](plugins/ce/skills/executing-plans/SKILL.md)           | Execute plans with mandatory code review                  |
-| [ce:architecting-systems](plugins/ce/skills/architecting-systems/SKILL.md) | Clean, scalable system architecture for the build phase |
-| [ce:design](plugins/ce/skills/design/SKILL.md)                             | Frontend design skill                                     |
+| [ce:brainstorming](plugins/ce/skills/brainstorming/SKILL.md)               | Collaborative design exploration for new ideas and approaches |
+| [ce:writing-plans](plugins/ce/skills/writing-plans/SKILL.md)               | Create implementation plans with devils-advocate review       |
+| [ce:executing-plans](plugins/ce/skills/executing-plans/SKILL.md)           | Execute plans with mandatory code review                      |
+| [ce:architecting-systems](plugins/ce/skills/architecting-systems/SKILL.md) | Clean, scalable system architecture for the build phase       |
+| [ce:design](plugins/ce/skills/design/SKILL.md)                             | Frontend design skill                                         |
 
 **Documentation & Writing:**
 
@@ -80,7 +82,7 @@ Reusable development patterns, accessed with `ce:` prefix:
 | [ce:strategy-writer](plugins/ce/skills/strategy-writer/SKILL.md)                     | Executive-quality strategic documents in Economist/HBR style                                              |
 | [ce:documenting-systems](plugins/ce/skills/documenting-systems/SKILL.md)             | Best practices for writing markdown documentation                                                         |
 | [ce:documenting-code-comments](plugins/ce/skills/documenting-code-comments/SKILL.md) | Standards for self-documenting code and inline comments                                                   |
-| [ce:drafting-tsds](plugins/ce/skills/drafting-tsds/SKILL.md)                         | Create draft technical specification documents exploring solution spaces before implementation            |
+| [ce:drafting-tsds](plugins/ce/skills/drafting-tsds/SKILL.md)                         | Structured TSDs that evaluate architectural options — not for early-stage ideation |
 
 **Data & Infrastructure:**
 
@@ -88,6 +90,14 @@ Reusable development patterns, accessed with `ce:` prefix:
 | -------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | [ce:managing-databases](plugins/ce/skills/managing-databases/SKILL.md)     | PostgreSQL, DuckDB, Parquet, and PGVector architecture              |
 | [ce:managing-pipelines](plugins/ce/skills/managing-pipelines/SKILL.md)     | GitHub Actions CI/CD security, performance, and deployment patterns |
+
+**Git & Code Review Workflow:**
+
+| Skill                                                                                                | Description                                                    |
+| ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| [ce:using-git-worktrees](plugins/ce/skills/using-git-worktrees/SKILL.md)                             | Isolated git worktrees for feature development                 |
+| [ce:finishing-a-development-branch](plugins/ce/skills/finishing-a-development-branch/SKILL.md)       | Structured merge, PR, or cleanup when implementation is done   |
+| [ce:receiving-code-review](plugins/ce/skills/receiving-code-review/SKILL.md)                         | Evaluate and respond to code review feedback                   |
 
 **Meta Skills:**
 
@@ -360,8 +370,8 @@ This will be accessible as `@ce:my-agent`.
     └── ce/
         ├── .claude-plugin/
         │   └── plugin.json       # Plugin metadata
-        ├── commands/             # 17 commands (/ce:test, /ce:plan, /ce:post-mortem, etc.)
-        ├── skills/               # 23 skills (ce:writing-tests, ce:preflight-checks, etc.)
+        ├── commands/             # 19 commands (/ce:test, /ce:plan, /ce:post-mortem, etc.)
+        ├── skills/               # 32 skills (ce:writing-tests, ce:brainstorming, ce:test-driven-development, etc.)
         ├── agents/               # 5 agents (@ce:code-reviewer, @ce:context-auditor, etc.)
         └── hooks/                # Session automation
 ```
