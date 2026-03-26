@@ -30,7 +30,9 @@ your-skill-name/
 
 The description is how Claude decides whether to load your skill. It's the most important field.
 
-**Formula:** `[What it does] + [When to use it] + [Key capabilities]`
+**Formula:** `[What it enables] + [When to use it]`
+
+**Warning:** Never summarize the skill's step-by-step process in the description — Claude may follow the description as a shortcut instead of reading the full instructions.
 
 **Constraints:** Max 1024 characters, no XML angle brackets, third person only.
 
@@ -42,6 +44,23 @@ The description is how Claude decides whether to load your skill. It's the most 
 | Bad | "Creates sophisticated multi-page documentation systems." (no triggers) |
 
 Include specific phrases users might say and mention relevant file types or technologies.
+
+## Description Anti-Pattern: Workflow Summaries
+
+When a description summarizes the skill's workflow steps, Claude may follow the summary as a compressed instruction set instead of loading and reading the full skill body. This defeats progressive disclosure — the description becomes a shortcut past the detailed instructions that actually govern behavior.
+
+**Real example:** A skill description that mentioned "two-stage code review between tasks" caused Claude to perform only one review pass. The full skill instructions specified a spec compliance review followed by a separate code quality review, but Claude treated the description's summary as sufficient and never read the body. Removing the workflow summary from the description fixed the behavior — Claude loaded the full skill and followed both review stages.
+
+| Quality | Description | Problem |
+|---------|-------------|---------|
+| Good | "Enforces RED-GREEN-REFACTOR development discipline. Use when starting feature implementation." | Describes what it enables, not how |
+| Bad | "Runs tests first, then writes code, then refactors, then runs tests again." | Workflow summary — Claude follows this instead of reading the skill |
+| Good | "Technical evaluation framework for code review feedback." | Describes the capability |
+| Bad | "Read comments, verify against codebase, evaluate suggestions, respond, then implement." | Step-by-step process leak |
+
+**Keyword coverage:** Include error messages, symptoms, and synonyms users might use to find the skill. If the skill handles "flaky tests", the description should also mention "intermittent failures", "test reliability", and "non-deterministic". Broad keyword coverage improves activation rate without leaking workflow details.
+
+**Testing discipline skills:** Discipline-enforcing skills (like TDD or verification) benefit from adversarial testing with subagents to find rationalization loopholes — prompts where the agent finds a plausible excuse to skip the discipline.
 
 ## Progressive Disclosure
 

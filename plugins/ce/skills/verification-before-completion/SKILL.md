@@ -5,7 +5,7 @@ description: Run verification commands before claiming work is complete or fixed
 
 # Verification Before Completion
 
-**Core Principle:** No completion claims without fresh verification evidence.
+**Core Principle:** `NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE`
 
 ## The Verification Gate
 
@@ -65,6 +65,18 @@ Stop and verify if you're about to:
 - Trust agent/tool success reports without independent verification
 - Rely on partial checks or previous runs
 - Think "just this once" or "I'm confident it works"
+- Fatigue / wanting to be done
+
+## Rationalization Prevention
+
+| Rationalization | Reality |
+|----------------|---------|
+| "Should work now" | Run the verification command |
+| "I'm confident" | Confidence ≠ evidence |
+| "Linter passed" | Linter ≠ compiler |
+| "Agent said success" | Verify independently |
+| "Partial check is enough" | Partial proves nothing about the whole |
+| "I'm tired / want to be done" | Exhaustion is not an excuse to skip verification |
 
 ## Key Examples
 

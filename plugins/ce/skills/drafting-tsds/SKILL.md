@@ -1,6 +1,6 @@
 ---
 name: drafting-tsds
-description: Creates Draft Technical Specification Documents for exploring solution spaces before implementation. Use when evaluating multiple architectural approaches, designing complex systems with uncertainty, or proposing technical changes that require stakeholder buy-in and option analysis.
+description: Produces structured Technical Specification Documents that evaluate architectural options with explicit tradeoffs. Use when the goal is already defined and you need to formalize approaches, compare solutions, or create a document for stakeholder review — not for early-stage ideation.
 ---
 
 # Drafting Technical Specification Documents

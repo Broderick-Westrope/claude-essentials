@@ -1,6 +1,6 @@
 # Merge Superpowers Skills into CE — Implementation Plan
 
-> **Status:** DRAFT
+> **Status:** COMPLETED
 
 ## Specification
 

@@ -9,7 +9,7 @@ description: Executes implementation plans with smart task grouping. Groups rela
 
 ## 1. Setup
 
-**Create a branch** for the work unless trivial. Consider git worktrees for isolated environments.
+**Create a branch** for the work unless trivial. Consider git worktrees for isolated environments. For worktree setup, see `ce:using-git-worktrees`.
 
 **Clarify ambiguity upfront:** If the plan has unclear requirements or meaningful tradeoffs, use `AskUserQuestion` before starting. Present options with descriptions explaining the tradeoffs. Use `multiSelect: true` for independent features that can be combined; use single-select for mutually exclusive choices. Don't guess when the user can clarify in 10 seconds.
 
@@ -70,19 +70,32 @@ Task tool (general-purpose):
 3. Dispatch fix agent with context
 4. Same error twice → stop and ask user
 
+### Implementer Status Handling
+
+When a sub-agent completes, interpret its report:
+
+| Status | Action |
+|--------|--------|
+| **DONE** | Proceed to verification |
+| **DONE_WITH_CONCERNS** | Read the concerns before proceeding — they may affect other tasks |
+| **NEEDS_CONTEXT** | Provide the missing context and re-dispatch |
+| **BLOCKED** | Assess: is it a context problem (provide more files), task too large (split it), or plan wrong (escalate to user)? |
+
 ## 4. Verify
 
-All four checks must pass before marking complete:
+All five checks must pass before marking complete:
 
-1. **Automated tests:** Run the full test suite. All tests must pass.
+1. **Spec compliance:** Does the implementation match the plan's requirements? Check for: unrequested features added, specified behavior missing, deviations from the plan's file paths or API contracts. This is a quick sanity check, not a full code review.
 
-2. **Manual verification:** Automated tests aren't sufficient. Actually exercise the changes:
+2. **Automated tests:** Run the full test suite. All tests must pass.
+
+3. **Manual verification:** Automated tests aren't sufficient. Actually exercise the changes:
    - **API changes:** Curl endpoints with realistic payloads
    - **External integrations:** Test against real services to catch rate limiting, format drift, bot detection
    - **CLI changes:** Run actual commands, verify output
    - **Parser changes:** Feed real data, not just fixtures
 
-3. **DX quality:** During manual testing, watch for friction:
+4. **DX quality:** During manual testing, watch for friction:
    - Confusing error messages
    - Noisy output (telemetry spam, verbose logging)
    - Inconsistent behavior across similar endpoints
@@ -90,7 +103,7 @@ All four checks must pass before marking complete:
 
    Fix DX issues inline or document for follow-up. Don't ship friction.
 
-4. **Code review (mandatory):** After tests pass and manual verification is done, dispatch the `ce:code-reviewer` agent via Task tool to review the full diff against the base branch. This step is not optional.
+5. **Code review (mandatory):** After tests pass and manual verification is done, dispatch the `ce:code-reviewer` agent via Task tool to review the full diff against the base branch. This step is not optional.
 
    Load relevant domain skills into the agent based on what was implemented. Evaluate which apply and include them in the agent prompt:
    - `Skill(ce:architecting-systems)` - system design, module boundaries
@@ -123,3 +136,5 @@ After committing:
 - Remove worktree (if using worktrees)
 - Mark plan file as COMPLETED
 - Move to `./plans/done/` if applicable
+
+For structured branch completion with merge/PR/cleanup options, see `ce:finishing-a-development-branch`.

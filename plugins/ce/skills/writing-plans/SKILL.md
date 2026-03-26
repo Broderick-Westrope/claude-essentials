@@ -46,26 +46,27 @@ glob src/feature/**/*.ts
 
 **Context:** `src/auth/`, `tests/auth/`
 
-**Steps:**
-
-1. [ ] Create `src/auth/login.ts` with authentication logic
-2. [ ] Add tests in `tests/auth/login.test.ts`
-3. [ ] Export from `src/auth/index.ts`
-
-**Verify:** `npm test -- tests/auth/`
-
----
-
-### Task 2: [Another Complete Unit]
-
-**Context:** `src/billing/`
+**Files:**
+- Create: `src/auth/login.ts`
+- Modify: `src/auth/index.ts` (add export)
+- Test: `tests/auth/login.test.ts`
 
 **Steps:**
 
-1. [ ] ...
+1. [ ] Create `src/auth/login.ts` with `authenticate(email, password)` function that validates credentials against the user store and returns a JWT
+2. [ ] Add integration test in `tests/auth/login.test.ts` covering: valid login, invalid password, missing user
+3. [ ] Export `authenticate` from `src/auth/index.ts`
 
-**Verify:** `npm test -- tests/billing/`
+**Verify:**
+```bash
+npm test -- tests/auth/
+# Expected: 3 tests passing, 0 failures
+```
 ````
+
+## Scope Check
+
+If the spec covers multiple independent subsystems with no shared dependencies, consider breaking into separate plans. A plan that touches auth, billing, AND notifications is probably three plans. One plan = one cohesive feature.
 
 ## Task Sizing
 
@@ -115,6 +116,8 @@ Tasks in the **same subsystem** should be sequential or combined into one task.
 2. **Context per task:** List files the agent should read first
 3. **Verify every task:** End with a command that proves it works
 4. **One agent per task:** All steps in a task are handled by the same agent
+5. **Self-contained tasks:** Each task must be completable by an agent with zero prior context. Include complete code snippets (not "add validation"), exact commands with expected output, and all file paths.
+6. **Scope check:** If the spec spans multiple independent subsystems, split into separate plans.
 
 ## Before Presenting
 
