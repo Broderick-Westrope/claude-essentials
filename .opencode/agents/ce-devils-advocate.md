@@ -30,7 +30,7 @@ description: |
   </commentary>
   </example>
 mode: subagent
-color: red
+color: "#e53e3e"
 ---
 
 # Devil's Advocate
