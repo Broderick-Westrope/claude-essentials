@@ -9,14 +9,14 @@
 **Goal:** A single ce plugin that incorporates the best ideas from both plugins. After completion, the superpowers plugin can be uninstalled with no loss of valuable workflow guidance. Agents see one skill per concept, eliminating nondeterminism.
 
 **Scope:**
-- IN: Merge 5 existing ce skills with superpowers counterparts, add 4 new skills to ce, merge superpowers' CSO guidance into `configuring-claude`
+- IN: Merge 4 existing ce skills with superpowers counterparts, add 5 new skills to ce, merge superpowers' CSO guidance into `configuring-claude`, update `drafting-tsds` description to differentiate from new `brainstorming` skill
 - OUT: Superpowers' `using-superpowers` meta-skill (ce uses CLAUDE.md activation), `dispatching-parallel-agents` (covered by `executing-plans`), `requesting-code-review` (covered by `/ce:review`), superpowers' `code-reviewer` agent (ce's is more comprehensive). No changes to ce commands, agents, or hooks.
 
 **Success Criteria:**
-- [ ] All 5 existing ce skills enriched with superpowers concepts
-- [ ] 4 new skills created in ce plugin
+- [ ] 4 existing ce skills enriched with superpowers concepts
+- [ ] 5 new skills created in ce plugin
 - [ ] CSO guidance merged into `configuring-claude`
-- [ ] No duplicate concepts between ce and superpowers
+- [ ] No triggering collisions between new and existing skills (descriptions clearly partition territory)
 - [ ] All skill frontmatter follows ce conventions (name, description only)
 - [ ] All cross-references use `ce:` namespace, not `superpowers:`
 - [ ] No residual superpowers language (`superpowers:`, `your human partner`, `Jesse`, `Circle K`, `docs/superpowers/`) in any modified file
@@ -45,17 +45,63 @@ read /Users/broderick.westrope/dev/helse/superpowers/skills/systematic-debugging
 # Supporting files referenced by superpowers skills
 read /Users/broderick.westrope/dev/helse/superpowers/skills/test-driven-development/testing-anti-patterns.md
 
-# CE skill to be updated with CSO guidance
+# CE skills to be updated or differentiated against
 read plugins/ce/skills/configuring-claude/references/skills.md
+read plugins/ce/skills/drafting-tsds/SKILL.md
+read plugins/ce/skills/writing-tests/SKILL.md
 ```
+
+## Description Strategy
+
+Descriptions are the primary triggering mechanism. Every new skill needs a description that clearly partitions its territory from existing skills. The key principle: describe *what the skill enables* and *when to use it*, but never summarize the skill's workflow or process steps (Claude may follow the description as a shortcut instead of reading the full skill).
+
+### New skill descriptions (use these exactly)
+
+**brainstorming:**
+```
+Collaborative design exploration for new ideas, products, and approaches. Use when the user wants to explore what to build, generate options, compare approaches, or think through a problem before committing to a direction — especially when the goal or solution isn't yet clear.
+```
+*Differentiates from `drafting-tsds`:* Brainstorming is divergent — "what should we build?" Drafting TSDs is convergent — "how should we build this specific thing?" Brainstorming often precedes a TSD but many personal projects skip the TSD entirely.
+
+**test-driven-development:**
+```
+Enforces the RED-GREEN-REFACTOR development workflow discipline. Use when starting implementation of a feature or bugfix to ensure tests are written before production code, not after.
+```
+*Differentiates from `writing-tests`:* TDD is about *when* and *in what order* you write tests (workflow discipline). `writing-tests` is about *how* to write good tests (patterns, assertions, mocking strategy). TDD references `writing-tests` for test quality guidance.
+
+**using-git-worktrees:**
+```
+Sets up isolated git worktrees for feature development. Use when starting work that needs isolation from the current workspace, before executing implementation plans, or when working on multiple branches simultaneously.
+```
+*No collision risk — no existing ce skill covers worktrees.*
+
+**finishing-a-development-branch:**
+```
+Guides the completion of development work with structured options for merge, PR, or cleanup. Use when implementation is done, tests pass, and you need to decide how to integrate or land the work.
+```
+*No collision risk — no existing ce skill covers branch completion.*
+
+**receiving-code-review:**
+```
+Technical evaluation framework for responding to code review feedback. Use when receiving review comments — especially from external reviewers or automated tools — to ensure suggestions are verified against the codebase before implementation.
+```
+*No collision risk — ce has a code-reviewer agent for giving reviews, not receiving them.*
+
+### Existing description to update
+
+**drafting-tsds** (update to differentiate from brainstorming):
+```
+Produces structured Technical Specification Documents that evaluate architectural options with explicit tradeoffs. Use when the goal is already defined and you need to formalize approaches, compare solutions, or create a document for stakeholder review — not for early-stage ideation.
+```
+*The "not for early-stage ideation" phrase explicitly defers to brainstorming.*
 
 ## Ordering Notes
 
 - Tasks 1-5 (new skills) are additive and can run in parallel with each other
 - Tasks 3 and 4 cross-reference each other (`using-git-worktrees` ↔ `finishing-a-development-branch`) — create both before verifying cross-references
-- Tasks 6-10 (enrichments) can run in parallel with each other
-- Task 9 references skills from Tasks 3 and 4, so run after those are created
-- Task 11 (final verification) runs last, after all other tasks
+- Tasks 6-9 (enrichments) can run in parallel with each other
+- Task 8 (executing-plans) references skills from Tasks 3 and 4, so run after those are created
+- Task 10 (final verification) runs last, after all other tasks
 
 ## Tasks
 
@@ -74,14 +120,15 @@ Port the superpowers brainstorming skill into ce. This fills a gap — ce has no
 - Change spec save path from `docs/superpowers/specs/` to `docs/specs/` (or user preference)
 - Remove `using-skills` and `elements-of-style:writing-clearly-and-concisely` references (not in ce)
 - Keep: the hard gate (no implementation without design approval), one-question-at-a-time pattern, 2-3 approaches with tradeoffs, design-for-isolation principles, existing-codebase guidance, YAGNI emphasis
-- Description should follow ce conventions: third person, "Use when..." trigger format
+- Use the description from the Description Strategy section above (designed to differentiate from `drafting-tsds`)
 
 **Steps:**
 
-1. [ ] Create `plugins/ce/skills/brainstorming/SKILL.md` with adapted content
-2. [ ] Verify frontmatter has only `name` and `description` fields
-3. [ ] Verify all cross-references use `ce:` namespace
-4. [ ] Verify no superpowers-specific tooling references remain
+1. [ ] Create `plugins/ce/skills/brainstorming/SKILL.md` with adapted content and the exact description from the Description Strategy section
+2. [ ] Update `plugins/ce/skills/drafting-tsds/SKILL.md` description to the version from Description Strategy (adds "not for early-stage ideation" boundary)
+3. [ ] Verify frontmatter has only `name` and `description` fields
+4. [ ] Verify all cross-references use `ce:` namespace
+5. [ ] Verify no superpowers-specific tooling references remain
 
 ---
 
@@ -98,11 +145,12 @@ This is complementary to ce's existing `writing-tests` (which covers patterns/as
 - Cross-reference `ce:writing-tests` for test quality patterns (assertion strategy, mocking guidelines)
 - Cross-reference `ce:verification-before-completion` for the verification step
 - Keep: the Iron Law, RED-GREEN-REFACTOR cycle, rationalization table, red flags list, "delete and start over" enforcement, bug fix example
-- Description: "Use when implementing any feature or bugfix, before writing implementation code"
+- Use the description from the Description Strategy section above (designed to differentiate from `writing-tests`)
+- Add a brief note in the skill body clarifying the boundary: "For test quality patterns (what to assert, how to mock, which test type), see `ce:writing-tests`. This skill covers the discipline of *when* to write tests: always first."
 
 **Steps:**
 
-1. [ ] Create `plugins/ce/skills/test-driven-development/SKILL.md` with adapted content
+1. [ ] Create `plugins/ce/skills/test-driven-development/SKILL.md` with adapted content and the exact description from the Description Strategy section
 2. [ ] Verify frontmatter has only `name` and `description` fields
 3. [ ] Verify no superpowers-specific references remain
 
@@ -120,10 +168,11 @@ Port the git worktrees skill. Ce has no equivalent for isolated workspace setup.
 - Change default worktree directory from `~/.config/superpowers/worktrees/` to `~/.config/claude-code/worktrees/` (or just `.worktrees/` as primary). This path appears in both the "Ask User" prompt text AND the shell code block (lines 88-93 of original) — update both locations
 - Remove "Jesse's rule" reference — keep the behavior ("fix broken things immediately") without attribution
 - Keep: directory selection priority (existing > CLAUDE.md > ask), safety verification (.gitignore check), project setup auto-detection, baseline test verification, the full creation workflow
+- Use the description from the Description Strategy section above
 
 **Steps:**
 
-1. [ ] Create `plugins/ce/skills/using-git-worktrees/SKILL.md` with adapted content
+1. [ ] Create `plugins/ce/skills/using-git-worktrees/SKILL.md` with adapted content and the exact description from the Description Strategy section
 2. [ ] Verify frontmatter has only `name` and `description` fields
 3. [ ] Verify no superpowers-specific paths or references remain
 
@@ -139,10 +188,11 @@ Port the branch completion workflow skill. Ce has nothing for the post-implement
 - Replace `superpowers:using-git-worktrees` reference with `ce:using-git-worktrees`
 - Replace `superpowers:subagent-driven-development` and `superpowers:executing-plans` references with `ce:executing-plans`
 - Keep: the 5-step process (verify tests → determine base → present 4 options → execute → cleanup), confirmation gate for discard, worktree cleanup logic, quick reference table, common mistakes
+- Use the description from the Description Strategy section above
 
 **Steps:**
 
-1. [ ] Create `plugins/ce/skills/finishing-a-development-branch/SKILL.md` with adapted content
+1. [ ] Create `plugins/ce/skills/finishing-a-development-branch/SKILL.md` with adapted content and the exact description from the Description Strategy section
 2. [ ] Verify frontmatter has only `name` and `description` fields
 3. [ ] Verify no superpowers-specific references remain
 
@@ -159,11 +209,12 @@ Port the code review reception skill. Ce has no guidance for responding to revie
 - Remove the "Circle K" signal phrase (personal to superpowers author)
 - Remove "your human partner's rule" attributions — keep the rules themselves as general principles
 - Keep: the READ→UNDERSTAND→VERIFY→EVALUATE→RESPOND→IMPLEMENT pattern, forbidden performative responses, unclear feedback handling, source-specific handling (user vs external reviewer), YAGNI check, pushback guidance, implementation ordering, GitHub thread reply guidance
-- Tone down the anti-gratitude enforcement slightly — ce's style is less prescriptive about social norms. Keep the core message (verify before agreeing, push back when wrong) but soften "NEVER say thanks" to "prefer technical acknowledgment over performative agreement"
+- For the anti-gratitude section: remove the absolute ban on "thanks" and the all-caps NEVER. Instead, frame it as preferring action over words: "Show you heard the feedback by fixing the issue, not by performing agreement. 'Fixed — extracted the constant' beats 'Great catch! You're absolutely right, let me fix that.'" This preserves the core insight (performative agreement wastes time and can mask misunderstanding) without the doctrinaire tone
+- Use the description from the Description Strategy section above
 
 **Steps:**
 
-1. [ ] Create `plugins/ce/skills/receiving-code-review/SKILL.md` with adapted content
+1. [ ] Create `plugins/ce/skills/receiving-code-review/SKILL.md` with adapted content and the exact description from the Description Strategy section
 2. [ ] Verify frontmatter has only `name` and `description` fields
 3. [ ] Verify no superpowers-specific language or references remain
 
@@ -171,25 +222,9 @@ Port the code review reception skill. Ce has no guidance for responding to revie
 
 ### Enriching Existing Skills
 
-### Task 6: Enrich `systematic-debugging`
+*Note: `systematic-debugging` was evaluated and ce's version already covers all superpowers concepts (including the "3+ failed fixes → question architecture" escalation). No changes needed.*
 
-**Context:** `plugins/ce/skills/systematic-debugging/SKILL.md`
-
-Ce's version is already solid. Add one concept from superpowers.
-
-**What to add:**
-- The "3+ failed fixes → question the architecture" escalation is already present in ce's Phase 4 as a one-liner. No change needed — ce already has this.
-
-**Actually needed:** After re-reading both versions, ce's is already the stronger version. The superpowers version is shorter and less detailed. **No changes required.**
-
-**Steps:**
-
-1. [ ] Re-read ce version and confirm it already covers all superpowers concepts
-2. [ ] Mark as complete — no changes needed
-
----
-
-### Task 7: Enrich `verification-before-completion`
+### Task 6: Enrich `verification-before-completion`
 
 **Context:** `plugins/ce/skills/verification-before-completion/SKILL.md`
 
@@ -221,7 +256,7 @@ Both versions are strong. The ce version already has the core concept and a Red 
 
 ---
 
-### Task 8: Enrich `writing-plans`
+### Task 7: Enrich `writing-plans`
 
 **Context:** `plugins/ce/skills/writing-plans/SKILL.md`
 
@@ -229,8 +264,10 @@ Ce's version focuses on subsystem grouping and parallelization. Superpowers emph
 
 **What to add:**
 - Under the "Rules" section, add emphasis that tasks should be self-contained for agents with zero codebase context: include exact file paths (already there), complete code snippets (not "add validation"), and exact commands with expected output
-- Add a "Task Structure" example showing the superpowers pattern: Files (create/modify/test), Steps with code blocks, verify commands with expected output — this is more prescriptive than ce's current template
+- Replace the existing task example in the Plan Template with a richer version showing the superpowers pattern: Files (create/modify/test), Steps with code blocks, verify commands with expected output. Replace rather than append — the current template already has a task example that would become redundant
 - Add the scope check concept: if the spec covers multiple independent subsystems, suggest breaking into separate plans
+
+**Length budget:** The current skill is ~148 lines. These additions should net roughly +15-20 lines (scope check is ~5 lines, enhanced rules are ~3 lines, the task example replacement is roughly the same size). Stay under 180 lines total.
 
 **What NOT to add:**
 - Superpowers' bite-sized 2-5 minute granularity — conflicts with ce's "one logical unit" sizing which is better for grouped agent execution
@@ -244,12 +281,12 @@ Ce's version focuses on subsystem grouping and parallelization. Superpowers emph
 1. [ ] Read current ce `writing-plans/SKILL.md`
 2. [ ] Add "Scope Check" section after the plan template (before Task Sizing)
 3. [ ] Enhance the "Rules" section with self-contained task emphasis: complete code in plan, exact commands with expected output
-4. [ ] Add richer task structure example showing files/steps/verify pattern
-5. [ ] Verify the skill reads coherently end-to-end
+4. [ ] Replace the existing task example in the Plan Template with the richer files/steps/verify pattern
+5. [ ] Verify the skill reads coherently end-to-end and is under 180 lines
 
 ---
 
-### Task 9: Enrich `executing-plans`
+### Task 8: Enrich `executing-plans`
 
 **Context:** `plugins/ce/skills/executing-plans/SKILL.md`
 
@@ -277,18 +314,18 @@ Ce's version is already strong on grouping and verification. Superpowers' `subag
 
 ---
 
-### Task 10: Enrich `configuring-claude` with CSO guidance
+### Task 9: Enrich `configuring-claude` with CSO guidance
 
 **Context:** `plugins/ce/skills/configuring-claude/SKILL.md`, `plugins/ce/skills/configuring-claude/references/skills.md`
 
 Superpowers' `writing-skills` has a critical discovery insight (Claude Search Optimization) that ce's `configuring-claude` lacks: descriptions should ONLY contain triggering conditions, never workflow summaries. When descriptions summarize workflow, Claude follows the description instead of reading the full skill.
 
 **What to change:**
-- The existing description formula on line 33 of `references/skills.md` says `[What it does] + [When to use it] + [Key capabilities]`. This directly contradicts the CSO insight that descriptions should NOT summarize what the skill does. **Update the formula** to `[When to use it] + [Triggering conditions]` and add a warning against workflow summaries
-- Add a "Claude Search Optimization (CSO)" section after the existing Description section in `references/skills.md`. Include:
-  - The core insight: descriptions = triggers only, never workflow summaries
-  - Why: Claude may follow description shortcut instead of reading full skill body (with the tested evidence from superpowers)
-  - Good/bad examples adapted from superpowers' writing-skills
+- The existing description formula on line 33 of `references/skills.md` says `[What it does] + [When to use it] + [Key capabilities]`. The formula itself is fine — describing what a skill enables helps Claude judge relevance. The problem is *workflow summaries* in descriptions, which is a different thing. **Update the formula** to `[What it enables] + [When to use it]` (drop "[Key capabilities]" which encourages process summaries) and add a warning: "Never summarize the skill's step-by-step process in the description — Claude may follow the description as a shortcut instead of reading the full instructions."
+- Add a "Description Anti-Pattern: Workflow Summaries" section after the existing Description section in `references/skills.md`. Include:
+  - The core insight: when a description summarizes workflow, Claude may follow the summary instead of reading the full skill body
+  - The tested evidence: a description saying "code review between tasks" caused Claude to do one review, even though the skill's body specified two reviews (spec compliance then code quality). Removing the workflow summary from the description fixed this
+  - Good/bad examples showing the difference between "what it enables" (helpful) and "workflow summary" (harmful)
   - Keyword coverage guidance (error messages, symptoms, synonyms, tools)
 - Add the TDD-for-skills concept as a brief note: discipline-enforcing skills benefit from pressure testing with subagents to find rationalization loopholes
 
@@ -301,9 +338,9 @@ Superpowers' `writing-skills` has a critical discovery insight (Claude Search Op
 **Steps:**
 
 1. [ ] Read `plugins/ce/skills/configuring-claude/references/skills.md`
-2. [ ] Update the description formula (line 33) from `[What it does] + [When to use it] + [Key capabilities]` to `[When to use it] + [Triggering conditions]`
-3. [ ] Update the "Good" examples in the Description section to match the new formula (remove "what it does" portions)
-4. [ ] Add "Claude Search Optimization (CSO)" section after Description section with the core insight, evidence, examples, and keyword guidance
+2. [ ] Update the description formula (line 33) from `[What it does] + [When to use it] + [Key capabilities]` to `[What it enables] + [When to use it]`
+3. [ ] Add a warning after the formula: "Never summarize the skill's step-by-step process — Claude may follow the description instead of reading the full instructions"
+4. [ ] Add "Description Anti-Pattern: Workflow Summaries" section after Description section with the evidence, examples, and keyword guidance
 5. [ ] Add brief note about pressure-testing discipline skills with subagents
 6. [ ] Verify the reference file reads coherently end-to-end
 7. [ ] Verify no superpowers-specific language leaked in
@@ -312,7 +349,7 @@ Superpowers' `writing-skills` has a critical discovery insight (Claude Search Op
 
 ### Final Verification
 
-### Task 11: Grep all modified files for residual superpowers references
+### Task 10: Grep all modified files for residual superpowers references
 
 **Context:** All files created or modified in Tasks 1-10
 
@@ -327,14 +364,24 @@ Run a sweep across all new and modified SKILL.md files to catch any un-adapted r
 <!--
 ## Review Notes
 
-Plan reviewed by ce:devils-advocate agent. Key findings incorporated:
-- Task 7 rewritten with precise delta (what ce already has vs what's actually missing)
+### Review 1: ce:devils-advocate
+- Task 6 (now Task 6) rewritten with precise delta (what ce already has vs what's actually missing)
 - Added Context Loading entries for testing-anti-patterns.md and references/skills.md
 - Task 2 made explicit about graphviz→mermaid conversion (not optional)
 - Task 3 calls out both locations where superpowers path appears (prompt text AND shell code)
-- Task 10 now explicitly updates the conflicting description formula, not just appends
-- Added Task 11 for final grep sweep of residual superpowers references
-- Added ordering notes for cross-referencing dependencies between Tasks 3, 4, and 9
+- Task 9 now explicitly updates the conflicting description formula, not just appends
+- Added Task 10 for final grep sweep of residual superpowers references
+- Added ordering notes for cross-referencing dependencies between Tasks 3, 4, and 8
 - Added success criterion for residual language detection
 - Noted that brainstorming's spec-reviewer → devils-advocate swap is a deliberate specificity tradeoff
+
+### Review 2: skill-creator
+- Added Description Strategy section with exact descriptions for all 5 new skills, designed to avoid triggering collisions
+- Identified and resolved brainstorming ↔ drafting-tsds collision (brainstorming = divergent ideation, TSDs = convergent document production). Added drafting-tsds description update to Task 1
+- Identified and resolved test-driven-development ↔ writing-tests collision (TDD = workflow discipline, writing-tests = test quality patterns). Added boundary clarification to Task 2
+- Fixed Task 9 (configuring-claude): preserved "what it enables" in description formula instead of removing it. The CSO insight is specifically about workflow summaries, not about removing all capability descriptions
+- Removed Task 6 no-op (systematic-debugging already covers everything) to reduce executor noise
+- Tightened Task 5 anti-gratitude guidance with specific replacement language instead of vague "tone down"
+- Added length budget to Task 7 (writing-plans) to prevent skill bloat from additions
+- Changed Task 7 task example from "add alongside" to "replace existing" to avoid duplication
 -->
