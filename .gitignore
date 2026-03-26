@@ -6,12 +6,14 @@
 !/docs/
 !/plugins/
 !/.claude-plugin/
+!/.opencode/
 !/CLAUDE.md
 !/plans/
 
 # And these files
 !LICENSE.md
 !README.md
+!package.json
 !.gitignore
 .DS_Store
 !/reload.sh

@@ -1,6 +1,6 @@
 # CE Plugin OpenCode Migration Plan
 
-> **Status:** DRAFT
+> **Status:** COMPLETED
 
 ## Specification
 

@@ -1,6 +1,6 @@
 # Claude Essentials
 
-A unified development plugin for Claude Code with essential commands, skills, and specialized agents, all accessible under the `ce` namespace.
+A unified development plugin with essential commands, skills, and specialized agents, all accessible under the `ce` namespace. Works with both **Claude Code** and **OpenCode**.
 
 NOTE: This is a fork, to customise my workflow. All credit for the original files goes to https://github.com/rileyhilliard
 
@@ -128,11 +128,7 @@ Expert AI personas for complex work, accessed with `@ce:` prefix:
 
 ## Installation
 
-### Prerequisites
-
-You need Claude Code installed. If you don't have it yet, head to [claude.com/product/claude-code](https://www.claude.com/product/claude-code).
-
-### Setup
+### Claude Code
 
 1. Add this marketplace to Claude Code:
 
@@ -146,24 +142,34 @@ You need Claude Code installed. If you don't have it yet, head to [claude.com/pr
 /plugin install ce
 ```
 
-That's it! You now have access to all commands, skills, and agents under the `ce` namespace.
+Commands use `/ce:` prefix, skills use `ce:` prefix, agents use `@ce:` prefix.
+
+### OpenCode
+
+Add the plugin to your `opencode.json`:
+
+```json
+{
+  "plugin": [
+    "claude-essentials@git+https://github.com/Broderick-Westrope/claude-essentials.git"
+  ]
+}
+```
+
+On first session, commands and agents are auto-symlinked into your project. Commands use `/ce-` prefix, agents use `@ce-` prefix, skills use `ce:` prefix.
+
+See [.opencode/INSTALL.md](.opencode/INSTALL.md) for detailed OpenCode setup and troubleshooting.
 
 ### Verify Installation
 
-Start Claude Code and try these:
-
 ```bash
-# Start Claude Code
-claude
-
-# Try a quick command
+# Claude Code
 /ce:explain README.md
-
-# Use a skill
 ce:writing-tests
 
-# Use a skill
-ce:architecting-systems
+# OpenCode
+/ce-explain README.md
+@ce-code-reviewer
 ```
 
 ---
@@ -364,17 +370,24 @@ This will be accessible as `@ce:my-agent`.
 ## Project Structure
 
 ```
-~/.claude/
-├── CLAUDE.md              # Communication guidelines (copy here manually)
-└── plugins/
-    └── ce/
-        ├── .claude-plugin/
-        │   └── plugin.json       # Plugin metadata
-        ├── commands/             # 19 commands (/ce:test, /ce:plan, /ce:post-mortem, etc.)
-        ├── skills/               # 32 skills (ce:writing-tests, ce:brainstorming, ce:test-driven-development, etc.)
-        ├── agents/               # 5 agents (@ce:code-reviewer, @ce:context-auditor, etc.)
-        └── hooks/                # Session automation
+claude-essentials/
+├── package.json                  # OpenCode plugin entry point
+├── .opencode/
+│   ├── plugins/ce.js             # OpenCode JS adapter (skills, bootstrap, auto-symlink)
+│   ├── commands/ce-*.md          # 19 OpenCode-formatted commands
+│   ├── agents/ce-*.md            # 5 OpenCode-formatted agents
+│   └── INSTALL.md                # OpenCode installation guide
+├── plugins/ce/                   # Claude Code plugin
+│   ├── .claude-plugin/
+│   │   └── plugin.json           # Plugin metadata
+│   ├── commands/                 # 19 commands (/ce:test, /ce:plan, etc.)
+│   ├── skills/                   # 32 shared skills (ce:writing-tests, etc.)
+│   ├── agents/                   # 5 agents (@ce:code-reviewer, etc.)
+│   └── hooks/                    # Session automation
+└── ...
 ```
+
+Skills in `plugins/ce/skills/` are shared between both platforms. Commands and agents have platform-specific versions.
 
 ## Tips
 

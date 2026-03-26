@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance when working with code in this repository.
 
 ## Project Overview
 
-This is a unified Claude Code plugin (`ce`) that provides development workflows, reusable skills, and specialized agents, all under a consistent `ce` namespace.
+This is a dual-platform development plugin (`ce`) that provides development workflows, reusable skills, and specialized agents under a consistent `ce` namespace. It works with both **Claude Code** and **OpenCode**.
 
 **The ce plugin provides:**
 
@@ -14,58 +14,44 @@ This is a unified Claude Code plugin (`ce`) that provides development workflows,
 - **Session Hooks** - Automatic project configuration on startup
 - **Reference Templates** - ADR, PRD, and technical design templates
 
-**Namespace conventions:**
+**Platform-specific namespace conventions:**
 
-- Commands: `/ce:test`, `/ce:explain`, `/ce:commit`, `/ce:plan`, etc.
-- Skills: `@skills/ce:writing-tests`, `@skills/ce:systematic-debugging`, `@skills/ce:architecting-systems`, etc.
-- Agents: `@ce:code-reviewer`, `@ce:haiku`, `@ce:log-reader`
+| Component | Claude Code | OpenCode |
+|-----------|------------|----------|
+| Commands | `/ce:test` | `/ce-test` |
+| Skills | `ce:writing-tests` | `ce:writing-tests` (shared) |
+| Agents | `@ce:code-reviewer` | `@ce-code-reviewer` |
 
-The `ce:` prefix is automatically added by Claude Code based on the plugin name. Files and YAML frontmatter use simple names without the prefix.
+Claude Code auto-adds the `ce:` prefix from the plugin name. OpenCode uses `ce-` filename prefix for commands/agents. Skills are shared and use `ce:` on both platforms.
 
 ## Plugin Architecture
 
 ### Directory Structure
 
-The ce plugin lives in `plugins/ce/` with this structure:
-
 ```
-plugins/ce/
-├── .claude-plugin/
-│   └── plugin.json          # Plugin metadata (name: "ce", description, version, author, license)
-├── commands/                 # 19 slash commands
-│   ├── test.md              # Accessed as /ce:test
-│   ├── explain.md           # Accessed as /ce:explain
-│   ├── debug.md             # Accessed as /ce:debug
-│   ├── optimize.md          # Accessed as /ce:optimize
-│   ├── refactor.md          # Accessed as /ce:refactor
-│   ├── review.md            # Accessed as /ce:review
-│   ├── commit.md            # Accessed as /ce:commit
-│   ├── deps.md              # Accessed as /ce:deps
-│   ├── fix-issue.md         # Accessed as /ce:fix-issue
-│   ├── pr.md                # Accessed as /ce:pr
-│   ├── document.md          # Accessed as /ce:document
-│   ├── plan.md              # Accessed as /ce:plan
-│   ├── execute.md           # Accessed as /ce:execute
-│   └── init.md              # Accessed as /ce:init
-├── skills/                   # 32 skills
-│   ├── writing-tests/       # Accessed as @skills/ce:writing-tests
-│   │   └── SKILL.md         # name: writing-tests (no ce: prefix in file)
-│   ├── architecting-systems/    # Accessed as @skills/ce:architecting-systems
-│   │   └── SKILL.md             # System architecture and technical docs
-│   └── ...                  # Other skills follow same pattern
-├── agents/                   # 5 agents
-│   ├── code-reviewer.md     # Accessed as @ce:code-reviewer
-│   ├── context-auditor.md   # Accessed as @ce:context-auditor
-│   ├── devils-advocate.md   # Accessed as @ce:devils-advocate
-│   ├── haiku.md             # Accessed as @ce:haiku
-│   └── log-reader.md        # Accessed as @ce:log-reader
-└── hooks/                    # Session hooks
-    ├── hooks.json           # Hook configuration
-    ├── session-start.sh     # Session startup hook
-    └── notify.sh            # Cross-platform notification hook
+claude-essentials/                 # Repo root
+├── package.json                   # OpenCode entry: type:module, main → .opencode/plugins/ce.js
+├── .opencode/                     # OpenCode platform files
+│   ├── plugins/
+│   │   └── ce.js                  # JS adapter (skills reg + bootstrap + auto-symlink)
+│   ├── commands/                  # 19 OpenCode-adapted commands (ce-*.md → /ce-test)
+│   ├── agents/                    # 5 OpenCode-adapted agents (ce-*.md → @ce-code-reviewer)
+│   └── INSTALL.md                 # OpenCode installation guide
+├── plugins/ce/                    # Claude Code plugin
+│   ├── .claude-plugin/
+│   │   └── plugin.json            # Plugin metadata
+│   ├── commands/                  # 19 Claude Code commands (*.md → /ce:test)
+│   ├── skills/                    # 32 shared skills (both platforms)
+│   ├── agents/                    # 5 Claude Code agents (*.md → @ce:code-reviewer)
+│   └── hooks/                     # Claude Code session hooks
+└── ...
 ```
 
-**Key principle**: Files and frontmatter use simple names (e.g., `architecting-systems`, `writing-tests`). Claude Code automatically adds the `ce:` namespace prefix based on the plugin name.
+**Key principles:**
+- Skills in `plugins/ce/skills/` are shared between both platforms
+- Commands and agents have platform-specific versions (different frontmatter requirements)
+- Claude Code files use simple names (`test.md`), auto-prefixed with `ce:`
+- OpenCode files use `ce-` prefix in filename (`ce-test.md`), discovered from filesystem
 
 ### Plugin Metadata
 
