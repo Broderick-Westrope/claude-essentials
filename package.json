@@ -2,5 +2,5 @@
   "name": "claude-essentials",
   "version": "2.7.0",
   "type": "module",
-  "main": ".opencode/plugins/ce.js"
+  "main": "opencode/plugins/ce.js"
 }

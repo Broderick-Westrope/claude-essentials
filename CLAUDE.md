@@ -30,13 +30,16 @@ Claude Code auto-adds the `ce:` prefix from the plugin name. OpenCode uses `ce-`
 
 ```
 claude-essentials/                 # Repo root
-├── package.json                   # OpenCode entry: type:module, main → .opencode/plugins/ce.js
-├── .opencode/                     # OpenCode platform files
+├── package.json                   # OpenCode entry: type:module, main → opencode/plugins/ce.js
+├── opencode/                      # OpenCode platform files
 │   ├── plugins/
-│   │   └── ce.js                  # JS adapter (skills reg + bootstrap + auto-symlink)
+│   │   ├── ce.js                  # Plugin (registers manifest via config hook)
+│   │   └── manifest.json          # Pre-built commands + agents (generated)
 │   ├── commands/                  # 19 OpenCode-adapted commands (ce-*.md → /ce-test)
 │   ├── agents/                    # 5 OpenCode-adapted agents (ce-*.md → @ce-code-reviewer)
 │   └── INSTALL.md                 # OpenCode installation guide
+├── scripts/
+│   └── build-manifest.js          # Generates manifest.json from commands + agents
 ├── plugins/ce/                    # Claude Code plugin
 │   ├── .claude-plugin/
 │   │   └── plugin.json            # Plugin metadata

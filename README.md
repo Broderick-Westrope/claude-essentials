@@ -158,7 +158,7 @@ Add the plugin to your `opencode.json`:
 
 On first session, commands and agents are auto-symlinked into your project. Commands use `/ce-` prefix, agents use `@ce-` prefix, skills use `ce:` prefix.
 
-See [.opencode/INSTALL.md](.opencode/INSTALL.md) for detailed OpenCode setup and troubleshooting.
+See [opencode/INSTALL.md](opencode/INSTALL.md) for detailed OpenCode setup and troubleshooting.
 
 ### Verify Installation
 
@@ -372,11 +372,14 @@ This will be accessible as `@ce:my-agent`.
 ```
 claude-essentials/
 ├── package.json                  # OpenCode plugin entry point
-├── .opencode/
-│   ├── plugins/ce.js             # OpenCode JS adapter (skills, bootstrap, auto-symlink)
+├── opencode/
+│   ├── plugins/ce.js             # OpenCode plugin (manifest-based config hook)
+│   ├── plugins/manifest.json     # Pre-built commands + agents (generated)
 │   ├── commands/ce-*.md          # 19 OpenCode-formatted commands
 │   ├── agents/ce-*.md            # 5 OpenCode-formatted agents
 │   └── INSTALL.md                # OpenCode installation guide
+├── scripts/
+│   └── build-manifest.js         # Generates manifest.json from commands + agents
 ├── plugins/ce/                   # Claude Code plugin
 │   ├── .claude-plugin/
 │   │   └── plugin.json           # Plugin metadata

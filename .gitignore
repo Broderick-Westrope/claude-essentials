@@ -6,7 +6,7 @@
 !/docs/
 !/plugins/
 !/.claude-plugin/
-!/.opencode/
+!/opencode/
 !/CLAUDE.md
 !/plans/
 !/scripts/

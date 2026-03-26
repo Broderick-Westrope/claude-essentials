@@ -55,11 +55,11 @@ const scanAgents = (dir) => {
   return agents;
 };
 
-const commands = scanCommands(path.join(root, '.opencode/commands'));
-const agents = scanAgents(path.join(root, '.opencode/agents'));
+const commands = scanCommands(path.join(root, 'opencode/commands'));
+const agents = scanAgents(path.join(root, 'opencode/agents'));
 
 const manifest = { commands, agents };
-const outPath = path.join(root, '.opencode/plugins/manifest.json');
+const outPath = path.join(root, 'opencode/plugins/manifest.json');
 fs.writeFileSync(outPath, JSON.stringify(manifest, null, 2) + '\n');
 
 console.log(`Wrote ${Object.keys(commands).length} commands, ${Object.keys(agents).length} agents to ${outPath}`);
