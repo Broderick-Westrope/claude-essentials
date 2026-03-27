@@ -146,7 +146,7 @@ Commands use `/ce:` prefix, skills use `ce:` prefix, agents use `@ce:` prefix.
 
 ### OpenCode
 
-Add the plugin to your `opencode.json`:
+Add the plugin to your project's `opencode.json`:
 
 ```json
 {
@@ -156,7 +156,17 @@ Add the plugin to your `opencode.json`:
 }
 ```
 
-On first session, commands and agents are auto-symlinked into your project. Commands use `/ce-` prefix, agents use `@ce-` prefix, skills use `ce:` prefix.
+**For local development**, use a `file://` URL pointing to your clone:
+
+```json
+{
+  "plugin": [
+    "file:///path/to/claude-essentials"
+  ]
+}
+```
+
+Commands use `/ce-` prefix, agents use `@ce-` prefix, skills use `ce:` prefix.
 
 See [opencode/INSTALL.md](opencode/INSTALL.md) for detailed OpenCode setup and troubleshooting.
 
