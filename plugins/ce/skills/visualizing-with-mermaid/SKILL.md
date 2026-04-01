@@ -1,6 +1,6 @@
 ---
 name: visualizing-with-mermaid
-description: Creates professional Mermaid diagrams with semantic styling and visual hierarchy. Use when creating flowcharts, sequence diagrams, state machines, class diagrams, or architecture visualizations.
+description: Creates static Mermaid diagram code blocks with semantic styling and visual hierarchy. Use when the user needs a flowchart, sequence diagram, state machine, class diagram, or ERD rendered as a Mermaid code block in markdown. This skill produces text-based diagram markup, not interactive or animated visualizations. If the user wants animation, interaction, step-through controls, or a standalone HTML page, use visualizing-topics instead.
 ---
 
 # Mermaid Diagrams
@@ -58,6 +58,10 @@ Use **subgraphs** for: deployment boundaries, logical layers, team ownership, tr
 
 - **Color palettes**: See [references/color-palettes.md](references/color-palettes.md)
 - **Pattern examples**: See [references/examples.md](references/examples.md) for architecture, state machines, data flows, ERDs
+
+## When to Use Something Else
+
+If the concept needs animation, user interaction (sliders, play/pause, click-to-explore), or step-through state changes to be understood, use `Skill(ce:visualizing-topics)` instead. That skill produces self-contained interactive HTML files. This skill produces static Mermaid code blocks.
 
 ## Workflow
 

@@ -1,6 +1,6 @@
 ---
 name: visualizing-topics
-description: Turns complex topics into self-contained interactive HTML visualizations for learning and explanation. Use when the user wants to visualize, explain, illustrate, or build an interactive demo of a concept — whether it's a technical system (distributed consensus, event sourcing, garbage collection), a business domain concept (insurance lifecycle, supply chain flow), or any abstract idea that benefits from seeing rather than reading. Also use when someone says "show me how X works", "make a diagram of", "build a visual explainer", or "I want to see this concept in action".
+description: Builds self-contained interactive HTML visualizations with animation, step-through controls, and live interaction to teach complex concepts. Outputs a standalone HTML file opened in the browser — not a Mermaid diagram or code block. Use when the user wants an animated explainer, interactive demo, step-by-step walkthrough, or any visualization that benefits from state changes, user controls (play/pause, sliders, click-to-explore), or animation. Examples include distributed consensus visualizers, data structure animations, state machine walkthroughs, or system simulations. If the concept can be fully understood from a static diagram with a few labeled boxes and arrows, use visualizing-with-mermaid instead.
 ---
 
 # Visualizing Topics
@@ -63,6 +63,8 @@ Default to vanilla SVG/Canvas + CSS. Reach for a library only when vanilla would
 
 ### 3. Structure the HTML
 
+Controls, step explanations, and navigation buttons go **above** the visualization. The dynamic content (canvas, SVG, animation area) goes last. This prevents the page from shifting what the user is reading or clicking when the visualization changes size between steps.
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -76,10 +78,11 @@ Default to vanilla SVG/Canvas + CSS. Reach for a library only when vanilla would
 </head>
 <body>
   <div id="app">
-    <header><!-- Title + one-line description --></header>
-    <main><!-- Visualization canvas/SVG --></main>
-    <aside><!-- Controls, legend, annotations --></aside>
-    <footer><!-- Step explanation text --></footer>
+    <header><!-- Title + one-line description + intro paragraph --></header>
+    <nav><!-- Step controls: prev/play/pause/next/reset + speed slider --></nav>
+    <section id="explanation"><!-- Step explanation text, updates each step --></section>
+    <main><!-- Visualization canvas/SVG (dynamic content, goes last) --></main>
+    <aside><!-- Legend, secondary controls, hover detail panel --></aside>
   </div>
   <script>
     // All JS inline
@@ -87,6 +90,8 @@ Default to vanilla SVG/Canvas + CSS. Reach for a library only when vanilla would
 </body>
 </html>
 ```
+
+The reason for this order: when the visualization area resizes (e.g., nodes appear, a tree grows taller, a timeline extends), everything the user reads and clicks stays pinned at the top. The dynamic area absorbs size changes downward, off-screen if needed, rather than pushing controls and explanations around.
 
 ### 4. Visual Style
 
@@ -129,11 +134,12 @@ Add controls when they help the user explore and understand. Skip them when anim
 - **Reset**: Always provide a way to restart
 
 **Control design:**
-- Group controls visually near the part of the visualization they affect
+- Place step navigation (prev/next/play/pause) and step explanation text **above** the visualization area — never below it. When the visualization resizes between steps, controls and descriptions that sit below it will jump around, which is disorienting
 - Label every control clearly — no unlabeled sliders
 - Show the current value next to sliders
 - Use `<input type="range">` for continuous values, `<button>` for discrete actions
 - Style controls to match the dark theme
+- Secondary controls (legend, parameter sliders that affect the visualization globally) can go in a sidebar or below the visualization if they don't need frequent interaction
 
 ### 6. Educational Annotations
 
@@ -142,7 +148,7 @@ The visualization should teach, not just display. Include:
 - **A title** that names the concept
 - **A subtitle or one-liner** that states the core insight
 - **An introductory paragraph** (2-4 sentences) that gives context on the topic before the user starts interacting. Someone landing on the page cold — maybe it was shared via a link — should be able to read this and understand what the concept is, why it matters, and what they're about to explore. Write it in plain language, not as a textbook definition. For example: "In a distributed system, when you spread data across multiple servers, you need a way to decide which server holds which piece of data. Consistent hashing solves this by arranging servers on a virtual ring, so that adding or removing a server only moves a small fraction of the data — unlike naive approaches where almost everything has to shuffle."
-- **Step explanations** that update as the visualization progresses (a text panel that says "Now consumer C2 has joined the group. The coordinator pauses all consumers while it reassigns partitions...")
+- **Step explanations** that update as the visualization progresses, placed **above** the visualization so they don't jump when the visualization resizes (a text panel that says "Now consumer C2 has joined the group. The coordinator pauses all consumers while it reassigns partitions...")
 - **Labels on diagram elements** so nothing is ambiguous
 - **A legend** if colors/shapes carry meaning
 - **Hover tooltips** for secondary detail that would clutter the main view
@@ -179,4 +185,5 @@ If the user wants to keep the file, they can copy it out of `/tmp/` — mention 
 | Too many colors without meaning | Limit to 4-5 semantic colors; use the palette above |
 | Controls exist but don't obviously affect anything | Make cause-and-effect immediate and visible |
 | No explanation of what's happening | Always include the step explanation text panel |
+| Controls/explanations below the visualization jump around when content resizes | Put all controls, step navigation, and explanation text above the visualization area |
 | Loads a massive library for a simple animation | Start vanilla; add libraries only when they earn their weight |
