@@ -2,7 +2,7 @@
 name: ce-haiku
 description: Lightweight Haiku agent for delegated tasks. Receives detailed instructions from commands like /ce:commit, /ce:test, and /ce:pr. Not typically invoked directly by users.
 mode: subagent
-model: anthropic/claude-haiku-4-20250514
+model: anthropic/claude-haiku-4-6
 color: "#a0aec0"
 ---
 

@@ -2,7 +2,7 @@
 name: ce-log-reader
 description: Specialist at efficiently reading and analyzing large log files using targeted search and filtering. Optimized to avoid loading entire logs into context by using grep-style workflows, time and severity filters, and iterative refinement across arbitrary log formats.
 mode: subagent
-model: anthropic/claude-haiku-4-20250514
+model: anthropic/claude-haiku-4-6
 color: "#319795"
 ---
 
