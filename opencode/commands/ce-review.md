@@ -43,9 +43,14 @@ After the code-reviewer agent completes:
    - "Fix all issues now" (recommended - fix everything the reviewer found)
    - "Show the full review, I'll handle it"
 
-   c. If fixing: work through the checklist sequentially. For each issue:
+   c. **Determine commit mode** before fixing:
+      - Check whether the reviewed changes were already committed (i.e. the review was of committed code, not uncommitted/staged changes).
+      - If yes → **commit mode ON**: each fix will be committed individually.
+      - If no (reviewing uncommitted changes) → **commit mode OFF**: fixes are applied but not committed (the user manages their own commits).
+
+   d. If fixing: work through the checklist sequentially. For each issue:
       1. Implement the fix
-      2. Commit the fix as a separate commit with a message describing the issue and how it was resolved (e.g. `fix: resolve potential null dereference in user lookup\n\nThe getUserById call could return null when the user was deleted\nbetween the auth check and the lookup. Added an explicit null check\nwith early return.`)
+      2. **If commit mode is ON:** commit the fix as a separate commit with a descriptive message explaining the issue and how it was resolved (e.g. `fix: resolve potential null dereference in user lookup\n\nThe getUserById call could return null when the user was deleted\nbetween the auth check and the lookup. Added an explicit null check\nwith early return.`)
       3. Mark the checklist item complete
 
    After all targeted items are fixed, re-run the code-reviewer agent to verify the fixes don't introduce new issues.
