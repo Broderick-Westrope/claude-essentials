@@ -8,8 +8,8 @@ This is a dual-platform development plugin (`ce`) that provides development work
 
 **The ce plugin provides:**
 
-- **19 Commands** - Development workflows (test, explain, debug, optimize, refactor, review, commit, deps, fix-issue, pr, document, draft-tsd, plan, execute, init, audit-context, review-with-me, post-mortem, scaffold-tests)
-- **32 Skills** - Reusable patterns for testing, debugging, refactoring, architecture, planning, TDD, brainstorming, git worktrees, code review, and more
+- **21 Commands** - Development workflows (test, explain, debug, optimize, refactor, review, commit, deps, fix-issue, pr, document, draft-tsd, plan, execute, init, audit-context, review-with-me, post-mortem, scaffold-tests, brainstorm, grill)
+- **35 Skills** - Reusable patterns for testing, debugging, refactoring, architecture, planning, TDD, brainstorming, git worktrees, code review, SQL, product planning, and more
 - **5 Agents** - Expert AI personas (code-reviewer, haiku, log-reader, devils-advocate, context-auditor)
 - **Session Hooks** - Automatic project configuration on startup
 - **Reference Templates** - ADR, PRD, and technical design templates
@@ -35,7 +35,7 @@ claude-essentials/                 # Repo root
 │   ├── plugins/
 │   │   ├── ce.js                  # Plugin (registers manifest via config hook)
 │   │   └── manifest.json          # Pre-built commands + agents (generated)
-│   ├── commands/                  # 19 OpenCode-adapted commands (ce-*.md → /ce-test)
+│   ├── commands/                  # 21 OpenCode-adapted commands (ce-*.md → /ce-test)
 │   ├── agents/                    # 5 OpenCode-adapted agents (ce-*.md → @ce-code-reviewer)
 │   └── INSTALL.md                 # OpenCode installation guide
 ├── scripts/
@@ -43,8 +43,8 @@ claude-essentials/                 # Repo root
 ├── plugins/ce/                    # Claude Code plugin
 │   ├── .claude-plugin/
 │   │   └── plugin.json            # Plugin metadata
-│   ├── commands/                  # 19 Claude Code commands (*.md → /ce:test)
-│   ├── skills/                    # 32 shared skills (both platforms)
+│   ├── commands/                  # 21 Claude Code commands (*.md → /ce:test)
+│   ├── skills/                    # 35 shared skills (both platforms)
 │   ├── agents/                    # 5 Claude Code agents (*.md → @ce:code-reviewer)
 │   └── hooks/                     # Claude Code session hooks
 └── ...

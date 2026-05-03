@@ -21,7 +21,6 @@ Quick workflows for everyday development tasks, accessed with `/ce:` prefix:
 | [/ce:deps](plugins/ce/commands/deps.md)           | Audit and upgrade dependencies                                     |
 | [/ce:fix-issue](plugins/ce/commands/fix-issue.md) | Fix a GitHub issue by number                                       |
 | [/ce:pr](plugins/ce/commands/pr.md)               | Create a pull request with auto-generated description              |
-<<<<<<< HEAD
 | [/ce:document](plugins/ce/commands/document.md)   | Create or improve documentation                                    |
 | [/ce:draft-tsd](plugins/ce/commands/draft-tsd.md) | Draft technical specification documents from rough ideas or topics |
 | [/ce:plan](plugins/ce/commands/plan.md)           | Create a detailed implementation plan                              |
@@ -30,10 +29,6 @@ Quick workflows for everyday development tasks, accessed with `/ce:` prefix:
 | [/ce:audit-context](plugins/ce/commands/audit-context.md) | Identify knowledge gaps in CLAUDE.md and collect human context |
 | [/ce:review-with-me](plugins/ce/commands/review-with-me.md) | Interactive AI-assisted review where the human drives and AI provides context |
 | [/ce:post-mortem](plugins/ce/commands/post-mortem.md) | Review a session to assess execution and extract improvements  |
-=======
-| [/ce:execute](plugins/ce/commands/execute.md)     | Execute an implementation plan from the plans folder               |
-| [/ce:init](plugins/ce/commands/init.md)           | Bootstrap repo with .claude/ config (rules, permissions, settings) |
->>>>>>> upstream/main
 
 ### Skills
 
@@ -70,19 +65,15 @@ Reusable development patterns, accessed with `ce:` prefix:
 
 | Skill                                                                      | Description                                               |
 | -------------------------------------------------------------------------- | --------------------------------------------------------- |
-<<<<<<< HEAD
 | [ce:brainstorming](plugins/ce/skills/brainstorming/SKILL.md)               | Collaborative design exploration for new ideas and approaches |
-| [ce:writing-plans](plugins/ce/skills/writing-plans/SKILL.md)               | Create implementation plans with devils-advocate review       |
-| [ce:executing-plans](plugins/ce/skills/executing-plans/SKILL.md)           | Execute plans with mandatory code review                      |
-| [ce:architecting-systems](plugins/ce/skills/architecting-systems/SKILL.md) | Clean, scalable system architecture for the build phase       |
-| [ce:design](plugins/ce/skills/design/SKILL.md)                             | Frontend design skill                                         |
-=======
 | [ce:planning-products](plugins/ce/skills/planning-products/SKILL.md)       | Product feature definition from a PM perspective          |
 | [ce:writing-plans](plugins/ce/skills/writing-plans/SKILL.md)               | Create implementation plans with devils-advocate review   |
 | [ce:executing-plans](plugins/ce/skills/executing-plans/SKILL.md)           | Execute plans with mandatory code review                  |
 | [ce:architecting-systems](plugins/ce/skills/architecting-systems/SKILL.md) | Clean, scalable system architecture for the build phase   |
 | [ce:design](plugins/ce/skills/design/SKILL.md)                             | Frontend design skill                                     |
->>>>>>> upstream/main
+| [ce:grilling](plugins/ce/skills/grilling/SKILL.md)                         | Rigorous questioning to find flaws in plans and designs   |
+| [ce:onboarding-systems](plugins/ce/skills/onboarding-systems/SKILL.md)     | Guided onboarding into complex microservices              |
+| [ce:scaffolding-plan-tests](plugins/ce/skills/scaffolding-plan-tests/SKILL.md) | Translate plans into failing test files before coding |
 
 **Documentation & Writing:**
 
@@ -90,13 +81,10 @@ Reusable development patterns, accessed with `ce:` prefix:
 | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
 | [ce:writer](plugins/ce/skills/writer/SKILL.md)                                       | Writing style guide with 7 personas (Architect, Engineer, PM, Marketer, Educator, Contributor, UX Writer) |
 | [ce:strategy-writer](plugins/ce/skills/strategy-writer/SKILL.md)                     | Executive-quality strategic documents in Economist/HBR style                                              |
-<<<<<<< HEAD
 | [ce:documenting-systems](plugins/ce/skills/documenting-systems/SKILL.md)             | Best practices for writing markdown documentation                                                         |
 | [ce:documenting-code-comments](plugins/ce/skills/documenting-code-comments/SKILL.md) | Standards for self-documenting code and inline comments                                                   |
-| [ce:drafting-tsds](plugins/ce/skills/drafting-tsds/SKILL.md)                         | Structured TSDs that evaluate architectural options — not for early-stage ideation |
-=======
 | [ce:documentation](plugins/ce/skills/documentation/SKILL.md)                         | Route to the right documentation approach (code comments, system docs, templates)                         |
->>>>>>> upstream/main
+| [ce:drafting-tsds](plugins/ce/skills/drafting-tsds/SKILL.md)                         | Structured TSDs that evaluate architectural options — not for early-stage ideation |
 
 **Data & Infrastructure:**
 
@@ -104,6 +92,7 @@ Reusable development patterns, accessed with `ce:` prefix:
 | -------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | [ce:managing-databases](plugins/ce/skills/managing-databases/SKILL.md)     | PostgreSQL, DuckDB, Parquet, and PGVector architecture              |
 | [ce:managing-pipelines](plugins/ce/skills/managing-pipelines/SKILL.md)     | GitHub Actions CI/CD security, performance, and deployment patterns |
+| [ce:writing-sql](plugins/ce/skills/writing-sql/SKILL.md)                   | SQL best practices and query optimization                            |
 
 **Git & Code Review Workflow:**
 
@@ -118,6 +107,7 @@ Reusable development patterns, accessed with `ce:` prefix:
 | Skill                                                                              | Description                                      |
 | ---------------------------------------------------------------------------------- | ------------------------------------------------ |
 | [ce:visualizing-with-mermaid](plugins/ce/skills/visualizing-with-mermaid/SKILL.md) | Create professional technical diagrams              |
+| [ce:visualizing-topics](plugins/ce/skills/visualizing-topics/SKILL.md)             | Build interactive HTML visualizations with animation |
 | [ce:post-mortem](plugins/ce/skills/post-mortem/SKILL.md)                           | Review sessions to extract actionable improvements  |
 | [ce:configuring-claude](plugins/ce/skills/configuring-claude/SKILL.md)             | Best practices for writing skills, rules, CLAUDE.md |
 
@@ -382,13 +372,12 @@ This will be accessible as `@ce:my-agent`.
 ## Project Structure
 
 ```
-<<<<<<< HEAD
 claude-essentials/
 ├── package.json                  # OpenCode plugin entry point
 ├── opencode/
 │   ├── plugins/ce.js             # OpenCode plugin (manifest-based config hook)
 │   ├── plugins/manifest.json     # Pre-built commands + agents (generated)
-│   ├── commands/ce-*.md          # 19 OpenCode-formatted commands
+│   ├── commands/ce-*.md          # 21 OpenCode-formatted commands
 │   ├── agents/ce-*.md            # 5 OpenCode-formatted agents
 │   └── INSTALL.md                # OpenCode installation guide
 ├── scripts/
@@ -396,23 +385,11 @@ claude-essentials/
 ├── plugins/ce/                   # Claude Code plugin
 │   ├── .claude-plugin/
 │   │   └── plugin.json           # Plugin metadata
-│   ├── commands/                 # 19 commands (/ce:test, /ce:plan, etc.)
-│   ├── skills/                   # 32 shared skills (ce:writing-tests, etc.)
+│   ├── commands/                 # 21 commands (/ce:test, /ce:plan, etc.)
+│   ├── skills/                   # 35 shared skills (ce:writing-tests, etc.)
 │   ├── agents/                   # 5 agents (@ce:code-reviewer, etc.)
 │   └── hooks/                    # Session automation
 └── ...
-=======
-~/.claude/
-├── CLAUDE.md              # Communication guidelines (copy here manually)
-└── plugins/
-    └── ce/
-        ├── .claude-plugin/
-        │   └── plugin.json       # Plugin metadata
-        ├── commands/             # 9 commands (/ce:test, /ce:review, /ce:commit, etc.)
-        ├── skills/               # 24 skills (ce:writing-tests, ce:planning-products, etc.)
-        ├── agents/               # 4 agents (@ce:code-reviewer, @ce:haiku, etc.)
-        └── hooks/                # Session automation
->>>>>>> upstream/main
 ```
 
 Skills in `plugins/ce/skills/` are shared between both platforms. Commands and agents have platform-specific versions.

@@ -51,22 +51,7 @@ Stop and verify if you're about to:
 - Express satisfaction before running verification
 - Trust agent/tool success reports without independent verification
 - Rely on partial checks or previous runs
-<<<<<<< HEAD
-- Think "just this once" or "I'm confident it works"
-- Fatigue / wanting to be done
 
-## Rationalization Prevention
-
-| Rationalization | Reality |
-|----------------|---------|
-| "Should work now" | Run the verification command |
-| "I'm confident" | Confidence ≠ evidence |
-| "Linter passed" | Linter ≠ compiler |
-| "Agent said success" | Verify independently |
-| "Partial check is enough" | Partial proves nothing about the whole |
-| "I'm tired / want to be done" | Exhaustion is not an excuse to skip verification |
-=======
->>>>>>> upstream/main
 
 ## Key Examples
 
