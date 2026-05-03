@@ -7,7 +7,20 @@ description: Create implementation plans with tasks grouped by subsystem. Relate
 
 Write step-by-step implementation plans for agentic execution. Each task should be a **complete unit of work** that one agent handles entirely.
 
-**Clarify ambiguity upfront:** If the plan has unclear requirements or meaningful tradeoffs, ask the user before writing the plan. Present options with descriptions explaining the tradeoffs. Use `multiSelect: true` for independent features that can be combined; use single-select for mutually exclusive choices. Don't guess when the user can clarify in 10 seconds.
+## When Invoked With a Pre-Built Spec
+
+When a `## Spec from Brainstorming` section is present in the conversation context (from the brainstorming skill or provided manually by the user), use it directly as the plan's Specification section:
+
+- The exact header `## Spec from Brainstorming` is the sentinel — this distinguishes a structured handoff from casual user context
+- Map "Problem", "Goal", "Scope", "Constraints", "Success Criteria" directly into the plan template
+- Use "Design Decisions" to inform task structure and approach
+- Use "Context Files" to populate the Context Loading section
+- Skip the "Clarify ambiguity upfront" step for fields the spec covers
+- Still ask about anything the spec leaves genuinely ambiguous (e.g., missing success criteria, unclear scope boundaries)
+
+This works regardless of whether brainstorming invoked writing-plans or a user manually provided the spec block.
+
+**Clarify ambiguity upfront:** If the plan has unclear requirements or meaningful tradeoffs, ask the user before writing the plan. Present options with descriptions explaining the tradeoffs. Use `multiSelect: true` for independent features that can be combined; use single-select for mutually exclusive choices. Don't guess when the user can clarify in 10 seconds. If a structured spec is provided (via `## Spec from Brainstorming`), only clarify what the spec leaves ambiguous. Do not re-derive information already present in the spec.
 
 **Save to:** `**/plans/YYYY-MM-DD-<feature-name>.md`
 
@@ -30,6 +43,8 @@ Write step-by-step implementation plans for agentic execution. Each task should 
 
 - [ ] Criterion 1 (measurable/verifiable)
 - [ ] Criterion 2
+
+<!-- When a pre-built spec is provided, populate these fields from it rather than asking the user to re-state them. -->
 
 ## Context Loading
 
@@ -133,6 +148,7 @@ Before presenting the plan to the user, dispatch the **devils-advocate** agent a
   - **optimizing-performance** - performance-sensitive work
   - **refactoring-code** - structural refactoring
 - The agent will look for: unstated assumptions, missing edge cases, tasks that are too vague, missing dependencies between tasks, verification gaps
+- When a `## Spec from Brainstorming` is present, also evaluate whether the spec's design decisions are architecturally sound and whether the plan faithfully implements the spec's stated goals
 - Incorporate valid feedback into the plan
 - Note what the review caught in a brief "Review notes" comment at the bottom of the plan
 
