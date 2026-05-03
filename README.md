@@ -16,14 +16,12 @@ Quick workflows for everyday development tasks, accessed with `/ce:` prefix:
 | ------------------------------------------------- | ------------------------------------------------------------------ |
 | [/ce:test](plugins/ce/commands/test.md)           | Run tests and analyze failures                                     |
 | [/ce:explain](plugins/ce/commands/explain.md)     | Break down code or concepts                                        |
-| [/ce:debug](plugins/ce/commands/debug.md)         | Launch systematic debugging                                        |
-| [/ce:optimize](plugins/ce/commands/optimize.md)   | Find performance bottlenecks                                       |
-| [/ce:refactor](plugins/ce/commands/refactor.md)   | Improve code quality                                               |
 | [/ce:review](plugins/ce/commands/review.md)       | Code review with tracked findings and fix workflow                  |
 | [/ce:commit](plugins/ce/commands/commit.md)       | Preflight checks, semantic commit, auto-fix on hook failure        |
 | [/ce:deps](plugins/ce/commands/deps.md)           | Audit and upgrade dependencies                                     |
 | [/ce:fix-issue](plugins/ce/commands/fix-issue.md) | Fix a GitHub issue by number                                       |
 | [/ce:pr](plugins/ce/commands/pr.md)               | Create a pull request with auto-generated description              |
+<<<<<<< HEAD
 | [/ce:document](plugins/ce/commands/document.md)   | Create or improve documentation                                    |
 | [/ce:draft-tsd](plugins/ce/commands/draft-tsd.md) | Draft technical specification documents from rough ideas or topics |
 | [/ce:plan](plugins/ce/commands/plan.md)           | Create a detailed implementation plan                              |
@@ -32,6 +30,10 @@ Quick workflows for everyday development tasks, accessed with `/ce:` prefix:
 | [/ce:audit-context](plugins/ce/commands/audit-context.md) | Identify knowledge gaps in CLAUDE.md and collect human context |
 | [/ce:review-with-me](plugins/ce/commands/review-with-me.md) | Interactive AI-assisted review where the human drives and AI provides context |
 | [/ce:post-mortem](plugins/ce/commands/post-mortem.md) | Review a session to assess execution and extract improvements  |
+=======
+| [/ce:execute](plugins/ce/commands/execute.md)     | Execute an implementation plan from the plans folder               |
+| [/ce:init](plugins/ce/commands/init.md)           | Bootstrap repo with .claude/ config (rules, permissions, settings) |
+>>>>>>> upstream/main
 
 ### Skills
 
@@ -68,11 +70,19 @@ Reusable development patterns, accessed with `ce:` prefix:
 
 | Skill                                                                      | Description                                               |
 | -------------------------------------------------------------------------- | --------------------------------------------------------- |
+<<<<<<< HEAD
 | [ce:brainstorming](plugins/ce/skills/brainstorming/SKILL.md)               | Collaborative design exploration for new ideas and approaches |
 | [ce:writing-plans](plugins/ce/skills/writing-plans/SKILL.md)               | Create implementation plans with devils-advocate review       |
 | [ce:executing-plans](plugins/ce/skills/executing-plans/SKILL.md)           | Execute plans with mandatory code review                      |
 | [ce:architecting-systems](plugins/ce/skills/architecting-systems/SKILL.md) | Clean, scalable system architecture for the build phase       |
 | [ce:design](plugins/ce/skills/design/SKILL.md)                             | Frontend design skill                                         |
+=======
+| [ce:planning-products](plugins/ce/skills/planning-products/SKILL.md)       | Product feature definition from a PM perspective          |
+| [ce:writing-plans](plugins/ce/skills/writing-plans/SKILL.md)               | Create implementation plans with devils-advocate review   |
+| [ce:executing-plans](plugins/ce/skills/executing-plans/SKILL.md)           | Execute plans with mandatory code review                  |
+| [ce:architecting-systems](plugins/ce/skills/architecting-systems/SKILL.md) | Clean, scalable system architecture for the build phase   |
+| [ce:design](plugins/ce/skills/design/SKILL.md)                             | Frontend design skill                                     |
+>>>>>>> upstream/main
 
 **Documentation & Writing:**
 
@@ -80,9 +90,13 @@ Reusable development patterns, accessed with `ce:` prefix:
 | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
 | [ce:writer](plugins/ce/skills/writer/SKILL.md)                                       | Writing style guide with 7 personas (Architect, Engineer, PM, Marketer, Educator, Contributor, UX Writer) |
 | [ce:strategy-writer](plugins/ce/skills/strategy-writer/SKILL.md)                     | Executive-quality strategic documents in Economist/HBR style                                              |
+<<<<<<< HEAD
 | [ce:documenting-systems](plugins/ce/skills/documenting-systems/SKILL.md)             | Best practices for writing markdown documentation                                                         |
 | [ce:documenting-code-comments](plugins/ce/skills/documenting-code-comments/SKILL.md) | Standards for self-documenting code and inline comments                                                   |
 | [ce:drafting-tsds](plugins/ce/skills/drafting-tsds/SKILL.md)                         | Structured TSDs that evaluate architectural options — not for early-stage ideation |
+=======
+| [ce:documentation](plugins/ce/skills/documentation/SKILL.md)                         | Route to the right documentation approach (code comments, system docs, templates)                         |
+>>>>>>> upstream/main
 
 **Data & Infrastructure:**
 
@@ -283,20 +297,15 @@ ce:systematic-debugging
 /ce:commit
 ```
 
-**Optimize performance:**
+**Plan and build a feature:**
 
 ```bash
-/ce:optimize src/components/DataTable.tsx
-# For deep analysis:
-ce:optimizing-performance
-```
-
-**Plan a feature:**
-
-```bash
-ce:architecting-systems I need to add real-time notifications. We have 10k concurrent users.
-# Then create a plan:
+# Define the product spec first:
+ce:planning-products
+# Then create a technical plan:
 ce:writing-plans
+# Then execute:
+/ce:execute
 ```
 
 **Clean up legacy code:**
@@ -304,13 +313,6 @@ ce:writing-plans
 ```bash
 /ce:explain src/legacy/payment-processor.js
 ce:refactoring-code
-```
-
-**Review a session for improvements:**
-
-```bash
-/ce:post-mortem
-# Analyzes what happened, identifies friction, proposes concrete actions
 ```
 
 ### Understanding the System
@@ -380,6 +382,7 @@ This will be accessible as `@ce:my-agent`.
 ## Project Structure
 
 ```
+<<<<<<< HEAD
 claude-essentials/
 ├── package.json                  # OpenCode plugin entry point
 ├── opencode/
@@ -398,6 +401,18 @@ claude-essentials/
 │   ├── agents/                   # 5 agents (@ce:code-reviewer, etc.)
 │   └── hooks/                    # Session automation
 └── ...
+=======
+~/.claude/
+├── CLAUDE.md              # Communication guidelines (copy here manually)
+└── plugins/
+    └── ce/
+        ├── .claude-plugin/
+        │   └── plugin.json       # Plugin metadata
+        ├── commands/             # 9 commands (/ce:test, /ce:review, /ce:commit, etc.)
+        ├── skills/               # 24 skills (ce:writing-tests, ce:planning-products, etc.)
+        ├── agents/               # 4 agents (@ce:code-reviewer, @ce:haiku, etc.)
+        └── hooks/                # Session automation
+>>>>>>> upstream/main
 ```
 
 Skills in `plugins/ce/skills/` are shared between both platforms. Commands and agents have platform-specific versions.
@@ -409,7 +424,6 @@ Skills in `plugins/ce/skills/` are shared between both platforms. Commands and a
 ```bash
 /ce:test pytest tests/unit
 /ce:explain AuthController
-/ce:optimize src/components/
 ```
 
 **Skills are for learning:** Invoke a skill to understand a pattern, then apply it.

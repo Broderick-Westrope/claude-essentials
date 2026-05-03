@@ -6,14 +6,19 @@
   },
   "metadata": {
     "description": "Essential Claude Code configuration with practical commands, specialized agents, and battle-tested development skills for daily workflows",
-    "version": "2.7.0"
+    "version": "3.0.5"
   },
   "plugins": [
     {
       "name": "ce",
       "source": "./plugins/ce/",
+<<<<<<< HEAD
       "description": "Claude Essentials - Complete development toolkit with 17 commands, 23 skills, and 5 agents unified under ce namespace",
       "version": "2.7.0",
+=======
+      "description": "Claude Essentials - Complete development toolkit with 9 commands, 25 skills, and 4 agents unified under ce namespace",
+      "version": "3.0.5",
+>>>>>>> upstream/main
       "author": {
         "name": "Riley Hilliard",
         "url": "https://github.com/rileyhilliard"
@@ -37,16 +42,11 @@
       "commands": [
         "./commands/test.md",
         "./commands/explain.md",
-        "./commands/debug.md",
-        "./commands/optimize.md",
-        "./commands/refactor.md",
         "./commands/review.md",
         "./commands/commit.md",
         "./commands/deps.md",
         "./commands/fix-issue.md",
         "./commands/pr.md",
-        "./commands/document.md",
-        "./commands/plan.md",
         "./commands/execute.md",
         "./commands/init.md",
         "./commands/draft-tsd.md",
@@ -66,8 +66,9 @@
         "./skills/visualizing-with-mermaid",
         "./skills/migrating-code",
         "./skills/reading-logs",
-        "./skills/documenting-systems",
-        "./skills/documenting-code-comments",
+        "./skills/documentation",
+        "./skills/post-mortem",
+        "./skills/preflight-checks",
         "./skills/architecting-systems",
         "./skills/design",
         "./skills/fixing-flaky-tests",
@@ -76,7 +77,12 @@
         "./skills/managing-databases",
         "./skills/configuring-claude",
         "./skills/managing-pipelines",
+<<<<<<< HEAD
         "./skills/drafting-tsds"
+=======
+        "./skills/planning-products",
+        "./skills/writing-sql"
+>>>>>>> upstream/main
       ],
       "agents": [
         "./agents/code-reviewer.md",
