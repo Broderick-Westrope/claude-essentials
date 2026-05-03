@@ -25,7 +25,10 @@ Complete these steps in order:
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and a recommendation
 4. **Present design** — in sections scaled to complexity, get user approval after each section
-5. **Format spec and invoke writing-plans** — structure the approved design into a spec block, then invoke **writing-plans** to create implementation plan
+5. **Write spec to disk** — format the approved design as a structured spec, save to `docs/specs/YYYY-MM-DD-<topic>-design.md`, and commit
+6. **Design review** — dispatch the **devils-advocate** agent to review the spec file; fix issues and re-dispatch until approved (max 3 iterations, then surface to the user)
+7. **User reviews spec** — ask the user to review the spec file before proceeding
+8. **Invoke writing-plans** — pass the spec file path to **writing-plans** to create the implementation plan
 
 ## Process Flow
 
@@ -36,11 +39,16 @@ flowchart TD
     C --> D[Present design sections]
     D --> E{User approves design?}
     E -->|no, revise| D
-    E -->|yes| F[Format spec block]
-    F --> G([Invoke ce:writing-plans])
+    E -->|yes| F[Write spec to disk]
+    F --> G[Design review]
+    G --> H{Review passed?}
+    H -->|issues found, fix and re-dispatch| G
+    H -->|approved| I{User reviews spec?}
+    I -->|changes requested| F
+    I -->|approved| J([Invoke ce:writing-plans with spec path])
 ```
 
-The terminal state is invoking **writing-plans** with a structured spec block. Do NOT invoke any other implementation skill. The ONLY skill invoked after brainstorming is **writing-plans**.
+The terminal state is invoking **writing-plans** with the spec file path. Do NOT invoke any other implementation skill. The ONLY skill invoked after brainstorming is **writing-plans**.
 
 ## The Process
 
@@ -81,12 +89,14 @@ The terminal state is invoking **writing-plans** with a structured spec block. D
 - Where existing code has problems that affect the work (e.g., a file that has grown too large, unclear boundaries, tangled responsibilities), include targeted improvements as part of the design — the way a good developer improves code they are working in.
 - Do not propose unrelated refactoring. Stay focused on what serves the current goal.
 
-## Preparing the Handoff
+## After the Design
 
-After the user approves the design, format it into this structure before invoking writing-plans:
+**Write the spec to disk:**
 
-```
-## Spec from Brainstorming
+Format the approved design into this structure and save to `docs/specs/YYYY-MM-DD-<topic>-design.md` (user preferences for spec location override this default). Commit the spec file to git.
+
+```markdown
+# [Topic] Design Spec
 
 **Problem:** [Derived from the "purpose" discussion — what's broken/missing/needed]
 
@@ -107,7 +117,25 @@ After the user approves the design, format it into this structure before invokin
 - [Files explored during brainstorming that are relevant to implementation]
 ```
 
-Then invoke **writing-plans** with this spec block as input context.
+**Design review:**
+
+After writing the spec:
+
+1. Dispatch the **devils-advocate** agent to review the spec file
+2. If issues found: fix, re-dispatch, repeat until approved
+3. If the loop exceeds 3 iterations, surface to the user for guidance
+
+**User review gate:**
+
+After the design review passes, ask the user to review the written spec:
+
+> "Spec written and committed to `<path>`. Please review it and let me know if you want to make any changes before we move to planning."
+
+Wait for the user's response. If they request changes, make them and re-run the design review. Only proceed once the user approves.
+
+**Invoke writing-plans:**
+
+Pass the spec file path to **writing-plans**. Do NOT invoke any other skill.
 
 ## Key Principles
 
