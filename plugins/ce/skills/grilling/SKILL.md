@@ -74,7 +74,7 @@ Grilling is complete when you can confidently describe the feature back to the u
 
 **Write the spec to disk:**
 
-Format the shared understanding into this structure and save to `docs/specs/YYYY-MM-DD-<topic>-design.md` (user preferences for spec location override this default). Commit the spec file to git.
+Format the shared understanding into this structure and save to `plans/design-YYYY-MM-DD-<topic>.md` (user preferences for spec location override this default). Commit the spec file to git.
 
 ```markdown
 # [Topic] Design Spec

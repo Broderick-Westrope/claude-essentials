@@ -20,7 +20,7 @@ When a spec file path is provided (from the brainstorming skill or by the user),
 
 **Clarify ambiguity upfront:** If the plan has unclear requirements or meaningful tradeoffs, ask the user before writing the plan. Present options with descriptions explaining the tradeoffs. Use `multiSelect: true` for independent features that can be combined; use single-select for mutually exclusive choices. Don't guess when the user can clarify in 10 seconds. If a spec file is provided, only clarify what the spec leaves ambiguous. Do not re-derive information already present in the spec.
 
-**Save to:** `**/plans/YYYY-MM-DD-<feature-name>.md`
+**Save to:** `**/plans/impl-YYYY-MM-DD-<feature-name>.md`
 
 ## Plan Template
 
@@ -157,7 +157,7 @@ Skip this step only if the plan is trivial (< 3 tasks, single subsystem, no arch
 For plans over ~500 lines, split into phases in a folder:
 
 ```
-**/plans/YYYY-MM-DD-feature/
+**/plans/impl-YYYY-MM-DD-feature/
 ├── README.md           # Overview + phase tracking
 ├── phase-1-setup.md
 └── phase-2-feature.md

@@ -25,7 +25,7 @@ Complete these steps in order:
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and a recommendation
 4. **Present design** — in sections scaled to complexity, get user approval after each section
-5. **Write spec to disk** — format the approved design as a structured spec, save to `docs/specs/YYYY-MM-DD-<topic>-design.md`, and commit
+5. **Write spec to disk** — format the approved design as a structured spec, save to `plans/design-YYYY-MM-DD-<topic>.md`, and commit
 6. **Design review** — dispatch the **devils-advocate** agent to review the spec file; fix issues and re-dispatch until approved (max 3 iterations, then surface to the user)
 7. **User reviews spec** — ask the user to review the spec file before proceeding
 8. **Invoke writing-plans** — pass the spec file path to **writing-plans** to create the implementation plan
@@ -93,7 +93,7 @@ The terminal state is invoking **writing-plans** with the spec file path. Do NOT
 
 **Write the spec to disk:**
 
-Format the approved design into this structure and save to `docs/specs/YYYY-MM-DD-<topic>-design.md` (user preferences for spec location override this default). Commit the spec file to git.
+Format the approved design into this structure and save to `plans/design-YYYY-MM-DD-<topic>.md` (user preferences for spec location override this default). Commit the spec file to git.
 
 ```markdown
 # [Topic] Design Spec
