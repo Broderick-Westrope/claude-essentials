@@ -1,6 +1,6 @@
 ---
 name: ce-code-reviewer-opus
-description: Opus-powered code reviewer for deep, nuanced PR analysis. Used by the /ce-review command as part of dual-model review. Prefer @ce-code-reviewer for standalone use.
+description: Opus-powered code reviewer for deep, nuanced PR analysis. Used by the /ce-review command as part of dual-model review.
 mode: subagent
 model: anthropic/claude-opus-4-6
 color: "#e53e3e"
