@@ -28,7 +28,7 @@ Run two code reviewers in parallel (Sonnet for speed/breadth, Opus for depth/nua
 
 Launch BOTH agents **in parallel** using Task, passing the same review scope to each:
 
-1. **code-reviewer** (Sonnet) — fast, broad coverage
+1. **code-reviewer-sonnet** (Sonnet) — fast, broad coverage
 2. **code-reviewer-opus** (Opus) — deep, nuanced analysis
 
 Both agents receive identical instructions about what to review. Wait for both to complete.
