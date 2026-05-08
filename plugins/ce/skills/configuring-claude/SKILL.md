@@ -15,7 +15,7 @@ Load the relevant reference based on what you're configuring:
 |----------------|------|------|
 | Skills (SKILL.md files, plugin skills) | **Skills** | `references/skills.md` |
 | Rules, CLAUDE.md, memory | **Rules & Memory** | `references/rules-and-memory.md` |
-| Commands using agents (context-auditor, code-reviewer, etc.) | **Agents** | `references/agents.md` |
+| Commands using agents (context-auditor, code-reviewer-opus, code-reviewer-sonnet, etc.) | **Agents** | `references/agents.md` |
 | Commands using interactive tools (AskUserQuestion, APIs) | **Tool Reliability** | `references/tool-reliability.md` |
 
 Load multiple references when creating plugins that include skills, commands with agents, or interactive user workflows.

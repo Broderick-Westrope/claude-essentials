@@ -1,8 +1,10 @@
 ---
-name: ce-code-reviewer
-description: Expert at comprehensive code review for merge requests and pull requests from technical, product, and DX perspectives. Use this agent when the user has completed work on a feature branch and needs review before merging. Analyzes all changes between branches, evaluates user impact, assesses developer experience, enforces project standards, and provides structured feedback organized by severity.
-mode: subagent
-color: "#e53e3e"
+name: code-reviewer-sonnet
+description: Sonnet-powered code reviewer for fast, broad PR analysis. Used by the /ce:review command as part of dual-model review.
+tools: Bash, Glob, Grep, Read, TodoWrite, mcp__ide__getDiagnostics
+model: sonnet
+skills: ce:documentation, ce:handling-errors, ce:writing-tests
+color: red
 ---
 
 ## Required Skills

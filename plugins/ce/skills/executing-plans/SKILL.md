@@ -103,7 +103,7 @@ All five checks must pass before marking complete:
 
    Fix DX issues inline or document for follow-up. Don't ship friction.
 
-5. **Code review (mandatory):** After tests pass and manual verification is done, dispatch the **code-reviewer** agent as a subagent to review the full diff against the base branch. This step is not optional.
+5. **Code review (mandatory):** After tests pass and manual verification is done, dispatch both the **code-reviewer-sonnet** and **code-reviewer-opus** agents in parallel to review the full diff against the base branch, then deduplicate and merge their findings. This step is not optional.
 
    Load relevant domain skills into the agent based on what was implemented. Evaluate which apply and include them in the agent prompt:
    - **architecting-systems** - system design, module boundaries
