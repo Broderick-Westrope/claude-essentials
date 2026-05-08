@@ -117,7 +117,8 @@ Expert AI personas for complex work, accessed with `@ce:` prefix:
 
 | Agent                                                       | Description                                          |
 | ----------------------------------------------------------- | ---------------------------------------------------- |
-| [@ce:code-reviewer](plugins/ce/agents/code-reviewer.md)     | Comprehensive PR/MR reviews enforcing standards      |
+| [@ce:code-reviewer-opus](plugins/ce/agents/code-reviewer-opus.md)     | Deep, nuanced PR review (Opus model) |
+| [@ce:code-reviewer-sonnet](plugins/ce/agents/code-reviewer-sonnet.md) | Fast, broad PR review (Sonnet model) |
 | [@ce:haiku](plugins/ce/agents/haiku.md)                     | Lightweight Haiku agent for simple delegated tasks   |
 | [@ce:log-reader](plugins/ce/agents/log-reader.md)           | Efficient log file analysis using targeted search    |
 | [@ce:devils-advocate](plugins/ce/agents/devils-advocate.md) | Rigorous critique to find flaws in plans and designs |
@@ -183,7 +184,7 @@ ce:writing-tests
 
 # OpenCode
 /ce-explain README.md
-@ce-code-reviewer
+@ce-code-reviewer-opus
 ```
 
 ---
@@ -311,7 +312,7 @@ ce:refactoring-code
 
 - **Commands** (`/ce:test`, `/ce:review`) are quick keyboard shortcuts for routine tasks
 - **Skills** (`ce:writing-tests`) are reusable workflows that guide specific development patterns
-- **Agents** (`@ce:code-reviewer`) are expert personas for complex, multi-step work
+- **Agents** (`@ce:code-reviewer-opus`) are expert personas for complex, multi-step work
 
 Use commands for quick actions, skills for following proven patterns, and agents when you need specialized expertise.
 
@@ -378,7 +379,7 @@ claude-essentials/
 │   ├── plugins/ce.js             # OpenCode plugin (manifest-based config hook)
 │   ├── plugins/manifest.json     # Pre-built commands + agents (generated)
 │   ├── commands/ce-*.md          # 21 OpenCode-formatted commands
-│   ├── agents/ce-*.md            # 5 OpenCode-formatted agents
+│   ├── agents/ce-*.md            # 6 OpenCode-formatted agents
 │   └── INSTALL.md                # OpenCode installation guide
 ├── scripts/
 │   └── build-manifest.js         # Generates manifest.json from commands + agents
@@ -387,7 +388,7 @@ claude-essentials/
 │   │   └── plugin.json           # Plugin metadata
 │   ├── commands/                 # 21 commands (/ce:test, /ce:plan, etc.)
 │   ├── skills/                   # 35 shared skills (ce:writing-tests, etc.)
-│   ├── agents/                   # 5 agents (@ce:code-reviewer, etc.)
+│   ├── agents/                   # 6 agents (@ce:code-reviewer-opus, @ce:code-reviewer-sonnet, etc.)
 │   └── hooks/                    # Session automation
 └── ...
 ```
