@@ -10,7 +10,7 @@ This is a dual-platform development plugin (`ce`) that provides development work
 
 - **21 Commands** - Development workflows (test, explain, debug, optimize, refactor, review, commit, deps, fix-issue, pr, document, draft-tsd, plan, execute, init, audit-context, review-with-me, post-mortem, scaffold-tests, brainstorm, grill)
 - **35 Skills** - Reusable patterns for testing, debugging, refactoring, architecture, planning, TDD, brainstorming, git worktrees, code review, SQL, product planning, and more
-- **5 Agents** - Expert AI personas (code-reviewer, haiku, log-reader, devils-advocate, context-auditor)
+- **6 Agents** - Expert AI personas (code-reviewer-opus, code-reviewer-sonnet, haiku, log-reader, devils-advocate, context-auditor)
 - **Session Hooks** - Automatic project configuration on startup
 - **Reference Templates** - ADR, PRD, and technical design templates
 
@@ -20,7 +20,7 @@ This is a dual-platform development plugin (`ce`) that provides development work
 |-----------|------------|----------|
 | Commands | `/ce:test` | `/ce-test` |
 | Skills | `ce:writing-tests` | `ce:writing-tests` (shared) |
-| Agents | `@ce:code-reviewer` | `@ce-code-reviewer` |
+| Agents | `@ce:code-reviewer-opus` | `@ce-code-reviewer-opus` |
 
 Claude Code auto-adds the `ce:` prefix from the plugin name. OpenCode uses `ce-` filename prefix for commands/agents. Skills are shared and use `ce:` on both platforms.
 
@@ -302,7 +302,7 @@ Install the unified ce plugin:
 
 - **Commands**: Quick shortcuts for routine tasks (test, commit, review)
 - **Skills**: Reusable workflows following proven patterns (testing, debugging, architecture)
-- **Agents**: Expert personas for complex multi-step work (code reviewer, log reader)
+- **Agents**: Expert personas for complex multi-step work (code-reviewer-opus, code-reviewer-sonnet, log-reader)
 
 Skills should focus on teaching patterns, not just executing tasks. Use imperative language and include practical examples with edge cases where relevant.
 
