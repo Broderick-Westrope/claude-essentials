@@ -2,7 +2,7 @@
 name: ce-code-reviewer-sonnet
 description: Sonnet-powered code reviewer for fast, broad PR analysis. Used by the /ce-review command as part of dual-model review. Prefer @ce-code-reviewer-sonnet for standalone use.
 mode: subagent
-model: anthropic/claude-sonnet-4-20250514
+model: anthropic/claude-sonnet-4-6
 color: "#e53e3e"
 ---
 
