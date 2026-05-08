@@ -16,7 +16,8 @@ Agents are expert AI personas that execute tasks autonomously. This reference do
 | Agent | Available Tools | Purpose |
 |-------|----------------|---------|
 | context-auditor | Glob, Grep, Read, Bash | Analyze codebase for documentation gaps |
-| code-reviewer | Bash, Glob, Grep, Read, TodoWrite | Review code changes for quality/standards |
+| code-reviewer-opus | Bash, Glob, Grep, Read, TodoWrite | Deep, nuanced code review (Opus model) |
+| code-reviewer-sonnet | Bash, Glob, Grep, Read, TodoWrite | Fast, broad code review (Sonnet model) |
 | haiku | Bash, Read, Edit, Write, Grep, Glob | Fast, delegated tasks from other commands |
 | log-reader | Read, Grep, Glob, Bash | Analyze large log files efficiently |
 
@@ -100,15 +101,17 @@ Present questions to user via AskUserQuestion or manual mode.
 Collect answers.
 ```
 
-## code-reviewer Agent
+## code-reviewer-opus / code-reviewer-sonnet Agents
 
-**What it does:**
-- Reviews code changes between branches
-- Checks technical quality, product impact, DX
-- Enforces project standards
-- Provides structured feedback by severity
+The `/ce:review` command launches both agents in parallel (Sonnet for speed/breadth, Opus for depth/nuance), then deduplicates and merges their findings. Both agents share identical review instructions.
 
-**What it outputs:**
+**What they do:**
+- Review code changes between branches
+- Check technical quality, product impact, DX
+- Enforce project standards
+- Provide structured feedback by severity
+
+**What they output:**
 ```markdown
 # Code Review
 
@@ -132,8 +135,9 @@ Collect answers.
 
 **Command responsibilities:**
 - Pass branch names or commit range
-- Parse feedback sections
-- Present to user
+- Launch both agents in parallel
+- Deduplicate and merge findings
+- Present unified review to user
 - Optionally apply fixes
 
 ## haiku Agent
