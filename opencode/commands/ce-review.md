@@ -32,6 +32,14 @@ Launch BOTH agents **in parallel**, passing the same review scope to each:
 
 Both agents receive identical instructions about what to review. Wait for both to complete.
 
+### Failure handling
+
+If one reviewer fails, errors, or times out:
+- Proceed with the surviving reviewer's output
+- Note in the Summary: "Note: [Opus/Sonnet] reviewer failed — single-model review"
+- All findings attributed to the surviving reviewer only
+- Verdict is based on the single review
+
 ## Step 3: Deduplicate and Merge
 
 Parse both reviews and produce a single unified output. Use this process:
