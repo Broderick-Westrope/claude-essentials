@@ -1,0 +1,6 @@
+{
+  "name": "ce",
+  "skills": "../plugins/ce/skills",
+  "commands": "commands",
+  "agents": "agents"
+}
