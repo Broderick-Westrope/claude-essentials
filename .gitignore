@@ -11,6 +11,7 @@
 !/plans/
 !/scripts/
 !/anvil/
+!/anvil-plugin.json
 
 # And these files
 !LICENSE.md
