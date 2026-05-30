@@ -8,8 +8,8 @@ This is a dual-platform development plugin (`ce`) that provides development work
 
 **The ce plugin provides:**
 
-- **21 Commands** - Development workflows (test, explain, debug, optimize, refactor, review, commit, deps, fix-issue, pr, document, draft-tsd, plan, execute, init, audit-context, review-with-me, post-mortem, scaffold-tests, brainstorm, grill)
-- **35 Skills** - Reusable patterns for testing, debugging, refactoring, architecture, planning, TDD, brainstorming, git worktrees, code review, SQL, product planning, and more
+- **20 Commands** - Development workflows (test, explain, debug, optimize, refactor, review, commit, deps, fix-issue, pr, document, draft-tsd, plan, execute, init, audit-context, review-with-me, post-mortem, scaffold-tests, grill)
+- **34 Skills** - Reusable patterns for testing, debugging, refactoring, architecture, planning, TDD, git worktrees, code review, SQL, product planning, and more
 - **6 Agents** - Expert AI personas (code-reviewer-opus, code-reviewer-sonnet, haiku, log-reader, devils-advocate, context-auditor)
 - **Session Hooks** - Automatic project configuration on startup
 - **Reference Templates** - ADR, PRD, and technical design templates

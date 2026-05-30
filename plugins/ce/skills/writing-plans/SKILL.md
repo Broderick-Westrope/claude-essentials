@@ -9,7 +9,7 @@ Write step-by-step implementation plans for agentic execution. Each task should 
 
 ## When Invoked With a Spec File
 
-When a spec file path is provided (from the brainstorming skill or by the user), read the file and use it directly as the plan's Specification section:
+When a spec file path is provided (from the grilling skill or by the user), read the file and use it directly as the plan's Specification section:
 
 - Read the spec file and extract "Problem", "Goal", "Scope", "Constraints", "Success Criteria"
 - Map these directly into the plan template

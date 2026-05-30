@@ -65,13 +65,12 @@ Reusable development patterns, accessed with `ce:` prefix:
 
 | Skill                                                                      | Description                                               |
 | -------------------------------------------------------------------------- | --------------------------------------------------------- |
-| [ce:brainstorming](plugins/ce/skills/brainstorming/SKILL.md)               | Collaborative design exploration for new ideas and approaches |
+| [ce:grilling](plugins/ce/skills/grilling/SKILL.md)                         | Interview and design exploration — adapts to user's clarity level |
 | [ce:planning-products](plugins/ce/skills/planning-products/SKILL.md)       | Product feature definition from a PM perspective          |
 | [ce:writing-plans](plugins/ce/skills/writing-plans/SKILL.md)               | Create implementation plans with devils-advocate review   |
 | [ce:executing-plans](plugins/ce/skills/executing-plans/SKILL.md)           | Execute plans with mandatory code review                  |
 | [ce:architecting-systems](plugins/ce/skills/architecting-systems/SKILL.md) | Clean, scalable system architecture for the build phase   |
 | [ce:design](plugins/ce/skills/design/SKILL.md)                             | Frontend design skill                                     |
-| [ce:grilling](plugins/ce/skills/grilling/SKILL.md)                         | Rigorous questioning to find flaws in plans and designs   |
 | [ce:onboarding-systems](plugins/ce/skills/onboarding-systems/SKILL.md)     | Guided onboarding into complex microservices              |
 | [ce:scaffolding-plan-tests](plugins/ce/skills/scaffolding-plan-tests/SKILL.md) | Translate plans into failing test files before coding |
 
@@ -386,8 +385,8 @@ claude-essentials/
 ├── plugins/ce/                   # Claude Code plugin
 │   ├── .claude-plugin/
 │   │   └── plugin.json           # Plugin metadata
-│   ├── commands/                 # 21 commands (/ce:test, /ce:plan, etc.)
-│   ├── skills/                   # 35 shared skills (ce:writing-tests, etc.)
+│   ├── commands/                 # 20 commands (/ce:test, /ce:plan, etc.)
+│   ├── skills/                   # 34 shared skills (ce:writing-tests, etc.)
 │   ├── agents/                   # 6 agents (@ce:code-reviewer-opus, @ce:code-reviewer-sonnet, etc.)
 │   └── hooks/                    # Session automation
 └── ...

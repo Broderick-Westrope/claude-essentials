@@ -209,7 +209,7 @@ Ready to implement auth feature
 ## Integration
 
 **Called by:**
-- **brainstorming** - when design is approved and implementation follows
+- **grilling** - when design is approved and implementation follows
 - **executing-plans** - before executing any tasks
 - Any skill needing isolated workspace
 
