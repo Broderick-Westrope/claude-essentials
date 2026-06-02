@@ -1,6 +1,6 @@
 ---
 name: code-reviewer-opus
-description: Opus-powered code reviewer for deep, nuanced PR analysis. Used by the /ce:review command as part of dual-model review.
+description: Opus-powered code reviewer for deep, nuanced PR analysis. Used by the /ce:review command as part of multi-model review.
 tools: Bash, Glob, Grep, Read, TodoWrite, mcp__ide__getDiagnostics
 model: opus
 skills: ce:documentation, ce:handling-errors, ce:writing-tests

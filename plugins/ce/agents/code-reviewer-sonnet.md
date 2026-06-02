@@ -1,6 +1,6 @@
 ---
 name: code-reviewer-sonnet
-description: Sonnet-powered code reviewer for fast, broad PR analysis. Used by the /ce:review command as part of dual-model review.
+description: Sonnet-powered code reviewer for fast, broad PR analysis. Used by the /ce:review command as part of multi-model review.
 tools: Bash, Glob, Grep, Read, TodoWrite, mcp__ide__getDiagnostics
 model: sonnet
 skills: ce:documentation, ce:handling-errors, ce:writing-tests

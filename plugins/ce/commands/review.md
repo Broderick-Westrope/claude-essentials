@@ -1,10 +1,10 @@
 ---
-description: Dual-model code review — runs Sonnet and Opus reviewers in parallel, deduplicates findings
+description: Multi-model code review — runs Sonnet, Opus, and Convention reviewers in parallel, deduplicates findings
 argument-hint: "[instructions]"
 allowed-tools: Bash, Task, AskUserQuestion
 ---
 
-Run two code reviewers in parallel (Sonnet for speed/breadth, Opus for depth/nuance), then deduplicate and merge their findings into a single unified review.
+Run three code reviewers in parallel (Sonnet for speed/breadth, Opus for depth/nuance, Convention for convention compliance), then deduplicate and merge their findings into a single unified review.
 
 ## Step 1: Determine Review Scope
 
@@ -24,21 +24,27 @@ Run two code reviewers in parallel (Sonnet for speed/breadth, Opus for depth/nua
      - Check the changed files via `git diff --name-only $([ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] && echo "HEAD^" || echo "main...HEAD")`
      - Ask user what should be reviewed
 
-## Step 2: Launch Dual-Model Review
+## Step 2: Launch Multi-Model Review
 
-Launch BOTH agents **in parallel** using Task, passing the same review scope to each:
+Launch ALL THREE agents **in parallel** using Task, passing the same review scope to each:
 
 1. **code-reviewer-sonnet** (Sonnet) — fast, broad coverage
 2. **code-reviewer-opus** (Opus) — deep, nuanced analysis
+3. **convention-reviewer** (Opus) — convention compliance
 
-Both agents receive identical instructions about what to review. Wait for both to complete.
+All agents receive identical instructions about what to review. Wait for all to complete.
 
 ### Failure handling
 
 If one reviewer fails, errors, or times out:
-- Proceed with the surviving reviewer's output
-- Note in the Summary: "Note: [Opus/Sonnet] reviewer failed — single-model review"
-- All findings attributed to the surviving reviewer only
+- Proceed with the two surviving reviewers' output
+- Note in the Summary: "Note: [name] reviewer failed — two-reviewer result"
+- Findings attributed to surviving reviewers only
+- Verdict is based on surviving reviews
+
+If two reviewers fail:
+- Proceed with the single surviving reviewer's output
+- Note in the Summary: "Note: [name] and [name] reviewers failed — single-reviewer result"
 - Verdict is based on the single review
 
 ## Step 3: Deduplicate and Merge
@@ -53,44 +59,42 @@ Two findings match when they reference the **same file and line** (or overlappin
 
 | Scenario | Action |
 |----------|--------|
-| Both reviewers found the same issue | Single entry, mark with `[Sonnet + Opus]` — high confidence |
-| Only one reviewer found it | Single entry, mark with `[Sonnet]` or `[Opus]` |
+| Multiple reviewers found the same issue | Single entry, mark with combined attribution (e.g. `[Sonnet + Opus]`, `[Opus + Convention]`, `[Sonnet + Opus + Convention]`) — higher confidence |
+| Only one reviewer found it | Single entry, mark with `[Sonnet]`, `[Opus]`, or `[Convention]` |
 | Reviewers disagree on severity | Use the higher severity, note the disagreement |
 | Reviewers contradict each other | Include both perspectives inline, let user decide |
 
 ### Verdict logic
 
-| Sonnet Verdict | Opus Verdict | Merged Verdict |
-|---------------|-------------|----------------|
-| APPROVE | APPROVE | APPROVE |
-| APPROVE | REQUEST CHANGES | REQUEST CHANGES (Opus found issues Sonnet missed) |
-| REQUEST CHANGES | APPROVE | REQUEST CHANGES (err on the side of caution) |
-| REQUEST CHANGES | REQUEST CHANGES | REQUEST CHANGES |
+Any reviewer requesting changes → merged verdict is **REQUEST CHANGES**.
+Only unanimous APPROVE across all surviving reviewers → **APPROVE**.
 
 ## Step 4: Present Unified Review
 
 Output the merged review using this format:
 
 ```markdown
-# Code Review (Dual-Model)
+# Code Review (Multi-Model)
 
 ## Summary
 
 - **Files changed**: X files (+Y/-Z lines)
 - **Change type**: [Feature | Bug Fix | Refactor | Enhancement]
 - **Scope**: [Brief 1-2 sentence description]
-- **Reviewers**: Sonnet + Opus (parallel)
-- **Agreement**: X of Y findings confirmed by both models
+- **Reviewers**: Sonnet + Opus + Convention (parallel)
+- **Agreement**: X of Y findings confirmed by multiple reviewers
 
 ## Critical Issues ⛔
 
 - `[Sonnet + Opus]` `file.ts:123` - [Issue description]
 - `[Opus]` `file.ts:456` - [Issue only Opus caught]
+- `[Convention]` `file.ts:789` - [Convention violation]
 
 ## Important Issues ⚠️
 
 - `[Sonnet + Opus]` `file.ts:789` - [Issue description]
 - `[Sonnet]` `file.ts:012` - [Issue only Sonnet caught]
+- `[Convention]` `file.ts:789` - [Convention violation]
 
 ## Product & UX Issues 🎯
 
@@ -134,6 +138,7 @@ After presenting the unified review:
    Review Findings - [branch/scope]:
    - [ ] [CRITICAL] [Sonnet + Opus] file.ts:123 - Description
    - [ ] [IMPORTANT] [Opus] file.ts:456 - Description
+   - [ ] [IMPORTANT] [Convention] file.ts:789 - Description
    ```
 
    b. Ask the user how to proceed:
@@ -150,4 +155,4 @@ After presenting the unified review:
       2. **If commit mode is ON:** commit the fix as a separate commit with a descriptive message explaining the issue and how it was resolved (e.g. `fix: resolve potential null dereference in user lookup\n\nThe getUserById call could return null when the user was deleted\nbetween the auth check and the lookup. Added an explicit null check\nwith early return.`)
       3. Mark the checklist item complete
 
-   After all targeted items are fixed, re-run the dual-model review to verify the fixes don't introduce new issues.
+   After all targeted items are fixed, re-run the multi-model review to verify the fixes don't introduce new issues.
