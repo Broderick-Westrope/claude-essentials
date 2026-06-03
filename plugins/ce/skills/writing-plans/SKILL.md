@@ -79,7 +79,12 @@ npm test -- tests/auth/
 
 ## Scope Check
 
-If the spec covers multiple independent subsystems with no shared dependencies, consider breaking into separate plans. A plan that touches auth, billing, AND notifications is probably three plans. One plan = one cohesive feature.
+If the spec spans multiple domains, decide: **phases or separate plans?**
+
+- **Phases** — the domains share a goal and timeline. A user authentication feature that touches the auth service, the API gateway, and the frontend is one plan with phases. The work is coordinated and sequenced.
+- **Separate plans** — the domains are unrelated projects with no shared goal. "Build a chat feature AND redesign the billing page" is two plans. They have independent timelines and reviewers.
+
+One plan = one cohesive effort. Phases break that effort into reviewable slices.
 
 ## Task Sizing
 
@@ -130,7 +135,7 @@ Tasks in the **same subsystem** should be sequential or combined into one task.
 3. **Verify every task:** End with a command that proves it works
 4. **One agent per task:** All steps in a task are handled by the same agent
 5. **Self-contained tasks:** Each task must be completable by an agent with zero prior context. Include complete code snippets (not "add validation"), exact commands with expected output, and all file paths.
-6. **Scope check:** If the spec spans multiple independent subsystems, split into separate plans.
+6. **Scope check:** If the spec spans unrelated projects with no shared goal, split into separate plans. If it spans multiple domains with a shared goal, use phases (see "Phased Plans").
 
 ## Before Presenting
 
@@ -152,13 +157,65 @@ Before presenting the plan to the user, dispatch the **devils-advocate** agent a
 
 Skip this step only if the plan is trivial (< 3 tasks, single subsystem, no architectural decisions).
 
-## Large Plans
+## Phased Plans
 
-For plans over ~500 lines, split into phases in a folder:
+Split a plan into phases when a reviewer would need to context-switch between unrelated domains to understand the resulting diff. Each phase is a **PR-sized vertical slice** — a sub-feature that can be reviewed, approved, and merged independently.
+
+**When to phase:**
+
+- The plan touches multiple independent domains (auth + billing + notifications) that share a goal but would overwhelm a single PR review
+- A reviewer would need to hold unrelated domain knowledge simultaneously to review the diff
+- Cross-cutting work (migrations, shared types, observability) should land before domain-specific work
+
+**When NOT to phase:**
+
+- Single-domain plans, regardless of size — a large auth-only plan stays as one file
+- All tasks are tightly coupled and reviewing them separately would lose context
+
+**Phase structure:**
+
+- A phase is higher-level than task groups — a phase may contain multiple `##` task groups that still parallelize internally
+- Cross-cutting concerns (database migrations, shared type refactors) become a **foundational phase** that runs first
+- Phases are **sequential by default** (phase 2 depends on phase 1 being merged). Independent phases get a `(parallel)` marker in the README
+- If a plan has more than 4-5 phases, reconsider whether it should be decomposed into separate plans
+
+**Execution model:**
+
+Phases are human-orchestrated. The human runs each phase independently (e.g., `/ce:execute phase-1-foundation.md`), reviews the resulting PR, merges, then proceeds to the next phase. Each phase file should note "create PR for human review" rather than auto-merging, since the human controls the merge gate between phases.
+
+**Folder structure:**
 
 ```
 **/plans/impl-YYYY-MM-DD-feature/
-├── README.md           # Overview + phase tracking
-├── phase-1-setup.md
-└── phase-2-feature.md
+├── README.md
+├── phase-1-foundation.md
+├── phase-2-auth.md
+└── phase-3-billing.md
 ```
+
+**README template:**
+
+````markdown
+# [Feature Name] Implementation Plan
+
+> **Status:** DRAFT | APPROVED | IN_PROGRESS | COMPLETED
+
+## Overview
+
+[1-2 sentence summary of the full feature and why it's phased. Include Problem/Goal from the spec so reviewers understand the full picture without reading every phase file.]
+
+## Phases
+
+| # | File | Delivers | Depends on | Review focus |
+|---|------|----------|------------|--------------|
+| 1 | `phase-1-foundation.md` | Database migration + shared types | — | Schema design, index choices |
+| 2 | `phase-2-auth.md` | Auth service + API endpoints | Phase 1 | Access control, token handling |
+| 3 | `phase-3-billing.md` (parallel) | Billing integration | Phase 1 | Stripe webhook idempotency |
+
+> Parallel phases can be developed and merged in either order — they share no code dependencies beyond their prerequisite phase.
+
+## Phase Boundaries
+
+- **1 → 2:** Foundation phase isolates schema/type changes so they're reviewed before domain logic builds on them.
+- **1 → 3:** Billing is independent of auth; both depend on foundation types. Marked parallel.
+````
