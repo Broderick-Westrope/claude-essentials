@@ -20,7 +20,7 @@ When a spec file path is provided (from the grilling skill or by the user), read
 
 **Clarify ambiguity upfront:** If the plan has unclear requirements or meaningful tradeoffs, ask the user before writing the plan. Present options with descriptions explaining the tradeoffs. Use `multiSelect: true` for independent features that can be combined; use single-select for mutually exclusive choices. Don't guess when the user can clarify in 10 seconds. If a spec file is provided, only clarify what the spec leaves ambiguous. Do not re-derive information already present in the spec.
 
-**Save to:** `**/plans/impl-YYYY-MM-DD-<feature-name>.md`
+**Save to:** `**/plans/impl-YYYY-MM-DD-<feature-name>.md`. Commit the plan file(s) to git.
 
 ## Plan Template
 
