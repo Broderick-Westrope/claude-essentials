@@ -22,6 +22,22 @@ When a spec file path is provided (from the grilling skill or by the user), read
 
 **Save to:** `**/plans/impl-YYYY-MM-DD-<feature-name>.md`. Commit the plan file(s) to git.
 
+## Phase Gate
+
+Decide **before writing any tasks** whether this is a single-file plan or a phased plan. Count the independent domains the spec touches (e.g., config, agent core, UI, database, API, infra). A domain is independent if a reviewer could evaluate it without understanding the other domains.
+
+**Phase the plan when:**
+- 3+ independent domains need changes
+- A single PR diff would require the reviewer to context-switch between unrelated expertise areas
+- Cross-cutting foundation work (types, schemas, enums) should land before domain-specific work
+
+**Keep as single file when:**
+- Single domain, regardless of size
+- All tasks are tightly coupled — reviewing them separately loses context
+- Fewer than 3 domains, and a reviewer can hold them all in context
+
+If phasing: create the folder structure and README first (see **Phased Plans** below), then write tasks into phase files. Do not write a single-file plan and restructure later.
+
 ## Plan Template
 
 ````markdown
@@ -77,15 +93,6 @@ npm test -- tests/auth/
 ```
 ````
 
-## Scope Check
-
-If the spec spans multiple domains, decide: **phases or separate plans?**
-
-- **Phases** — the domains share a goal and timeline. A user authentication feature that touches the auth service, the API gateway, and the frontend is one plan with phases. The work is coordinated and sequenced.
-- **Separate plans** — the domains are unrelated projects with no shared goal. "Build a chat feature AND redesign the billing page" is two plans. They have independent timelines and reviewers.
-
-One plan = one cohesive effort. Phases break that effort into reviewable slices.
-
 ## Task Sizing
 
 A task includes **everything** to complete one logical unit:
@@ -135,7 +142,7 @@ Tasks in the **same subsystem** should be sequential or combined into one task.
 3. **Verify every task:** End with a command that proves it works
 4. **One agent per task:** All steps in a task are handled by the same agent
 5. **Self-contained tasks:** Each task must be completable by an agent with zero prior context. Include complete code snippets (not "add validation"), exact commands with expected output, and all file paths.
-6. **Scope check:** If the spec spans unrelated projects with no shared goal, split into separate plans. If it spans multiple domains with a shared goal, use phases (see "Phased Plans").
+6. **Scope check:** If the spec spans unrelated projects with no shared goal, split into separate plans. If it spans multiple domains with a shared goal, use phases (see "Phased Plans"). This should already be decided via the Phase Gate before tasks were written.
 
 ## Before Presenting
 
@@ -151,6 +158,7 @@ Before presenting the plan to the user, dispatch the **devils-advocate** agent a
   - **optimizing-performance** - performance-sensitive work
   - **refactoring-code** - structural refactoring
 - The agent will look for: unstated assumptions, missing edge cases, tasks that are too vague, missing dependencies between tasks, verification gaps
+- **Structural check:** Also ask the reviewer to evaluate whether the plan should be phased. Count the independent domains touched — if a single PR would require a reviewer to context-switch between unrelated expertise areas (e.g., config plumbing, agent run-loop internals, TUI components), the plan should use the phased structure
 - When a spec file is provided, also evaluate whether the spec's design decisions are architecturally sound and whether the plan faithfully implements the spec's stated goals
 - Incorporate valid feedback into the plan
 - Note what the review caught in a brief "Review notes" comment at the bottom of the plan
