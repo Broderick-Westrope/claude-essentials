@@ -1,10 +1,14 @@
 # Claude Essentials
 
-A unified development plugin with essential commands, skills, and specialized agents, all accessible under the `ce` namespace. Works with both **Claude Code** and **OpenCode**.
+A unified development plugin with essential commands, skills, and specialized agents, all accessible under the `ce` namespace. Works with **Claude Code**, **OpenCode**, and **[Anvil](https://github.com/Broderick-Westrope/anvil)**.
 
 NOTE: This is a fork, to customise my workflow. All credit for the original files goes to https://github.com/rileyhilliard
 
 <img src="/assets/hackerman.gif" width="100%" alt="hackerman">
+
+### Platform support
+
+This plugin started with **Claude Code**, which remains the industry standard. Support was later added for **[Brocode](https://github.com/Broderick-Westrope/brocode)** (a fork of OpenCode) which served as my primary tool for a while. These days I use **[Anvil](https://github.com/Broderick-Westrope/anvil)** exclusively, but all three platforms remain supported.
 
 ## What's Included
 
@@ -148,6 +152,22 @@ Expert AI personas for complex work, accessed with `@ce:` prefix:
 
 Commands use `/ce:` prefix, skills use `ce:` prefix, agents use `@ce:` prefix.
 
+### Anvil
+
+Add the plugin to your `anvil.json`:
+
+```jsonc
+{
+  "plugins": [
+    {"path": "~/path/to/claude-essentials/plugins/ce"}
+  ]
+}
+```
+
+Anvil auto-discovers `skills/`, `commands/`, and `agents/` directories. Names are bare by default (e.g., `/commit`, `@oracle`); the `ce:` prefix is only added if there's a naming collision with a higher-priority source.
+
+See [ANVIL.md](ANVIL.md) for the full plugin format reference.
+
 ### OpenCode
 
 Add the plugin to your project's `opencode.json`:
@@ -180,6 +200,10 @@ See [opencode/INSTALL.md](opencode/INSTALL.md) for detailed OpenCode setup and t
 # Claude Code
 /ce:explain README.md
 ce:writing-tests
+
+# Anvil
+/explain README.md
+@reviewer
 
 # OpenCode
 /ce-explain README.md
@@ -382,17 +406,18 @@ claude-essentials/
 │   └── INSTALL.md                # OpenCode installation guide
 ├── scripts/
 │   └── build-manifest.js         # Generates manifest.json from commands + agents
-├── plugins/ce/                   # Claude Code plugin
+├── plugins/ce/                   # Claude Code + Anvil plugin
 │   ├── .claude-plugin/
 │   │   └── plugin.json           # Plugin metadata
 │   ├── commands/                 # 20 commands (/ce:test, /ce:plan, etc.)
 │   ├── skills/                   # 34 shared skills (ce:writing-tests, etc.)
-│   ├── agents/                   # 6 agents (@ce:code-reviewer-opus, @ce:code-reviewer-sonnet, etc.)
+│   ├── agents/                   # 6+ agents (@ce:code-reviewer-opus, @oracle, etc.)
 │   └── hooks/                    # Session automation
+├── ANVIL.md                      # Anvil plugin format reference
 └── ...
 ```
 
-Skills in `plugins/ce/skills/` are shared between both platforms. Commands and agents have platform-specific versions.
+Skills in `plugins/ce/skills/` are shared across all platforms. Anvil reads directly from `plugins/ce/`. OpenCode and Claude Code have platform-specific command/agent versions.
 
 ## Tips
 
@@ -445,6 +470,7 @@ Ideas for contributions:
 ## Resources
 
 - [Claude Code](https://www.claude.com/product/claude-code)
+- [Anvil](https://github.com/Broderick-Westrope/anvil)
 - [Claude API Docs](https://docs.anthropic.com/)
 - [Model Context Protocol](https://modelcontextprotocol.io/)
 
