@@ -39,6 +39,27 @@ Interactive review session. The human reads the diff and asks questions; you ans
 
 Then say you're ready for questions.
 
+## Suggested Review Order
+
+As part of (or immediately after) the initial assessment, decide whether the changed files have a natural reading order. Many PRs do: a new RPC isn't understandable until you've seen the proto/interface it implements; adapters and tests make little sense before the core logic they exercise.
+
+**How to derive an order:**
+
+- Follow dependency direction: start at the change's root (schema/proto changes, RPC or interface definitions, core types) and move outward to implementations, then callers/adapters/wiring, then tests, fixtures, and generated code last.
+- Group related files into steps rather than listing every file — e.g., "the service method + its DAO" as one step, "its tests" as another.
+- Mark files that can be skimmed or skipped (generated code, lockfiles, snapshots, mechanical renames).
+
+**When to present it:**
+
+- If a meaningful order exists, present it as a short numbered list of groups, each with a one-line reason ("read this first because everything else implements it").
+- If there's no meaningful order (independent changes, broad mechanical refactor, doc-only), say so explicitly and don't invent one. A forced order is worse than none.
+
+**Rules:**
+
+- The order is a suggestion, not a procedure. The reviewer may follow it, jump around, or ignore it entirely — never push them back "on track."
+- Keep it loose: prefer 3-5 groups over a strict per-file sequence.
+- If the reviewer follows the order, briefly note when they seem done with a group and what's next ("that covers the RPC layer — adapters are the next group"). One sentence, only when natural.
+
 ## Answering Questions
 
 When the reviewer asks about code — especially using block quotes (`> ...`) to reference specific snippets — follow this process:
@@ -82,6 +103,10 @@ Format:
 
 [Brief summary of what the branch does]
 
+## Suggested Review Order
+
+[Numbered groups with rationale, or "No meaningful order for this change"]
+
 ## Q&A
 
 ### Q: [Reviewer's question]
@@ -112,6 +137,7 @@ When the reviewer says they're done (or asks for a summary):
    - Key findings and decisions from the Q&A
    - All flagged items consolidated in one list
    - Any unresolved questions
+   - Files or groups from the suggested order that weren't discussed, if any (informational, not a nag)
 2. Print the full path to the review log file again
 3. Suggest the reviewer can share the log with the PR author if useful
 
