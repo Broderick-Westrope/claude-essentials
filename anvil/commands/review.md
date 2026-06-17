@@ -5,6 +5,16 @@ argument_hint: "[instructions]"
 
 Run three code reviewers in parallel (Sonnet for speed/breadth, Opus for depth/nuance, Convention for convention compliance), then deduplicate and merge their findings into a single unified review.
 
+## Model Configuration
+
+Use these exact model IDs when launching reviewer agents. Update here if models change.
+
+| Reviewer | Agent | Model Override |
+|----------|-------|----------------|
+| Sonnet (fast/broad) | `reviewer` | `anthropic/claude-sonnet-4-6` |
+| Opus (deep/nuanced) | `reviewer` | `anthropic/claude-opus-4-6` |
+| Convention | `convention-reviewer` | `anthropic/claude-opus-4-6` |
+
 ## Step 1: Determine Review Scope
 
 **If `$ARGUMENTS` is provided:**
@@ -25,11 +35,11 @@ Run three code reviewers in parallel (Sonnet for speed/breadth, Opus for depth/n
 
 ## Step 2: Launch Multi-Model Review
 
-Launch ALL THREE agents **in parallel**, passing the same review scope to each:
+Launch ALL THREE agents **in parallel** using the `task` tool, passing the same review scope to each. Use the exact agent names and model overrides from the **Model Configuration** table above:
 
-1. **ce-code-reviewer-sonnet** (Sonnet) — fast, broad coverage
-2. **ce-code-reviewer-opus** (Opus) — deep, nuanced analysis
-3. **ce-convention-reviewer** (Opus) — convention compliance
+1. `task(subagent_type="reviewer", model="anthropic/claude-sonnet-4-6")` — **Sonnet**: fast, broad coverage
+2. `task(subagent_type="reviewer", model="anthropic/claude-opus-4-6")` — **Opus**: deep, nuanced analysis
+3. `task(subagent_type="convention-reviewer", model="anthropic/claude-opus-4-6")` — **Convention**: convention compliance
 
 All agents receive identical instructions about what to review. Wait for all to complete.
 
@@ -48,7 +58,7 @@ If two reviewers fail:
 
 ## Step 3: Deduplicate and Merge
 
-Parse both reviews and produce a single unified output. Use this process:
+Parse all three reviews and produce a single unified output. Use this process:
 
 ### Matching findings
 
