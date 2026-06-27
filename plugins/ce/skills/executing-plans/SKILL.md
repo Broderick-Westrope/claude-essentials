@@ -59,7 +59,8 @@ Subagent (general-purpose):
     - Task 2: Add logout endpoint
 
     Use skills: <relevant skills>
-    Commit after each task. Report: files changed, test results
+    Commit after each completed task (see commit rules below).
+    Report: files changed, test results, commit SHA
 ```
 
 **Architectural fit:** Changes should integrate cleanly with existing patterns. If a change feels like it's fighting the architecture, that's a signal to refactor first rather than bolt something on. Don't reinvent wheels when battle-tested libraries exist, but don't reach for a dependency for trivial things either (no lodash just for `_.map`). The goal is zero tech debt, not "ship now, fix later."
@@ -120,14 +121,27 @@ All five checks must pass before marking complete:
 
    Plan execution is not done until review findings are addressed.
 
-## 5. Commit
+## 5. Commit Strategy
 
-After verification passes, commit only the changes related to this plan:
+**Commit incrementally as you go.** The git history should read like an audit log — each commit tells the story of one logical step. If a git repo already exists when execution starts, sub-agents must commit after each completed task, not batch everything at the end.
 
-1. Run `git status` to see all changes
-2. **Stage files by name, not with `git add -A` or `git add .`** - only stage files you modified as part of this plan
-3. **Leave unrelated changes alone** - if there are pre-existing staged or unstaged changes that aren't part of this work, don't touch them
-4. Write a commit message that summarizes what was implemented, referencing the plan
+### Rules
+
+1. **One commit per completed task.** Each task from the plan gets its own commit. This makes the history reviewable, bisectable, and revertable.
+2. **No amend commits by default.** Do not use `git commit --amend` unless a commit genuinely needs correction (e.g., forgot to stage a file that's part of the same logical change, or fixing a typo in the commit message). Amending to squash multiple tasks into one commit defeats the purpose.
+3. **Stage files by name, not with `git add -A` or `git add .`** — only stage files modified as part of the current task.
+4. **Leave unrelated changes alone** — if there are pre-existing staged or unstaged changes that aren't part of this work, don't touch them.
+5. **Write descriptive commit messages.** Each message should describe what was done and why, scoped to that task. Reference the plan or task number when useful.
+
+### When amending IS appropriate
+
+- Forgot to stage a file that belongs to the previous commit
+- Typo in the commit message
+- Test fix for a failure introduced by the immediately preceding commit (same logical unit of work)
+
+### After verification
+
+If the code review in step 4 produces fixes, commit those as separate commits (e.g., "address review: fix error handling in auth middleware"). Do not amend them into earlier commits — the review fixes are their own story.
 
 ## 6. Cleanup
 
