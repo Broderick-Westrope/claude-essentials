@@ -1,4 +1,6 @@
 ---
+model: anthropic/claude-opus-5
+reasoning_effort: high
 delegates_to: [devils-advocate]
 role: Feature planning and specification writing specialist
 delegate_when: >

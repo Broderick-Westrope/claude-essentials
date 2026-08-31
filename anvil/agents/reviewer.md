@@ -1,4 +1,6 @@
 ---
+model: anthropic/claude-sonnet-5
+reasoning_effort: high
 role: Comprehensive code and PR reviewer
 delegate_when: >
   Code review of changes, after fixer implementations, PR review, reviewing

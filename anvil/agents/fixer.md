@@ -1,4 +1,6 @@
 ---
+model: anthropic/claude-sonnet-5
+reasoning_effort: medium
 delegates_to: []
 role: Fast bounded implementation specialist
 delegate_when: >

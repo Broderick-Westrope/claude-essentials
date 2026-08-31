@@ -1,4 +1,6 @@
 ---
+model: anthropic/claude-sonnet-5
+reasoning_effort: low
 delegates_to: []
 role: External documentation and library research specialist
 delegate_when: >
@@ -19,7 +21,7 @@ mcps:
   websearch:
   context7:
   grep_app:
-  sourcebot:
+  muninn:
 routing_hint: "Route external documentation lookup and unfamiliar library research to @librarian."
 ---
 

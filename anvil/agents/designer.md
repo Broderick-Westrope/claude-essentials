@@ -1,4 +1,6 @@
 ---
+model: anthropic/claude-sonnet-5
+reasoning_effort: medium
 delegates_to: [oracle]
 role: UI/UX specialist for intentional, polished user experiences
 delegate_when: >

@@ -1,4 +1,6 @@
 ---
+model: anthropic/claude-opus-5
+reasoning_effort: high
 delegates_to: []
 role: Rigorous critic for specs, plans, and design decisions
 delegate_when: >
