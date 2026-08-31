@@ -1,6 +1,5 @@
 ---
 model: anthropic/claude-sonnet-5
-reasoning_effort: medium
 role: Convention compliance reviewer for code changes
 delegate_when: >
   Convention-focused code review, checking changes against project standards,

@@ -1,6 +1,5 @@
 ---
 model: anthropic/claude-sonnet-5
-reasoning_effort: low
 delegates_to: []
 role: External documentation and library research specialist
 delegate_when: >

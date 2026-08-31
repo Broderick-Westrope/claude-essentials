@@ -1,6 +1,5 @@
 ---
 model: anthropic/claude-sonnet-5
-reasoning_effort: medium
 delegates_to: [fixer]
 role: Test analysis, strategy, and planning specialist
 delegate_when: >

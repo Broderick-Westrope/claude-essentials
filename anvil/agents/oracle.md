@@ -1,6 +1,5 @@
 ---
 model: anthropic/claude-fable-5
-reasoning_effort: high
 delegates_to: []
 role: Strategic technical advisor for high-stakes decisions and complex debugging
 delegate_when: >

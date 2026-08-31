@@ -1,6 +1,5 @@
 ---
 model: anthropic/claude-sonnet-5
-reasoning_effort: low
 delegates_to: []
 role: Fast codebase search and pattern matching specialist
 delegate_when: >
