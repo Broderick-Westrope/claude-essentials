@@ -7,13 +7,19 @@ Run three code reviewers in parallel (Sonnet for speed/breadth, Opus for depth/n
 
 ## Model Configuration
 
-Use these exact model IDs when launching reviewer agents. Update here if models change.
+The `reviewer` agent is run twice on two different models deliberately, so it
+needs explicit overrides. `convention-reviewer` uses its own configured model
+and takes no override.
 
 | Reviewer | Agent | Model Override |
 |----------|-------|----------------|
-| Sonnet (fast/broad) | `reviewer` | `anthropic/claude-sonnet-4-6` |
-| Opus (deep/nuanced) | `reviewer` | `anthropic/claude-opus-4-6` |
-| Convention | `convention-reviewer` | `anthropic/claude-sonnet-4-6` |
+| Sonnet (fast/broad) | `reviewer` | `anthropic/claude-sonnet-5` |
+| Opus (deep/nuanced) | `reviewer` | `anthropic/claude-opus-5` |
+| Convention | `convention-reviewer` | none — agent default |
+
+Use exact `provider/model` IDs, not aliases like `opus`. An ID that does not
+resolve is ignored and the agent's configured model is used instead, so a stale
+pin degrades silently rather than erroring.
 
 ## Step 1: Determine Review Scope
 
@@ -37,9 +43,9 @@ Use these exact model IDs when launching reviewer agents. Update here if models 
 
 Launch ALL THREE agents **in parallel** using the `task` tool, passing the same review scope to each. Use the exact agent names and model overrides from the **Model Configuration** table above:
 
-1. `task(subagent_type="reviewer", model="anthropic/claude-sonnet-4-6")` — **Sonnet**: fast, broad coverage
-2. `task(subagent_type="reviewer", model="anthropic/claude-opus-4-6")` — **Opus**: deep, nuanced analysis
-3. `task(subagent_type="convention-reviewer", model="anthropic/claude-sonnet-4-6")` — **Convention**: convention compliance
+1. `task(subagent_type="reviewer", model="anthropic/claude-sonnet-5")` — **Sonnet**: fast, broad coverage
+2. `task(subagent_type="reviewer", model="anthropic/claude-opus-5")` — **Opus**: deep, nuanced analysis
+3. `task(subagent_type="convention-reviewer")` — **Convention**: convention compliance
 
 All agents receive identical instructions about what to review. Wait for all to complete.
 
