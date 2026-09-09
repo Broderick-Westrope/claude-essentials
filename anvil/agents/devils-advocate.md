@@ -15,7 +15,8 @@ tools:
   - lsp_references
   - sourcegraph
 skills: []
-mcps: {}
+mcps:
+  muninn:
 routing_hint: "Route adversarial review of specs and plans to @devils-advocate."
 ---
 

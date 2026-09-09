@@ -7,7 +7,9 @@ delegate_when: >
 dont_delegate_when: >
   Routine decisions, first bug fix attempt, straightforward tradeoffs, quick research or testing can answer the question.
 skills: []
-mcps: {}
+mcps:
+  muninn:
+  datadog:
 routing_hint: "Route deep reasoning, high-stakes architecture decisions, or persistent bugs to @oracle."
 ---
 

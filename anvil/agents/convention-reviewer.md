@@ -17,7 +17,8 @@ tools:
   - lsp_references
   - sourcegraph
   - bash
-mcps: {}
+mcps:
+  muninn:
 routing_hint: "Route convention compliance review to @convention-reviewer."
 ---
 

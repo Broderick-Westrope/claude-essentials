@@ -15,7 +15,8 @@ tools:
   - lsp_references
   - sourcegraph
 skills: []
-mcps: {}
+mcps:
+  muninn:
 routing_hint: "Route broad codebase discovery and parallel search tasks to @explorer."
 ---
 

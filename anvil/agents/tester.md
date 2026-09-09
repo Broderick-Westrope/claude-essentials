@@ -21,7 +21,8 @@ skills:
   - scaffolding-plan-tests
   - fixing-flaky-tests
   - condition-based-waiting
-mcps: {}
+mcps:
+  muninn:
 routing_hint: "Route comprehensive test strategy, coverage analysis, and flaky-test diagnosis to @tester."
 ---
 

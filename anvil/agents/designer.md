@@ -8,7 +8,9 @@ dont_delegate_when: >
   Backend logic with no visual component, quick prototypes where design doesn't matter yet.
 skills:
   - agent-browser
-mcps: {}
+mcps:
+  muninn:
+  figma:
 routing_hint: "Route UI/UX work and user-facing polish to @designer."
 ---
 

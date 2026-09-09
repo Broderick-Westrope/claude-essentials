@@ -22,7 +22,8 @@ skills:
   - documenting-code-comments
   - handling-errors
   - writing-tests
-mcps: {}
+mcps:
+  muninn:
 routing_hint: "Route code review, diff analysis, and PR quality checks to @reviewer."
 ---
 

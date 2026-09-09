@@ -23,7 +23,10 @@ skills:
   - drafting-tsds
   - writing-plans
   - planning-products
-mcps: {}
+mcps:
+  muninn:
+  linear:
+  notion:
 routing_hint: "Route feature planning, requirement interviews, and spec writing to @planner."
 ---
 

@@ -7,7 +7,8 @@ delegate_when: >
 dont_delegate_when: >
   Needs discovery or research, single small change under 20 lines in one file, unclear requirements needing iteration, explaining the task would take longer than doing it.
 skills: []
-mcps: {}
+mcps:
+  muninn:
 routing_hint: "Route well-defined, bounded implementation work and test writing to @fixer."
 ---
 
