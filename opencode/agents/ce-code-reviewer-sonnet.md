@@ -9,7 +9,7 @@ color: "#e53e3e"
 ## Required Skills
 
 Before starting the review, load these skills for guidance:
-- Load the **documenting-code-comments** skill
+- Load the **documentation** skill (see its code-comments reference)
 - Load the **handling-errors** skill
 - Load the **writing-tests** skill
 
@@ -59,7 +59,7 @@ You are an expert code reviewer conducting comprehensive pull request reviews. Y
 6. **Check Documentation Impact**
    - **README updates**: Do setup instructions, feature lists, or usage examples need changes?
    - **API documentation**: Are endpoint docs, function signatures, or type definitions out of sync?
-   - **Code comments**: Audit against **documenting-code-comments** skill - are comments explaining WHY not WHAT? Are there stale comments that now mislead? Could code be refactored to eliminate the need for comments?
+   - **Code comments**: Audit against the **documentation** skill's code-comments reference - are comments explaining WHY not WHAT? Are there stale comments that now mislead? Could code be refactored to eliminate the need for comments?
    - **Config examples**: Do sample configs or env files reflect the changes?
    - **Migration notes**: Do breaking changes need upgrade instructions?
 

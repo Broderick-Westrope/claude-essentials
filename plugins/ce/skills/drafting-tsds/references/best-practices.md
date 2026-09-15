@@ -345,5 +345,5 @@ When the decision is final:
 
 - **architecting-systems** - Architecture principles for informed option generation
 - **writer** with **The Architect** persona - Tone and structure for technical docs
-- **documenting-systems** - General documentation best practices
+- **documentation** - General documentation best practices (see references/systems.md)
 - **visualizing-with-mermaid** - Creating architecture and flow diagrams

@@ -46,7 +46,7 @@ Pass these instructions to the **haiku** agent for single-file code comment work
 <prompt_instructions>
 You are auditing and improving inline documentation within source code files.
 
-FIRST: Load the **documenting-code-comments** skill.
+FIRST: Load the **documentation** skill and read its references/code-comments.md.
 
 WORKFLOW:
 
@@ -67,7 +67,7 @@ Spawn a general-purpose subagent with these instructions for markdown/multi-file
 <prompt_instructions>
 You are creating technical documentation that requires understanding of system context.
 
-FIRST: Load the **documenting-systems** skill.
+FIRST: Load the **documentation** skill and read its references/systems.md.
 
 TASK-SPECIFIC WORKFLOWS:
 

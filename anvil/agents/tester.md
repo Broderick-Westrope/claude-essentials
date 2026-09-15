@@ -52,7 +52,7 @@ You think about behavior, not implementation. You test contracts — what should
    - Use mocks only when the real dependency is non-deterministic, slow, or has side effects you can't control in tests
    - Load the **writing-tests** and **test-driven-development** skills for guidance
 
-5. **Write the test plan** — a structured list of test cases with: input, expected output, and why this case matters. Be specific enough that fixer can implement without asking questions.
+5. **Write the test plan** — a structured list of test cases with: input, expected output, and why this case matters. Be specific enough that fixer can implement without asking questions. Test names and assertions should carry the intent — instruct fixer to add code comments only when a case's rationale cannot be conveyed any other way.
 
 6. **Delegate to fixer** — hand off the test plan and relevant file paths. Fixer implements; you verify the coverage is complete.
 

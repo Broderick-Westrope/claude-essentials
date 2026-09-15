@@ -319,8 +319,7 @@ For each skill below, state: [skill-name] - YES/NO - [reason]
 Available skills:
 
 - ce:condition-based-waiting: Fixes flaky tests by replacing arbitrary timeouts with condition polling. Use when tests fail intermittently, have setTimeout delays, or involve async operations that need proper wait conditions.
-- ce:documenting-code-comments: Standards for writing self-documenting code and best practices for when to write (and avoid) code comments. Use when auditing, cleaning up, or improving inline code documentation.
-- ce:documenting-systems: Best practices for writing comprehensive technical documentation in markdown. Covers structure, progressive disclosure, file organization, and quality standards. Use when creating README files, API...
+- ce:documentation: Create or improve documentation by routing to the right approach. Handles code comments (inline audit/cleanup), system docs (READMEs, API docs, architecture), and templates. Use when writing, auditing, or improving any form of documentation.
 - ce:executing-plans: Executes implementation plans autonomously with wave-based parallel subagents. Analyzes task dependencies, parallelizes independent work, auto-recovers from errors, and verifies at completion.
 - ce:handling-errors: Error handling best practices - no hiding, no swallowing, no boolean returns. Use when implementing try-catch blocks, designing error propagation, or reviewing error handling patterns.
 - ce:migrating-code: Guides safe code migrations including database schema changes, API versioning, framework upgrades, and language/library transitions. Use when upgrading dependencies, changing data models, or...
@@ -347,13 +346,13 @@ The evaluation (Step 1) is WORTHLESS unless you ACTIVATE (Step 2) the skills.
 Example of correct sequence:
 
 - ce:condition-based-waiting: YES - matches current task
-- ce:documenting-code-comments: NO - not relevant
-- ce:documenting-systems: NO - not relevant
+- ce:documentation: NO - not relevant
+- ce:handling-errors: NO - not relevant
 
 [Then IMMEDIATELY use Skill() tool:]
 
 > Skill(ce:condition-based-waiting)
-> Skill(ce:documenting-code-comments) // if also relevant
+> Skill(ce:documentation) // if also relevant
 
 [THEN and ONLY THEN start implementation]
 </INSTRUCTION>

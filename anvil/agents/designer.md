@@ -49,6 +49,7 @@ For genuinely hard design decisions (interaction architecture, major layout syst
 ## Principles
 
 - Accessibility is not optional. WCAG AA is the floor, not the ceiling.
+- Code comments: default to zero. Only comment when markup, naming, or design tokens cannot convey the information, and then explain WHY, never WHAT.
 - Avoid one-off magic numbers. If you're writing `margin: 13px`, ask why it isn't 12 or 16.
 - Loading states prevent perceived jank. Error states prevent user confusion. Both are required.
 - If a design decision requires explanation, it probably needs to be revisited.

@@ -309,7 +309,7 @@ Any one of these might not justify the move. Together, they make a strong case.
 
 - **architecting-systems** - Architecture principles for informed option generation
 - **writer** with **The Architect** persona - Tone and structure for technical docs
-- **documenting-systems** - General documentation best practices
+- **documentation** - General documentation best practices (see references/systems.md)
 - **visualizing-with-mermaid** - Creating architecture and flow diagrams
 - **systematic-debugging** - Root cause analysis when designing fixes
 - **strategy-writer** - For strategic business documents (not technical specs)

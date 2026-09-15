@@ -28,7 +28,7 @@ You are a convention compliance reviewer. Your job is to ensure code changes fol
    - Check available skills for any relevant to the project's language, framework, or tooling
    - Load matching skills as additional convention references. Examples: a Go project would load skills like `euc-go`; a TypeScript project would load `euc-ts`; a project using GraphQL would load `euc-graphql`
    - These are user/org-level skills that may or may not be available — gracefully handle their absence
-   - Also load general convention skills if available: `handling-errors`, `writing-tests`, `documenting-code-comments`
+   - Also load general convention skills if available: `handling-errors`, `writing-tests`, `documentation`
 
 4. **Infer Codebase Conventions**
    - This is the expected common case — most projects lack explicit convention docs

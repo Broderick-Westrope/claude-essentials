@@ -84,8 +84,6 @@ Reusable development patterns, accessed with `ce:` prefix:
 | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
 | [ce:writer](plugins/ce/skills/writer/SKILL.md)                                       | Writing style guide with 7 personas (Architect, Engineer, PM, Marketer, Educator, Contributor, UX Writer) |
 | [ce:strategy-writer](plugins/ce/skills/strategy-writer/SKILL.md)                     | Executive-quality strategic documents in Economist/HBR style                                              |
-| [ce:documenting-systems](plugins/ce/skills/documenting-systems/SKILL.md)             | Best practices for writing markdown documentation                                                         |
-| [ce:documenting-code-comments](plugins/ce/skills/documenting-code-comments/SKILL.md) | Standards for self-documenting code and inline comments                                                   |
 | [ce:documentation](plugins/ce/skills/documentation/SKILL.md)                         | Route to the right documentation approach (code comments, system docs, templates)                         |
 | [ce:drafting-tsds](plugins/ce/skills/drafting-tsds/SKILL.md)                         | Structured TSDs that evaluate architectural options — not for early-stage ideation |
 
