@@ -1,23 +1,24 @@
 ---
-description: Multi-model code review — runs Sonnet, Opus, and Convention reviewers in parallel, deduplicates findings
+description: Multi-model code review with Sonnet and Astra general and convention reviewers in parallel, deduplicates findings
 argument_hint: "[instructions]"
 ---
 
-Run three code reviewers in parallel (Sonnet for speed/breadth, Opus for depth/nuance, Convention for convention compliance), then deduplicate and merge their findings into a single unified review.
+Run four code reviews in parallel: general reviews on Sonnet and Astra, plus convention reviews on the convention agent's default model and Astra. Deduplicate and merge their findings into a single unified review.
 
 ## Model Configuration
 
-The `reviewer` agent is run twice on two different models deliberately, so it
-needs explicit overrides. `convention-reviewer` uses its own configured model
-and takes no override.
+Run both `reviewer` and `convention-reviewer` twice for different model perspectives.
+The general reviews use explicit Sonnet and Astra overrides. The first convention
+review uses the agent's configured model; the second explicitly uses Astra.
 
 | Reviewer | Agent | Model Override |
 |----------|-------|----------------|
-| Sonnet (fast/broad) | `reviewer` | `anthropic/claude-sonnet-5` |
-| Opus (deep/nuanced) | `reviewer` | `anthropic/claude-opus-5` |
-| Convention | `convention-reviewer` | none — agent default |
+| Sonnet | `reviewer` | `anthropic/claude-sonnet-5` |
+| Astra | `reviewer` | `openai/gpt-6-astra` |
+| Convention (default) | `convention-reviewer` | none (agent default) |
+| Convention (Astra) | `convention-reviewer` | `openai/gpt-6-astra` |
 
-Use exact `provider/model` IDs, not aliases like `opus`. An ID that does not
+Use exact `provider/model` IDs, not aliases like `astra`. An ID that does not
 resolve is ignored and the agent's configured model is used instead, so a stale
 pin degrades silently rather than erroring.
 
@@ -41,30 +42,26 @@ pin degrades silently rather than erroring.
 
 ## Step 2: Launch Multi-Model Review
 
-Launch ALL THREE agents **in parallel** using the `task` tool, passing the same review scope to each. Use the exact agent names and model overrides from the **Model Configuration** table above:
+Launch ALL FOUR reviews **in parallel** using the `task` tool, passing the same review scope to each. Use the exact agent names and model overrides from the **Model Configuration** table above:
 
-1. `task(subagent_type="reviewer", model="anthropic/claude-sonnet-5")` — **Sonnet**: fast, broad coverage
-2. `task(subagent_type="reviewer", model="anthropic/claude-opus-5")` — **Opus**: deep, nuanced analysis
-3. `task(subagent_type="convention-reviewer")` — **Convention**: convention compliance
+1. `task(subagent_type="reviewer", model="anthropic/claude-sonnet-5")`: **Sonnet**, general review
+2. `task(subagent_type="reviewer", model="openai/gpt-6-astra")`: **Astra**, general review
+3. `task(subagent_type="convention-reviewer")`: **Convention (default)**, convention compliance
+4. `task(subagent_type="convention-reviewer", model="openai/gpt-6-astra")`: **Convention (Astra)**, convention compliance
 
 All agents receive identical instructions about what to review. Wait for all to complete.
 
 ### Failure handling
 
-If one reviewer fails, errors, or times out:
-- Proceed with the two surviving reviewers' output
-- Note in the Summary: "Note: [name] reviewer failed — two-reviewer result"
-- Findings attributed to surviving reviewers only
-- Verdict is based on surviving reviews
-
-If two reviewers fail:
-- Proceed with the single surviving reviewer's output
-- Note in the Summary: "Note: [name] and [name] reviewers failed — single-reviewer result"
-- Verdict is based on the single review
+If any reviewers fail, error, or time out:
+- Proceed with the surviving reviewers' output.
+- List the failed reviewers by their table labels and report how many of the four reviews completed in the Summary.
+- Attribute findings only to surviving reviewers and base the verdict on those reviews.
+- If all four fail, report that no review completed. Do not issue APPROVE or REQUEST CHANGES.
 
 ## Step 3: Deduplicate and Merge
 
-Parse all three reviews and produce a single unified output. Use this process:
+Parse all four reviews (or all surviving reviews) and produce a single unified output. Use this process:
 
 ### Matching findings
 
@@ -74,8 +71,8 @@ Two findings match when they reference the **same file and line** (or overlappin
 
 | Scenario | Action |
 |----------|--------|
-| Multiple reviewers found the same issue | Single entry, mark with combined attribution (e.g. `[Sonnet + Opus]`, `[Opus + Convention]`, `[Sonnet + Opus + Convention]`) — higher confidence |
-| Only one reviewer found it | Single entry, mark with `[Sonnet]`, `[Opus]`, or `[Convention]` |
+| Multiple reviewers found the same issue | Single entry, mark with combined attribution (e.g. `[Sonnet + Astra]`, `[Convention (default) + Convention (Astra)]`, `[Astra + Convention (Astra)]`) — higher confidence |
+| Only one reviewer found it | Single entry, mark with `[Sonnet]`, `[Astra]`, `[Convention (default)]`, or `[Convention (Astra)]` |
 | Reviewers disagree on severity | Use the higher severity, note the disagreement |
 | Reviewers contradict each other | Include both perspectives inline, let user decide |
 
@@ -96,18 +93,19 @@ Output the merged review using this format:
 - **Files changed**: X files (+Y/-Z lines)
 - **Change type**: [Feature | Bug Fix | Refactor | Enhancement]
 - **Scope**: [Brief 1-2 sentence description]
-- **Reviewers**: Sonnet + Opus + Convention (parallel)
+- **Reviewers**: Sonnet + Astra + Convention (default) + Convention (Astra) (parallel; list only completed reviews)
 - **Agreement**: X of Y findings confirmed by multiple reviewers
 
 ## Critical Issues ⛔
 
-- `[Sonnet + Opus]` `file.ts:123` - [Issue description]
-- `[Opus]` `file.ts:456` - [Issue only Opus caught]
+- `[Sonnet + Astra]` `file.ts:123` - [Issue description]
+- `[Astra]` `file.ts:456` - [Issue only Astra caught]
 
 ## Important Issues ⚠️
 
-- `[Sonnet + Opus]` `file.ts:789` - [Issue description]
-- `[Convention]` `file.ts:012` - [Convention violation only Convention caught]
+- `[Sonnet + Astra]` `file.ts:789` - [Issue description]
+- `[Convention (default)]` `file.ts:012` - [Convention violation only the default convention reviewer caught]
+- `[Convention (Astra)]` `file.ts:345` - [Convention violation only the Astra convention reviewer caught]
 
 ## Product & UX Issues 🎯
 
@@ -149,9 +147,9 @@ After presenting the unified review:
    a. Extract all Critical and Important issues into a checklist:
    ```
    Review Findings - [branch/scope]:
-   - [ ] [CRITICAL] [Sonnet + Opus] file.ts:123 - Description
-   - [ ] [IMPORTANT] [Opus] file.ts:456 - Description
-   - [ ] [IMPORTANT] [Convention] file.ts:789 - Description
+   - [ ] [CRITICAL] [Sonnet + Astra] file.ts:123 - Description
+   - [ ] [IMPORTANT] [Astra] file.ts:456 - Description
+   - [ ] [IMPORTANT] [Convention (default)] file.ts:789 - Description
    ```
 
    b. Ask the user how to proceed:

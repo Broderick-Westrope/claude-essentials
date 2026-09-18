@@ -1,5 +1,5 @@
 ---
-model: anthropic/claude-sonnet-5
+model: openai/gpt-6-astra
 delegates_to: []
 role: Fast bounded implementation specialist
 delegate_when: >
