@@ -1,6 +1,6 @@
 ---
 name: onboarding-systems
-description: Guided onboarding into complex Go and TypeScript microservices. Builds deep understanding of domain logic, entity relationships, data flows, and system behavior through interactive subsystem exploration. Use when the user wants to understand how a service works, asks to be walked through architecture or a subsystem, wants to trace a request or event flow end-to-end, asks about entity relationships or state machines, says they're new to a codebase, or asks "how does X work" about any part of a microservice. Also use when exploring database patterns, pub/sub event chains, gRPC integrations, or domain concepts like ledger patterns and sync groups. Trigger this skill for any question about understanding a codebase -- not for implementing, fixing, or refactoring code.
+description: Teaches users how Go and TypeScript microservices work through guided, interactive explanations. Applies only when the user requests an explanation, walkthrough, or onboarding to build their own understanding, such as "explain how this service works", "walk me through the purchase flow", or "help me understand these entity relationships". Covers architecture, domain logic, state machines, persistence, and integrations within that teaching context. Does not apply to an agent's own questions, codebase exploration, or context gathering for planning, implementation, debugging, refactoring, or review. The agent needing to understand a system is not a teaching request from the user.
 ---
 
 # Onboarding Systems
