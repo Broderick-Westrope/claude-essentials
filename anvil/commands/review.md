@@ -5,6 +5,8 @@ argument_hint: "[instructions]"
 
 Run four code reviews in parallel: general reviews on Sonnet and Astra, plus convention reviews on the convention agent's default model and Astra. Deduplicate and merge their findings into a single unified review.
 
+**Dispatch requirement:** The first reviewer dispatch must contain all four reviews in one parallel batch. Prepare all four calls before submitting any of them. Calling one reviewer, waiting for its result, then calling the next is a workflow failure, even if all four eventually run.
+
 ## Model Configuration
 
 Run both `reviewer` and `convention-reviewer` twice for different model perspectives.
@@ -42,16 +44,20 @@ pin degrades silently rather than erroring.
 
 ## Step 2: Launch Multi-Model Review
 
-Launch ALL FOUR reviews **in parallel** using the `task` tool, passing the same review scope to each. Use the exact agent names and model overrides from the **Model Configuration** table above:
+Finish shared scope discovery first, then construct one review prompt and all four `task` calls. The following list specifies the contents of a single batch, **not four sequential steps**:
 
-1. `task(subagent_type="reviewer", model="anthropic/claude-sonnet-5")`: **Sonnet**, general review
-2. `task(subagent_type="reviewer", model="openai/gpt-6-astra")`: **Astra**, general review
-3. `task(subagent_type="convention-reviewer")`: **Convention (default)**, convention compliance
-4. `task(subagent_type="convention-reviewer", model="openai/gpt-6-astra")`: **Convention (Astra)**, convention compliance
+- `task(subagent_type="reviewer", model="anthropic/claude-sonnet-5")`: **Sonnet**, general review
+- `task(subagent_type="reviewer", model="openai/gpt-6-astra")`: **Astra**, general review
+- `task(subagent_type="convention-reviewer")`: **Convention (default)**, convention compliance
+- `task(subagent_type="convention-reviewer", model="openai/gpt-6-astra")`: **Convention (Astra)**, convention compliance
 
-All agents receive identical instructions about what to review. Wait for all to complete.
+**Before dispatch, count the calls: exactly four, one per table row, with identical review instructions.** Submit them together in one `multi_tool_use.parallel` call when that tool is available. Otherwise emit all four `task` tool calls in the same assistant message. Do not send a standalone reviewer call, run a trial reviewer, or wait for any reviewer result before dispatching the others.
+
+Wait for the batch to finish before merging findings. Do not feed one reviewer's findings into another reviewer's prompt.
 
 ### Failure handling
+
+If a reviewer was accidentally dispatched alone, retain its result and dispatch only the remaining, not-yet-started reviewers together. Never restart completed or in-flight reviews to recreate a parallel batch. Report the partial sequential execution honestly instead of labeling the entire run parallel. A new four-review batch is appropriate only after code fixes in Step 5 or an explicit user request to rerun.
 
 If any reviewers fail, error, or time out:
 - Proceed with the surviving reviewers' output.
